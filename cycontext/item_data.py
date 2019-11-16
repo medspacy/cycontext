@@ -17,7 +17,7 @@ class ItemData:
         """
         self.literal = literal
         self.category = category.lower()
-        self.regex = pattern
+        self.pattern = pattern
         self.rule = rule.lower()
 
         if self.rule not in self._ALLOWED_RULES:
