@@ -1,0 +1,5 @@
+Lex	Type	Regex	Direction	Codes
+pneumonia	EVIDENCE_OF_PNEUMONIA	pneumonias?		
+consolidation	EVIDENCE_OF_PNEUMONIA			
+infiltrate	EVIDENCE_OF_PNEUMONIA	infiltrat(e|es|ion)
+effusion	EVIDENCE_OF_PNEUMONIA	effusion

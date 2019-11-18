@@ -2,6 +2,7 @@ from spacy.matcher import Matcher, PhraseMatcher
 from spacy.tokens import Doc, Span
 
 from .tag_object import TagObject
+from .context_graph import ConTextGraph
 
 class ConTextComponent:
     name = "context"
@@ -25,6 +26,8 @@ class ConTextComponent:
         RETURNS (ConTextComponent)
         """
 
+        # Set custom attributes
+
         self.item_data = item_data
         self.nlp = nlp
         if attr != "ents":
@@ -36,7 +39,7 @@ class ConTextComponent:
         # This allows us to use spaCy Matchers while still linking back to the ItemData
         # To get the rule and category
         self._modifier_item_mapping = dict()
-        self.phrase_matcher = PhraseMatcher(nlp.vocab)
+        self.phrase_matcher = PhraseMatcher(nlp.vocab, attr="LOWER") # TODO: match on custom attributes
         self.matcher = Matcher(nlp.vocab) # TODO
         for i, item in enumerate(item_data):
             # UID is the hash which we'll use to retrieve the ItemData from a spaCy match
@@ -48,15 +51,16 @@ class ConTextComponent:
                                         None,
                                         nlp(item.literal))
             else:
-                raise NotImplementedError()
-                # self.matcher.add(str(i),
-                #                  None,
-                #                  item.pattern)
+                self.matcher.add(str(i),
+                                 None,
+                                 item.pattern)
             self._modifier_item_mapping[uid] = item
 
-        # Set custom attributes
+        # TODO: Think of a smarter way to do this
         Span.set_extension("modifiers", default=(), force=True)
-        Doc.set_extension("context_edges", default=(), force=True)
+        Doc.set_extension("context_graph", default=None, force=True)
+
+
 
     def update_scopes(self, marked_modifiers):
         """For each modifier in a list of TagObjects,
@@ -105,6 +109,9 @@ class ConTextComponent:
             targets = getattr(doc._, self.attr)
         marked_modifiers = []
         matches = self.phrase_matcher(doc)
+        matches += self.matcher(doc)
+        # Sort matches
+        matches = sorted(matches, key=lambda x:x[1])
         for (match_id, start, end) in matches:
             # Get the ItemData object defining this modifier
             item_data = self._modifier_item_mapping[match_id]
@@ -113,8 +120,14 @@ class ConTextComponent:
 
         self.update_scopes(marked_modifiers)
         edges = self.apply_modifiers(targets, marked_modifiers)
-        # TODO: Move to ConText graph
-        doc._.context_edges = edges
+
+        # Store data in ConTextGraph object
+        doc._.context_graph = ConTextGraph()
+        doc._.context_graph.targets = targets
+        doc._.context_graph.modifiers = marked_modifiers
+        doc._.context_graph.edges = edges
+
+        # Link targets to their modifiers
         for target, modifier in edges:
             target._.modifiers += (modifier,)
 

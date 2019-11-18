@@ -24,4 +24,4 @@ class ItemData:
             raise ValueError("Rule {0} not recognized. Must be one of: {1}".format(self.rule, self._ALLOWED_RULES))
 
     def __repr__(self):
-        return f"ItemData: [{self.literal}, {self.category}, {self.regex}, {self.rule}]"
+        return f"ItemData: [{self.literal}, {self.category}, {self.pattern}, {self.rule}]"
