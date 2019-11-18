@@ -1336,7 +1336,7 @@
             "literal": "redemonstration",
             "category": "HISTORICAL",
             "pattern": [
-                "(re-demonstrat[a-z]*|redemonstrat[a-z]*)"
+              {"LOWER": {"REGEX": "re-?demonstrat"}}
             ],
             "rule": "forward"
         },
@@ -1392,8 +1392,20 @@
             "literal": "rule out",
             "category": "INDICATION",
             "pattern": [
-                "(r/o|rule out|\\br o\\b|r\\.o\\.|\\bro\\b)"
+              {"LOWER": "r/o"}
+
             ],
+          "comment": "// TODO: Does this match as one token?",
+            "rule": "forward"
+        },
+        {
+            "literal": "rule out",
+            "category": "INDICATION",
+            "pattern": [
+              {"LOWER": "rule"}, {"LOWER": "out"}
+
+            ],
+          "comment": " TODO: (r/o|rule out|\\br o\\b|r\\.o\\.|\\bro\\b)",
             "rule": "forward"
         },
         {
@@ -1406,8 +1418,14 @@
             "literal": "rule patient out for",
             "category": "INDICATION",
             "pattern": [
-                "rule (him|her|patient|the patient|subject) out for"
+              {"LOWER": "rule"},
+              {"LOWER": "the", "OP": "?"},
+              {"LOWER": {"IN": ["him", "her", "patient", "subject"]}},
+              {"LOWER": "out"},
+              {"LOWER": "for"}
+
             ],
+          "comment": "rule (him|her|patient|the patient|subject) out for",
             "rule": "forward"
         },
         {
@@ -1423,11 +1441,17 @@
             "rule": "forward"
         },
         {
-            "literal": "ruled her out against",
+            "literal": "rule patient out for",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
-                "ruled\\s(him|her|the subject|the patient|subject|patient)\\sout( against| for)?"
+              {"LOWER": "ruled"},
+              {"LOWER": "the", "OP": "?"},
+              {"LOWER": {"IN": ["him", "her", "patient", "subject"]}},
+              {"LOWER": "out"},
+              {"LOWER": {"IN": ["for", "against"]}}
+
             ],
+          "comment": "ruled\\s(him|her|the subject|the patient|subject|patient)\\sout( against| for)?",
             "rule": "forward"
         },
         {
@@ -1452,23 +1476,8 @@
             "literal": "rules her out for",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
-                "rules\\s(him|her)\\sout\\sfor"
-            ],
-            "rule": "forward"
-        },
-        {
-            "literal": "rules him out",
-            "category": "DEFINITE_NEGATED_EXISTENCE",
-            "pattern": [
-                "rules\\s(him|her)\\sout"
-            ],
-            "rule": "forward"
-        },
-        {
-            "literal": "rules him out for",
-            "category": "DEFINITE_NEGATED_EXISTENCE",
-            "pattern": [
-                "rules\\s(him|her)\\sout\\sfor"
+              {"LOWER": "rules"}, {"LOWER": {"IN": ["him", "her"]}},
+              {"LOWER": "out"}, {"LOWER": "for", "OP": "?"}
             ],
             "rule": "forward"
         },
@@ -1524,8 +1533,13 @@
             "literal": "sufficient to rule out",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
-                "sufficient\\sto\\srule\\s((her|him|the patient|the subject)\\s)?out"
+              {"LOWER": "sufficient"}, {"LOWER": "to"},
+              {"LOWER": "rule"}, {"LOWER": "the", "OP": "?"},
+              {"LOWER": {"IN": ["him", "her", "patient", "subject"]}, "OP": "?"},
+              {"LOWER": "out"}
+
             ],
+          "comment": "sufficient\\sto\\srule\\s((her|him|the patient|the subject)\\s)?out",
             "rule": "forward"
         },
         {
@@ -1622,7 +1636,7 @@
             "literal": "without sign",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
-                "without sign(s)?"
+              {"LOWER": "without"}, {"LEMMA": "sign"}
             ],
             "rule": "forward"
         },
@@ -2254,7 +2268,11 @@
             "literal": "cannot rule out",
             "category": "AMBIVALENT_EXISTENCE",
             "pattern": [
-                "cannot rule (the patient |him |her )?out"
+              {"LOWER": "cannot"}, {"LOWER": "rule"},
+              {"LOWER": "the", "OP": "?"},
+              {"LOWER": {"IN": ["patient", "him", "her"]}, "OP": "?"},
+              {"LOWER": "out"}
+
             ],
             "rule": "forward"
         },
@@ -2262,7 +2280,8 @@
             "literal": "completely excluded",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
-                "(completely|entirely)? excluded"
+              {"LOWER": {"IN": ["completely", "entirely"]}, "OP": "?"},
+              {"LOWER": "excluded"}
             ],
             "rule": "backward"
         },
@@ -2372,7 +2391,12 @@
             "literal": "not adequate to rule out",
             "category": "AMBIVALENT_EXISTENCE",
             "pattern": [
-                "not adequate to rule ((the patient|him|her)\\s)?out"
+              {"LOWER": "not"}, {"LOWER": "adequate"},
+              {"LOWER": "to"}, {"LOWER": "rule"},
+              {"LOWER": "the", "OP": "?"},
+              {"LOWER": {"IN": ["patient", "him", "her"]}, "OP": "?"},
+              {"LOWER": "out"}
+
             ],
             "rule": "forward"
         },
@@ -2410,7 +2434,9 @@
             "literal": "was not excluded",
             "category": "AMBIVALENT_EXISTENCE",
             "pattern": [
-                "(was|were) not excluded"
+              {"LOWER": {"IN": ["was", "were"]}},
+              {"LOWER": "not"},
+              {"LOWER": "excluded"}
             ],
             "rule": "backward"
         },
@@ -2424,7 +2450,8 @@
             "literal": "decrease",
             "category": "HISTORICAL",
             "pattern": [
-                "decrease|decreased|decreasing|reduction|reduced"
+              {"LEMMA": {"IN": ["decrease", "increase", "reduce", "reduction"]}}
+
             ],
             "rule": "bidirectional"
         },
@@ -2432,7 +2459,8 @@
             "literal": "increase",
             "category": "HISTORICAL",
             "pattern": [
-                "increase|increasing|increased"
+              {"LEMMA": "increase"}
+
             ],
             "rule": "bidirectional"
         },
@@ -2446,7 +2474,10 @@
             "literal": "decrease the likelihood",
             "category": "PROBABLE_NEGATED_EXISTENCE",
             "pattern": [
-                "decreas[a-z]+(\\sthe)? likelihood"
+              {"LEMMA": "decrease"},
+              {"LOWER": "the", "OP": "?"},
+              {"LOWER": "likelihood"}
+
             ],
             "rule": "forward"
         },
@@ -2460,7 +2491,8 @@
             "literal": "likely represents",
             "category": "PROBABLE_EXISTENCE",
             "pattern": [
-                "likely (represents|representing)"
+              {"LOWER": "likely"}, {"LEMMA": "represent"}
+
             ],
             "rule": "forward"
         },
@@ -2468,13 +2500,14 @@
             "literal": "without change",
             "category": "HISTORICAL",
             "pattern": null,
-            "rule": "backwards"
+            "rule": "backward"
         },
         {
             "literal": "risk factor",
             "category": "FUTURE",
             "pattern": [
-                "risk factor(s)?"
+              {"LOWER": "risk"},
+              {"LEMMA": "factor"}
             ],
             "rule": "bidirectional"
         },
