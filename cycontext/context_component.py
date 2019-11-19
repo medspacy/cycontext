@@ -3,6 +3,7 @@ from spacy.tokens import Doc, Span
 
 from .tag_object import TagObject
 from .context_graph import ConTextGraph
+from nltk.tokenize import PunktSentenceTokenizer
 
 class ConTextComponent:
     name = "context"
@@ -33,13 +34,14 @@ class ConTextComponent:
         if attr != "ents":
             raise NotImplementedError()
         self.attr = attr
+        # self.tokenizer = PunktSentenceTokenizer() # TODO: can we avoid this?
 
 
         # _modifier_item_mapping: A mapping from spaCy Matcher match_ids to ItemData
         # This allows us to use spaCy Matchers while still linking back to the ItemData
         # To get the rule and category
         self._modifier_item_mapping = dict()
-        self.phrase_matcher = PhraseMatcher(nlp.vocab, attr="LOWER") # TODO: match on custom attributes
+        self.phrase_matcher = PhraseMatcher(nlp.vocab, attr="LOWER", validate=True) # TODO: match on custom attributes
         self.matcher = Matcher(nlp.vocab, validate=True)
         for i, item in enumerate(item_data):
             # UID is the hash which we'll use to retrieve the ItemData from a spaCy match
@@ -49,7 +51,7 @@ class ConTextComponent:
             if item.pattern is None:
                 self.phrase_matcher.add(str(i),
                                         None,
-                                        nlp(item.literal))
+                                        nlp.make_doc(item.literal))
             else:
                 self.matcher.add(str(i),
                                  None,

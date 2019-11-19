@@ -36,7 +36,7 @@ class ConTextGraph:
 
             # Check if they overlap
             if curr_mod.overlaps(next_mod):
-                print("Pruning: ", curr_mod, next_mod)
+                # print("Pruning: ", curr_mod, next_mod)
                 # Choose the larger
                 longer_span = max(curr_mod, next_mod, key=lambda x: (x.end - x.start))
                 print(longer_span)

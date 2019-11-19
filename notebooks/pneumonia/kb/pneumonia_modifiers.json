@@ -211,7 +211,13 @@
             "literal": "reason for this examination",
             "category": "INDICATION",
             "pattern": null,
-            "rule": "backward"
+            "rule": "forward"
+        },
+        {
+            "literal": "reason",
+            "category": "INDICATION",
+            "pattern": null,
+            "rule": "forward"
         },
         {
             "literal": "suspected",
