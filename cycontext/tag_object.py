@@ -101,6 +101,17 @@ class TagObject:
             return True
         return False
 
+    def overlaps(self, other):
+        if self.span[0] in other.span:
+            return True
+        if self.span[-1] in other.span:
+            return True
+        if other.span[0] in self.span:
+            return True
+        if other.span[-1] in self.span:
+            return True
+        return False
+
     def __gt__(self, other):
         return self.span > other.span
 

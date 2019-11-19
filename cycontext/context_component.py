@@ -40,7 +40,7 @@ class ConTextComponent:
         # To get the rule and category
         self._modifier_item_mapping = dict()
         self.phrase_matcher = PhraseMatcher(nlp.vocab, attr="LOWER") # TODO: match on custom attributes
-        self.matcher = Matcher(nlp.vocab) # TODO
+        self.matcher = Matcher(nlp.vocab, validate=True)
         for i, item in enumerate(item_data):
             # UID is the hash which we'll use to retrieve the ItemData from a spaCy match
             # And will be a key in self._modifier_item_mapping
@@ -107,7 +107,15 @@ class ConTextComponent:
             targets = doc.ents
         else:
             targets = getattr(doc._, self.attr)
+
+        # Store data in ConTextGraph object
+        # TODO: move some of this over to ConTextGraph
+
+        doc._.context_graph = ConTextGraph()
+        doc._.context_graph.targets = targets
         marked_modifiers = []
+        doc._.context_graph.modifiers = marked_modifiers
+
         matches = self.phrase_matcher(doc)
         matches += self.matcher(doc)
         # Sort matches
@@ -117,18 +125,13 @@ class ConTextComponent:
             item_data = self._modifier_item_mapping[match_id]
             tag_object = TagObject(item_data, start, end, doc)
             marked_modifiers.append(tag_object)
+        doc._.context_graph.prune_modifiers()
 
         self.update_scopes(marked_modifiers)
-        edges = self.apply_modifiers(targets, marked_modifiers)
-
-        # Store data in ConTextGraph object
-        doc._.context_graph = ConTextGraph()
-        doc._.context_graph.targets = targets
-        doc._.context_graph.modifiers = marked_modifiers
-        doc._.context_graph.edges = edges
+        doc._.context_graph.edges = self.apply_modifiers(targets, marked_modifiers)
 
         # Link targets to their modifiers
-        for target, modifier in edges:
+        for target, modifier in doc._.context_graph.edges:
             target._.modifiers += (modifier,)
 
         return doc

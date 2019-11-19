@@ -3,7 +3,7 @@ class ItemData:
     the category/semantic class, and the rule which the modifier executes.
     """
     _ALLOWED_RULES = ("forward", "backward", "bidirectional", "terminate")
-    def __init__(self, literal, category, pattern=None, rule="bidirectional"):
+    def __init__(self, literal, category, pattern=None, rule="bidirectional", comment=''):
         """Create an ItemData object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -19,6 +19,7 @@ class ItemData:
         self.category = category.lower()
         self.pattern = pattern
         self.rule = rule.lower()
+        self.comment = comment
 
         if self.rule not in self._ALLOWED_RULES:
             raise ValueError("Rule {0} not recognized. Must be one of: {1}".format(self.rule, self._ALLOWED_RULES))
