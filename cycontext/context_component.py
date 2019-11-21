@@ -63,41 +63,6 @@ class ConTextComponent:
         Doc.set_extension("context_graph", default=None, force=True)
 
 
-
-    def update_scopes(self, marked_modifiers):
-        """For each modifier in a list of TagObjects,
-        check against each other modifier to see if one of the modifiers
-        should update the other. This allows neighboring similar modifiers
-        to extend each other's scope and allows "terminate" modifiers
-        to end a modifier's scope.
-
-        marked_modifiers (list): A list of TagObjects in a Doc.
-        """
-        for i in range(len(marked_modifiers) - 1):
-            modifier1 = marked_modifiers[i]
-            for j in range(i + 1, len(marked_modifiers)):
-                modifier2 = marked_modifiers[j]
-                # TODO: Add modifier -> modifier edges
-                modifier1.limit_scope(modifier2)
-                modifier2.limit_scope(modifier1)
-
-    def apply_modifiers(self, marked_targets, marked_modifiers):
-        """Checks each target/modifier pair. If modifier modifies target,
-        create an edge between them.
-
-        marked_targets (list): A list of Spans
-        marked_modifiers (list): A list of TagObjects
-
-        RETURNS edges (list): A list of tuples consisting of
-            target/modifier pairs
-        """
-        edges = []
-        for target in marked_targets:
-            for modifier in marked_modifiers:
-                if modifier.modifies(target):
-                    edges.append((target, modifier))
-        return edges
-
     def __call__(self, doc):
         """Applies the ConText algorithm to a Doc.
 
@@ -112,28 +77,33 @@ class ConTextComponent:
 
         # Store data in ConTextGraph object
         # TODO: move some of this over to ConTextGraph
+        context_graph = ConTextGraph()
 
-        doc._.context_graph = ConTextGraph()
-        doc._.context_graph.targets = targets
-        marked_modifiers = []
-        doc._.context_graph.modifiers = marked_modifiers
+        context_graph.targets = targets
+
+        context_graph.modifiers = []
 
         matches = self.phrase_matcher(doc)
         matches += self.matcher(doc)
+
         # Sort matches
         matches = sorted(matches, key=lambda x:x[1])
         for (match_id, start, end) in matches:
             # Get the ItemData object defining this modifier
             item_data = self._modifier_item_mapping[match_id]
             tag_object = TagObject(item_data, start, end, doc)
-            marked_modifiers.append(tag_object)
-        doc._.context_graph.prune_modifiers()
+            context_graph.modifiers.append(tag_object)
 
-        self.update_scopes(marked_modifiers)
-        doc._.context_graph.edges = self.apply_modifiers(targets, marked_modifiers)
+        context_graph.prune_modifiers()
+
+        # TODO: This should be the context graph
+        context_graph.update_scopes()
+        context_graph.edges = context_graph.apply_modifiers()
 
         # Link targets to their modifiers
-        for target, modifier in doc._.context_graph.edges:
+        for target, modifier in context_graph.edges:
             target._.modifiers += (modifier,)
+
+        doc._.context_graph = context_graph
 
         return doc

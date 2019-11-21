@@ -455,12 +455,6 @@
             "rule": "bidirectional"
         },
         {
-            "literal": "old",
-            "category": "HISTORICAL",
-            "pattern": null,
-            "rule": "bidirectional"
-        },
-        {
             "literal": "on previous exam",
             "category": "HISTORICAL",
             "pattern": [
@@ -844,6 +838,18 @@
             "rule": "forward"
         },
         {
+            "literal": "eval for",
+            "category": "INDICATION",
+            "pattern": null,
+            "rule": "forward"
+        },
+        {
+            "literal": "?",
+            "category": "INDICATION",
+            "pattern": null,
+            "rule": "forward"
+        },
+        {
             "literal": "evaluation of",
             "category": "INDICATION",
             "pattern": [
@@ -905,6 +911,18 @@
         },
         {
             "literal": "history of",
+            "category": "HISTORICAL",
+            "pattern": null,
+            "rule": "forward"
+        },
+        {
+            "literal": "h/o",
+            "category": "HISTORICAL",
+            "pattern": null,
+            "rule": "forward"
+        },
+        {
+            "literal": "hx of",
             "category": "HISTORICAL",
             "pattern": null,
             "rule": "forward"
@@ -1052,7 +1070,7 @@
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": [
               {"LOWER": {"IN": ["no", "without"]}},
-              {"LOWER": {"IN": ["definite", "other", "definitive", "secondary", "indirect"]}},
+              {"LOWER": {"IN": ["definite", "other", "definitive", "secondary", "indirect"]}, "OP":"?"},
               {"LOWER": {"IN": ["radiographic", "sonographic", "ct"]}, "OP": "?"},
               {"LOWER": "evidence"},
               {"LOWER": {"IN": ["of", "for"]}}
@@ -1359,6 +1377,12 @@
             "rule": "forward"
         },
         {
+            "literal": "probably represents",
+            "category": "PROBABLE_EXISTENCE",
+            "pattern": null,
+            "rule": "forward"
+        },
+        {
             "literal": "residual",
             "category": "HISTORICAL",
             "pattern": null,
@@ -1395,12 +1419,9 @@
             "rule": "forward"
         },
         {
-            "literal": "rule out",
+            "literal": "r/o",
             "category": "INDICATION",
-            "pattern": [
-              {"LOWER": "r/o"}
-
-            ],
+            "pattern": null,
           "comment": "// TODO: Does this match as one token?",
             "rule": "forward"
         },
