@@ -1,6 +1,6 @@
 from spacy import displacy
 
-def visualize_targets(doc, colors=None):
+def visualize_ent(doc, colors=None):
     """Create a NER-style visualization
     for targets and modifiers in Doc."""
     ents_data = []
@@ -24,7 +24,7 @@ def visualize_targets(doc, colors=None):
               }
     displacy.render(viz_data, style="ent", manual=True, options=options)
 
-def visualize_modifiers(doc):
+def visualize_dep(doc):
     """Create a dependency-style visualization for
     targets and modifiers in doc."""
 
