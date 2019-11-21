@@ -51,10 +51,10 @@ for target in doc.ents:
 ## Visualization
 We can use [spaCy's visualizers](https://spacy.io/usage/visualizers) to display the results of cycontext.
 This NER-style visualization highlights the targets and modifiers in text:
-<p align="center"><img width="50%" src="docs/ent_viz.png" /></p>
+<p align="center"><img width="75%" src="docs/ent_viz.png" /></p>
 
 While this dependency-style visualization shows the relationships between targets and modifiers:
-<p align="center"><img width="50%" src="docs/dep_viz.png" /></p>
+<p align="center"><img width="75%" src="docs/dep_viz.png" /></p>
 
 
 # Contact Information
