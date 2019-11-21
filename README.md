@@ -51,9 +51,20 @@ for target in doc.ents:
 ## Visualization
 We can use [spaCy's visualizers](https://spacy.io/usage/visualizers) to display the results of cycontext.
 This NER-style visualization highlights the targets and modifiers in text:
+
+```python
+from cycontext import viz
+viz.visualize_ent(doc, colors ={"EVIDENCE_OF_PNEUMONIA": "orange",
+                                   "DEFINITE_NEGATED_EXISTENCE": "#34b1eb",
+                               })
+``` 
+
 <p align="center"><img width="75%" src="docs/ent_viz.png" /></p>
 
 While this dependency-style visualization shows the relationships between targets and modifiers:
+```python
+viz.visualize_dep(doc)
+``` 
 <p align="center"><img width="75%" src="docs/dep_viz.png" /></p>
 
 
