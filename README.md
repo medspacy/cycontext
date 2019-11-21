@@ -11,14 +11,14 @@ This builds on [pyConText](https://github.com/chapmanbe/pyConTextNLP), which ext
 regular expressions and relates them using a NetworkX graph.
 
 # Key Features
-- cycontext is designed to be used as a [spaCy component](https://spacy.io/usage/processing-pipelines)
-- It is designed to be modular and not intended to be an end-to-end clinical IE system
-- A spaCy pipeline processes one document at a time
-- Modifiers are defined in a knowledge base which are used to modify target spans, such as `doc.ents`
+- cycontext is used as a modular [spaCy component](https://spacy.io/usage/processing-pipelines)
+- Modifiers are defined in a knowledge base which are used to modify target spans
 - Results are stored in a custom attribute `Doc._.context_graph`
+- Modifier -> target relationships are stored in `Doc._.context_graph.edges`
 
 # Basic Usage
 
+## Example
 ```python
 import spacy
 
@@ -30,20 +30,32 @@ text = "There is no evidence of pneumonia."
 ###########################################
 # Add code for extracting target concepts #
 ###########################################
-
+doc = nlp(text)
+print(doc.ents)
+>>> (pneumonia,)
 
 item_data = ItemData("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")
 context = ConTextComponent([item_data], nlp)
 nlp.add_pipe(context, last=True)
 
 doc = nlp(text)
-
-print(doc.ents)
->>> (pneumonia,)
-
 print(doc._.context_graph.edges)
 >>> [(pneumonia, <TagObject> [No evidence of, definite_negated_existence])]
+
+for target in doc.ents:
+    print(target._.modifiers)
+
+>>> (<TagObject> [No evidence of, definite_negated_existence],)
 ```
+
+## Visualization
+We can use [spaCy's visualizers](https://spacy.io/usage/visualizers) to display the results of cycontext.
+This NER-style visualization highlights the targets and modifiers in text:
+<p align="center"><img width="50%" src="docs/ent_viz.png" /></p>
+
+While this dependency-style visualization shows the relationships between targets and modifiers:
+<p align="center"><img width="50%" src="docs/dep_viz.png" /></p>
+
 
 # Contact Information
 Alec Chapman: alec.chapman@hsc.utah.edu
