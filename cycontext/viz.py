@@ -28,8 +28,6 @@ def visualize_dep(doc):
     """Create a dependency-style visualization for
     targets and modifiers in doc."""
 
-
-
     dep_data = {"words": [],
                "arcs": []}
 

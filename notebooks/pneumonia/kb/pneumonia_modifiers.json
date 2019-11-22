@@ -857,6 +857,11 @@
               {"LOWER": {"IN": ["of", "for"]}}
             ],
             "rule": "forward"
+        },{
+            "literal": "check for",
+            "category": "INDICATION",
+            "pattern": null,
+            "rule": "forward"
         },
         {
             "literal": "evidence",
@@ -2542,6 +2547,36 @@
             "literal": "favor",
             "category": "PROBABLE_EXISTENCE",
             "pattern": null,
+            "rule": "bidirectional"
+        },
+        {
+            "literal": "right-sided",
+            "category": "ANATOMICAL_SITE",
+            "pattern": [
+              {"LOWER": "right"},
+              {"LOWER": "-", "OP": "?"},
+              {"LOWER": "sided"}
+            ],
+            "rule": "forward"
+        },
+        {
+            "literal": "left-sided",
+            "category": "ANATOMICAL_SITE",
+            "pattern": [
+              {"LOWER": "left"},
+              {"LOWER": "-", "OP": "?"},
+              {"LOWER": "sided"}
+            ],
+            "rule": "forward"
+        },
+        {
+            "literal": "left/right upper/lower lobe",
+            "category": "ANATOMICAL_SITE",
+            "pattern": [
+              {"LOWER": {"IN": ["left", "right"]}},
+              {"LOWER": {"IN": ["upper", "lower"]}},
+              {"LOWER": "lobe"}
+            ],
             "rule": "bidirectional"
         }
     ]

@@ -1,0 +1,27 @@
+{"patterns":
+  [{"label": "EVIDENCE_OF_PNEUMONIA",
+  "pattern": [{"LOWER": {"REGEX": "pneumonias?"}}]},
+ {"label": "EVIDENCE_OF_PNEUMONIA", "pattern": [{"LOWER": {"REGEX": "pna"}}]},
+ {"label": "EVIDENCE_OF_PNEUMONIA",
+  "pattern": [{"LOWER": {"REGEX": "consolidations?"}}]},
+ {"label": "EVIDENCE_OF_PNEUMONIA",
+  "pattern": [{"LOWER": {"REGEX": "infiltrat(e|es|ion)"}}]},
+ {"label": "EVIDENCE_OF_PNEUMONIA",
+  "pattern": [{"LOWER": {"REGEX": "effusion"}}]},
+ {"label": "EVIDENCE_OF_PNEUMONIA",
+  "pattern": [{"LOWER": {"REGEX": "opacit(y|ies)"}}]},
+ {"label": "CONDITION",
+  "pattern": [{"LOWER": "congestive"},
+   {"LOWER": "heart"},
+   {"LOWER": "failure"}]},
+ {"label": "CONDITION", "pattern": [{"LOWER": {"REGEX": "chf"}}]},
+ {"label": "CONDITION", "pattern": [{"LOWER": "svt"}]},
+    {"label": "CONDITION",
+     "pattern": [{"LOWER": "supraventricular"}, {"LOWER": "tachycardia"}]
+    },
+    {
+      "label": "CONDITION",
+      "pattern": [{"LOWER": "cardiac"}, {"LOWER": "failure"}]
+    }
+   ]
+}

@@ -26,3 +26,21 @@ class ItemData:
 
     def __repr__(self):
         return f"ItemData: [{self.literal}, {self.category}, {self.pattern}, {self.rule}]"
+
+
+def from_json(filepath):
+    """Read in a lexicon of modifiers from a JSON file.
+
+    filepath (text): the .json file containing modifier rules
+
+    RETURNS item_data (list): a list of ItemData objects
+    """
+    import json
+    with open(filepath) as f:
+        modifier_data = json.load(f)
+
+    item_data = []
+    for data in modifier_data["patterns"]:
+        item = ItemData(**data) # TODO: this will throw an error if there are any erroneous keys
+        item_data.append(item)
+    return item_data

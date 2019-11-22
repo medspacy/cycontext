@@ -1,7 +1,11 @@
 Lex	Type	Regex	Direction	Codes
 pneumonia	EVIDENCE_OF_PNEUMONIA	pneumonias?		
 pneumonia	EVIDENCE_OF_PNEUMONIA	pna		
-consolidation	EVIDENCE_OF_PNEUMONIA			
+consolidation	EVIDENCE_OF_PNEUMONIA	consolidations?		
 infiltrate	EVIDENCE_OF_PNEUMONIA	infiltrat(e|es|ion)
 effusion	EVIDENCE_OF_PNEUMONIA	effusion
 effusion	EVIDENCE_OF_PNEUMONIA	opacit(y|ies)
+congestive heart failure	CONDITION		
+congestive heart failure	CONDITION	chf	
+svt	CONDITION		
+supraventricular tachycardia	CONDITION		

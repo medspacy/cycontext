@@ -72,7 +72,7 @@ class TagObject:
             return False
         if self.rule.lower() == "terminate":
             return False
-        if other.rule.lower() not in ("terminate", self.rule.lower()):
+        if (other.rule.lower() != "terminate") and (other.category.lower() != self.category.lower()):
             return False
 
         orig_scope = self.scope
