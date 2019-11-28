@@ -8,7 +8,7 @@ from nltk.tokenize import PunktSentenceTokenizer
 class ConTextComponent:
     name = "context"
 
-    def __init__(self, item_data, nlp, attr="ents"):
+    def __init__(self, nlp, attr="ents"):
 
         """Create a new ConTextComponent algorithm.
         This component matches modifiers in a Doc,
@@ -27,14 +27,14 @@ class ConTextComponent:
         RETURNS (ConTextComponent)
         """
 
-        # Set custom attributes
-
-        self.item_data = item_data
         self.nlp = nlp
         if attr != "ents":
             raise NotImplementedError()
         self.attr = attr
         # self.tokenizer = PunktSentenceTokenizer() # TODO: can we avoid this?
+
+        self._item_data = []
+        self._i = 0
 
 
         # _modifier_item_mapping: A mapping from spaCy Matcher match_ids to ItemData
@@ -43,24 +43,42 @@ class ConTextComponent:
         self._modifier_item_mapping = dict()
         self.phrase_matcher = PhraseMatcher(nlp.vocab, attr="LOWER", validate=True) # TODO: match on custom attributes
         self.matcher = Matcher(nlp.vocab, validate=True)
-        for i, item in enumerate(item_data):
-            # UID is the hash which we'll use to retrieve the ItemData from a spaCy match
-            # And will be a key in self._modifier_item_mapping
-            uid = self.nlp.vocab.strings[
-                str(i)]
-            if item.pattern is None:
-                self.phrase_matcher.add(str(i),
-                                        None,
-                                        nlp.make_doc(item.literal))
-            else:
-                self.matcher.add(str(i),
-                                 None,
-                                 item.pattern)
-            self._modifier_item_mapping[uid] = item
+
 
         # TODO: Think of a smarter way to do this
         Span.set_extension("modifiers", default=(), force=True)
         Doc.set_extension("context_graph", default=None, force=True)
+
+    @property
+    def item_data(self):
+        return self._item_data
+
+    def add(self, item_data):
+        """Add a list of ItemData items to ConText.
+
+
+        item_data (list)
+        """
+        self._item_data += item_data
+
+        for item in item_data:
+
+            # UID is the hash which we'll use to retrieve the ItemData from a spaCy match
+            # And will be a key in self._modifier_item_mapping
+            uid = self.nlp.vocab.strings[
+                str(self._i)]
+            # If no pattern is defined,
+            # match on the literal phrase.
+            if item.pattern is None:
+                self.phrase_matcher.add(str(self._i),
+                                        None,
+                                        self.nlp.make_doc(item.literal))
+            else:
+                self.matcher.add(str(self._i),
+                                 None,
+                                 item.pattern)
+            self._modifier_item_mapping[uid] = item
+            self._i += 1
 
 
     def __call__(self, doc):

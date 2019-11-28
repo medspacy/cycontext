@@ -86,3 +86,6 @@ class ConTextGraph:
                     edges.append((target, modifier))
         return edges
 
+    def __repr__(self):
+        return "<ConTextGraph> with {0} targets and {1} modifiers".format(len(self.targets), len(self.modifiers))
+

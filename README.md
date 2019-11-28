@@ -34,8 +34,9 @@ doc = nlp(text)
 print(doc.ents)
 >>> (pneumonia,)
 
-item_data = ItemData("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")
-context = ConTextComponent([item_data], nlp)
+item_data = [ItemData("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")]
+context = ConTextComponent(nlp)
+context.add(item_data)
 nlp.add_pipe(context, last=True)
 
 doc = nlp(text)
