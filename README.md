@@ -70,4 +70,4 @@ viz.visualize_dep(doc)
 
 
 # Contact Information
-Alec Chapman: alec.chapman@hsc.utah.edu
+Alec Chapman: abchapman93@gmail.com
