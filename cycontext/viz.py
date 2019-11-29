@@ -32,20 +32,16 @@ def visualize_dep(doc):
                "arcs": []}
 
     # TODO: merge phrases together
+
     token_labels = {}
+
+    # Get the target entity labels
     for target in doc.ents:
         for i, token in enumerate(target):
-            # prefix = "B-" if i == 0 else "I-"
             prefix = ""
             token_labels[token] = prefix+target.label_.upper()
+    # Get the modifier labels
     for target, modifier in doc._.context_graph.edges:
-        for i, token in enumerate(modifier.span):
-            # prefix = "B-" if i == 0 else "I-"
-            prefix = ""
-            label = modifier.category.upper()
-            # token_labels[token] = prefix+label
-            token_labels[token] = ""
-
         dep_data["arcs"].append(
             {
                 "start": min(target.start, modifier.start),
@@ -54,9 +50,7 @@ def visualize_dep(doc):
                 "dir": "right" if target > modifier.span else "left"
             }
         )
-
     dep_data["words"] = [{"text": token.text, "tag": token_labels.get(token, "")} for token in doc]
-
 
 
 
