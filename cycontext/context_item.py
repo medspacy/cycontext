@@ -2,8 +2,8 @@ class ConTextItem:
     """An ConTextItem defines a ConText modifier. It defines the phrase to be matched,
     the category/semantic class, and the rule which the modifier executes.
     """
-    _ALLOWED_RULES = ("forward", "backward", "bidirectional", "terminate")
-    def __init__(self, literal, category, pattern=None, rule="bidirectional", comment=''):
+    _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE")
+    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, comment=''):
         """Create an ConTextItem object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -16,9 +16,9 @@ class ConTextItem:
         RETURNS (ConTextItem)
         """
         self.literal = literal
-        self.category = category.lower()
+        self.category = category.upper()
         self.pattern = pattern
-        self.rule = rule.lower()
+        self.rule = rule.upper()
         self.comment = comment
 
         if self.rule not in self._ALLOWED_RULES:
@@ -27,6 +27,7 @@ class ConTextItem:
     def __repr__(self):
         return f"ConTextItem: [{self.literal}, {self.category}, {self.pattern}, {self.rule}]"
 
+ALLOWED_KEYS = {"rule", "pattern", "category", "pattern", "comment"}
 
 def from_json(filepath):
     """Read in a lexicon of modifiers from a JSON file.
@@ -34,13 +35,25 @@ def from_json(filepath):
     filepath (text): the .json file containing modifier rules
 
     RETURNS item_data (list): a list of ConTextItem objects
+    RAISES KeyError if the dictionary contains any keys other than
+        those accepted by ConTextItem.__init__
     """
     import json
     with open(filepath) as f:
         modifier_data = json.load(f)
-
     item_data = []
     for data in modifier_data["patterns"]:
-        item = ConTextItem(**data) # TODO: this will throw an error if there are any erroneous keys
-        item_data.append(item)
+        item_data.append(from_dict(data))
     return item_data
+
+def from_dict(d):
+    try:
+        item = ConTextItem(**d)  # TODO: this will throw an error if there are any erroneous keys
+    except TypeError:
+        keys = set(d.keys())
+        invalid_keys = keys.difference(ALLOWED_KEYS)
+        msg = ("JSON object contains invalid keys: {0}.\n"
+              "Must be one of: {1}".format(invalid_keys, ALLOWED_KEYS))
+        raise ValueError(msg)
+
+    return item

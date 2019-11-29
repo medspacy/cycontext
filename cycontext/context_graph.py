@@ -5,6 +5,41 @@ class ConTextGraph:
         self.modifiers = []
         self.edges = []
 
+
+    def update_scopes(self):
+        """For each modifier in a list of TagObjects,
+        check against each other modifier to see if one of the modifiers
+        should update the other. This allows neighboring similar modifiers
+        to extend each other's scope and allows "terminate" modifiers
+        to end a modifier's scope.
+
+        marked_modifiers (list): A list of TagObjects in a Doc.
+        """
+        for i in range(len(self.modifiers) - 1):
+            modifier1 = self.modifiers[i]
+            for j in range(i + 1, len(self.modifiers)):
+                modifier2 = self.modifiers[j]
+                # TODO: Add modifier -> modifier edges
+                modifier1.limit_scope(modifier2)
+                modifier2.limit_scope(modifier1)
+
+    def apply_modifiers(self):
+        """Checks each target/modifier pair. If modifier modifies target,
+        create an edge between them.
+
+        marked_targets (list): A list of Spans
+        marked_modifiers (list): A list of TagObjects
+
+        RETURNS edges (list): A list of tuples consisting of
+            target/modifier pairs
+        """
+        edges = []
+        for target in self.targets:
+            for modifier in self.modifiers:
+                if modifier.modifies(target):
+                    edges.append((target, modifier))
+        self.edges = edges
+
     def prune_modifiers(self):
         """Prune overlapping modifiers
         so that only the longest span is kept.
@@ -51,40 +86,6 @@ class ConTextGraph:
             return pruned
         else:
             return self.prune_overlapping_modifiers(pruned)
-
-    def update_scopes(self):
-        """For each modifier in a list of TagObjects,
-        check against each other modifier to see if one of the modifiers
-        should update the other. This allows neighboring similar modifiers
-        to extend each other's scope and allows "terminate" modifiers
-        to end a modifier's scope.
-
-        marked_modifiers (list): A list of TagObjects in a Doc.
-        """
-        for i in range(len(self.modifiers) - 1):
-            modifier1 = self.modifiers[i]
-            for j in range(i + 1, len(self.modifiers)):
-                modifier2 = self.modifiers[j]
-                # TODO: Add modifier -> modifier edges
-                modifier1.limit_scope(modifier2)
-                modifier2.limit_scope(modifier1)
-
-    def apply_modifiers(self):
-        """Checks each target/modifier pair. If modifier modifies target,
-        create an edge between them.
-
-        marked_targets (list): A list of Spans
-        marked_modifiers (list): A list of TagObjects
-
-        RETURNS edges (list): A list of tuples consisting of
-            target/modifier pairs
-        """
-        edges = []
-        for target in self.targets:
-            for modifier in self.modifiers:
-                if modifier.modifies(target):
-                    edges.append((target, modifier))
-        return edges
 
     def __repr__(self):
         return "<ConTextGraph> with {0} targets and {1} modifiers".format(len(self.targets), len(self.modifiers))

@@ -22,7 +22,7 @@ regular expressions and relates them using a NetworkX graph.
 ```python
 import spacy
 
-from cycontext import ConTextComponent, ItemData
+from cycontext import ConTextComponent, ConTextItem
 
 nlp = spacy.load("en_core_web_sm")
 text = "There is no evidence of pneumonia."
@@ -34,7 +34,7 @@ doc = nlp(text)
 print(doc.ents)
 >>> (pneumonia,)
 
-item_data = [ItemData("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")]
+item_data = [ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")]
 context = ConTextComponent(nlp)
 context.add(item_data)
 nlp.add_pipe(context, last=True)

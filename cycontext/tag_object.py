@@ -1,12 +1,12 @@
 class TagObject:
     """Represents a concept found by ConText in a document.
-    Is the result of ItemData matching a span of text in a Doc.
+    Is the result of ConTextItem matching a span of text in a Doc.
     """
 
     def __init__(self, item_data, start, end, doc):
         """Create a new TagObject from a document span.
 
-        item_data (int): The ItemData object which defines the modifier.
+        item_data (int): The ConTextItem object which defines the modifier.
         start (int): The start token index.
         end (int): The end token index (non-inclusive).
         doc (Doc): The spaCy Doc which contains this span.
@@ -38,7 +38,7 @@ class TagObject:
         return self.doc[self._scope_start: self._scope_end]
 
     def set_scope(self):
-        """Applies the rule of the ItemData which generated
+        """Applies the rule of the ConTextItem which generated
         this TagObject to define a scope in the sentence.
         For example, if the rule is "forward", the scope will be [self.end: sentence.end].
         If the rule is "backward", it will be [self.start: sentence.start].
@@ -93,7 +93,7 @@ class TagObject:
 
         target (Span): a spaCy span representing a target concept.
         """
-        if self.rule == "terminate":
+        if self.rule == "TERMINATE":
             return False
         if target[0] in self.scope:
             return True

@@ -46,35 +46,34 @@ class TestItemData:
         with pytest.raises(ValueError):
             from_dict(d)
 
-    def test_from_json(self):
-        modifiers_filepath = self.raw_and_clean_data_file("./tmp")
-        item_data = from_json(modifiers_filepath)
+    def test_from_json(self, json_file):
+        assert from_json(json_file)
 
-    @pytest.fixture
-    def raw_and_clean_data_file(self, tmpdir):
-        import json, os
-        json_filepath = tmpdir.join("modifiers.json")
+@pytest.fixture
+def json_file():
+    import json, os
+    json_filepath = "modifiers.json"
 
-        patterns = [
-            {
-                "literal": "are ruled out",
-                "category": "DEFINITE_NEGATED_EXISTENCE",
-                "pattern": None,
-                "rule": "backward"
-            },
-            {
-                "literal": "is negative",
-                "category": "DEFINITE_NEGATED_EXISTENCE",
-                "pattern": [
-                    {"LEMMA": "be"}, {"LOWER": "negative"}
-                ],
-                "rule": "backward"
-            },
-        ]
+    patterns = [
+        {
+            "literal": "are ruled out",
+            "category": "DEFINITE_NEGATED_EXISTENCE",
+            "pattern": None,
+            "rule": "backward"
+        },
+        {
+            "literal": "is negative",
+            "category": "DEFINITE_NEGATED_EXISTENCE",
+            "pattern": [
+                {"LEMMA": "be"}, {"LOWER": "negative"}
+            ],
+            "rule": "backward"
+        },
+    ]
 
-        # Save dicts to a temporary file
-        with open(json_filepath, "w") as f:
-            json.dump({"patterns": patterns}, f)
+    # Save dicts to a temporary file
+    with open(json_filepath, "w") as f:
+        json.dump({"patterns": patterns}, f)
 
-        yield json_filepath
-        os.remove(json_filepath)
+    yield json_filepath
+    os.remove(json_filepath)

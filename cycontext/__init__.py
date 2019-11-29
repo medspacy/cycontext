@@ -1,2 +1,2 @@
 from .context_component import ConTextComponent
-from .item_data import ItemData
+from .context_item import ConTextItem
