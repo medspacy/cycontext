@@ -1,5 +1,5 @@
 {
-    "patterns": [
+    "item_data": [
         {
             "literal": "are ruled out",
             "category": "DEFINITE_NEGATED_EXISTENCE",

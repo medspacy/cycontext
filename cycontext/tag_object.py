@@ -6,12 +6,12 @@ class TagObject:
     def __init__(self, item_data, start, end, doc):
         """Create a new TagObject from a document span.
 
-        item_data (int): The ConTextItem object which defines the modifier.
+        context_item (int): The ConTextItem object which defines the modifier.
         start (int): The start token index.
         end (int): The end token index (non-inclusive).
         doc (Doc): The spaCy Doc which contains this span.
         """
-        self.item_data = item_data
+        self.context_item = item_data
         self.start = start
         self.end = end
         self.doc = doc
@@ -27,11 +27,11 @@ class TagObject:
 
     @property
     def rule(self):
-        return self.item_data.rule
+        return self.context_item.rule
 
     @property
     def category(self):
-        return self.item_data.category
+        return self.context_item.category
 
     @property
     def scope(self):

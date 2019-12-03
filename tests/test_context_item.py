@@ -1,7 +1,6 @@
 import pytest
 
 from cycontext import ConTextItem
-from cycontext.context_item import from_json, from_dict
 
 class TestItemData:
 
@@ -38,23 +37,50 @@ class TestItemData:
 
     def test_from_dict(self):
         d = dict(literal="reason for examination", category="INDICATION", rule="FORWARD")
-        assert from_dict(d)
+        assert ConTextItem.from_dict(d)
 
     def test_from_dict_error(self):
         d = dict(literal="reason for examination", category="INDICATION", rule="FORWARD",
                  invalid="this is an invalid key")
         with pytest.raises(ValueError):
-            from_dict(d)
+            ConTextItem.from_dict(d)
 
-    def test_from_json(self, json_file):
-        assert from_json(json_file)
+    def test_from_json(self, from_json_file):
+        assert ConTextItem.from_json(from_json_file)
+
+    def test_to_dict(self):
+        literal = "no evidence of"
+        category = "definite_negated_existence"
+        rule = "forward"
+        item = ConTextItem(literal, category, rule)
+        assert isinstance(item.to_dict(), dict)
+
+    def test_to_json(self):
+        import json, os
+        literal = "no evidence of"
+        category = "definite_negated_existence"
+        rule = "forward"
+        item = ConTextItem(literal, category, rule)
+        ConTextItem.to_json([item], "test_modifiers.json")
+
+        with open("test_modifiers.json") as f:
+            data = json.load(f)
+        assert "item_data" in data
+        assert len(data["item_data"]) == 1
+        item = data["item_data"][0]
+        for key in ["literal", "category", "rule"]:
+            assert key in item
+
+        os.remove("test_modifiers.json")
+
+
 
 @pytest.fixture
-def json_file():
+def from_json_file():
     import json, os
-    json_filepath = "modifiers.json"
+    json_filepath = "test_modifiers.json"
 
-    patterns = [
+    item_data = [
         {
             "literal": "are ruled out",
             "category": "DEFINITE_NEGATED_EXISTENCE",
@@ -73,7 +99,7 @@ def json_file():
 
     # Save dicts to a temporary file
     with open(json_filepath, "w") as f:
-        json.dump({"patterns": patterns}, f)
+        json.dump({"item_data": item_data}, f)
 
     yield json_filepath
-    os.remove(json_filepath)
+    # os.remove(json_filepath)

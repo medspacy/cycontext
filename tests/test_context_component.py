@@ -35,9 +35,8 @@ class TestConTextComponent:
         context = ConTextComponent(nlp, add_attrs=True)
         context(doc)
         span = doc[-2:]
-        assert hasattr(span._, "is_negated")
         assert hasattr(span._, "is_current")
-        assert hasattr(span._, "is_experiencer")
+        assert hasattr(span._, "is_experienced")
 
     def test_default_attribute_values(self):
         doc = nlp("There is evidence of pneumonia.")
@@ -45,9 +44,8 @@ class TestConTextComponent:
         doc.ents = (doc[-2:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_negated is False
         assert doc.ents[0]._.is_current is True
-        assert doc.ents[0]._.is_experiencer is True
+        assert doc.ents[0]._.is_experienced is True
 
     def test_is_negated(self):
         doc = nlp("There is no evidence of pneumonia.")
@@ -57,7 +55,7 @@ class TestConTextComponent:
         doc.ents = (doc[-2:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_negated is True
+        assert doc.ents[0]._.is_experienced is False
 
     def test_is_current(self):
         doc = nlp("History of pneumonia.")
@@ -69,7 +67,7 @@ class TestConTextComponent:
 
         assert doc.ents[0]._.is_current is False
 
-    def test_is_experiencer(self):
+    def test_is_experienced(self):
         doc = nlp("Family history of breast cancer.")
         context = ConTextComponent(nlp, add_attrs=True)
         item_data = [ConTextItem("family history of", "FAMILY_HISTORY", rule="forward")]
@@ -77,4 +75,7 @@ class TestConTextComponent:
         doc.ents = (doc[-3:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_experiencer is False
+        assert doc.ents[0]._.is_experienced is False
+
+    def test_custom_attributes(self):
+        raise NotImplementedError()

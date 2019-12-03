@@ -4,16 +4,17 @@ from spacy.tokens import Doc, Span
 from .tag_object import TagObject
 from .context_graph import ConTextGraph
 
-# M
-DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_negated", True),
+#
+DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_experienced", False),
+                 "FAMILY_HISTORY": ("is_experienced", False),
+                 "INDICATION": ("is_experienced", False),
                  "HISTORICAL": ("is_current", False),
-                 "FAMILY_HISTORY": ("is_experiencer", False)
                  }
 
 class ConTextComponent:
     name = "context"
 
-    def __init__(self, nlp, targets="ents", add_attrs=True):
+    def __init__(self, nlp, targets="ents", add_attrs=True, prune=True):
 
         """Create a new ConTextComponent algorithm.
         This component matches modifiers in a Doc,
@@ -33,15 +34,20 @@ class ConTextComponent:
             - is_current: False if a target is modified by 'HISTORICAL', default True
             - is_experiencer: False if a target is modified by 'FAMILY_HISTORY', default True
             In the future, these should be made customizable.
+        prune (bool): Whether or not to prune modifiers which are substrings of another modifier.
+            For example, if "no history of" and "history of" are both ConTextItems, both will match
+            the text "no history of afib", but only "no history of" should modify afib.
+            If True, will drop shorter substrings completely.
+            Default True.
 
         RETURNS (ConTextComponent)
         """
 
         self.nlp = nlp
-        self.add_attrs = add_attrs
         if targets != "ents":
             raise NotImplementedError()
         self._target_attr = targets
+        self.prune = prune
 
         self._item_data = []
         self._i = 0
@@ -56,8 +62,24 @@ class ConTextComponent:
 
 
         self.register_attributes()
-        if self.add_attrs:
+        if add_attrs is False:
+            self.add_attrs = False
+        elif add_attrs is True:
+            self.add_attrs = True
             self.context_attributes_mapping = DEFAULT_ATTRS
+            Span.set_extension("is_current", default=True, force=True)
+            Span.set_extension("is_experienced", default=True, force=True)
+        elif isinstance(add_attrs, dict):
+            # Check that each of the attributes being added has been set
+            for _, (attr_name, _) in add_attrs.items():
+                if not Span.has_extension(attr_name):
+                    raise ValueError("Custom extension {0} has not been set. Call Span.set_extension.")
+
+            self.add_attrs = True
+            self.context_attributes_mapping = add_attrs
+
+        else:
+            raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
 
 
     @property
@@ -68,7 +90,7 @@ class ConTextComponent:
         """Add a list of ConTextItem items to ConText.
 
 
-        item_data (list)
+        context_item (list)
         """
         self._item_data += item_data
 
@@ -104,17 +126,15 @@ class ConTextComponent:
         Span.set_extension("modifiers", default=(), force=True)
         Doc.set_extension("context_graph", default=None, force=True)
 
-        if self.add_attrs:
-            Span.set_extension("is_negated", default=False, force=True)
-            Span.set_extension("is_current", default=True, force=True)
-            Span.set_extension("is_experiencer", default=True, force=True)
 
     def set_context_attributes(self, edges):
         """Add Span-level attributes to targets with modifiers.
         """
+
         for (target, modifier) in edges:
             if modifier.category in self.context_attributes_mapping:
                 attr_name, attr_value = self.context_attributes_mapping[modifier.category]
+                print(attr_name, attr_value)
                 setattr(target._, attr_name, attr_value)
 
     def __call__(self, doc):
@@ -148,7 +168,8 @@ class ConTextComponent:
             tag_object = TagObject(item_data, start, end, doc)
             context_graph.modifiers.append(tag_object)
 
-        context_graph.prune_modifiers()
+        if self.prune:
+            context_graph.prune_modifiers()
         context_graph.update_scopes()
         context_graph.apply_modifiers()
 
@@ -161,6 +182,5 @@ class ConTextComponent:
             self.set_context_attributes(context_graph.edges)
 
         doc._.context_graph = context_graph
-
 
         return doc
