@@ -1427,7 +1427,6 @@
             "literal": "r/o",
             "category": "INDICATION",
             "pattern": null,
-          "comment": "// TODO: Does this match as one token?",
             "rule": "forward"
         },
         {
@@ -1437,7 +1436,6 @@
               {"LOWER": "rule"}, {"LOWER": "out"}
 
             ],
-          "comment": " TODO: (r/o|rule out|\\br o\\b|r\\.o\\.|\\bro\\b)",
             "rule": "forward"
         },
         {
@@ -1457,7 +1455,6 @@
               {"LOWER": "for"}
 
             ],
-          "comment": "rule (him|her|patient|the patient|subject) out for",
             "rule": "forward"
         },
         {
@@ -1483,7 +1480,6 @@
               {"LOWER": {"IN": ["for", "against"]}}
 
             ],
-          "comment": "ruled\\s(him|her|the subject|the patient|subject|patient)\\sout( against| for)?",
             "rule": "forward"
         },
         {
@@ -1571,7 +1567,6 @@
               {"LOWER": "out"}
 
             ],
-          "comment": "sufficient\\sto\\srule\\s((her|him|the patient|the subject)\\s)?out",
             "rule": "forward"
         },
         {

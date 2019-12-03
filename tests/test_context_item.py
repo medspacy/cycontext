@@ -34,6 +34,13 @@ class TestItemData:
         with pytest.raises(ValueError):
             ConTextItem(literal, category, rule)
 
+    def test_metadata(self):
+        literal = "no evidence of"
+        category = "definite_negated_existence"
+        rule = "forward"
+        meta = {"comment": "This is a comment."}
+        item = ConTextItem(literal, category, rule, metadata=meta)
+        assert item.metadata
 
     def test_from_dict(self):
         d = dict(literal="reason for examination", category="INDICATION", rule="FORWARD")

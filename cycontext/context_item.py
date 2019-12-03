@@ -3,8 +3,8 @@ class ConTextItem:
     the category/semantic class, and the rule which the modifier executes.
     """
     _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE")
-    _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "comment"}
-    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, comment=''):
+    _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "metadata"}
+    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, metadata=None):
         """Create an ConTextItem object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -14,13 +14,16 @@ class ConTextItem:
             See https://spacy.io/usage/rule-based-matching.
         rule (str): The directionality or action of a modifier.
             One of ("forward", "backward", "bidirectional", or "terminate").
+        metadata (dict or None): A dict of additional data to pass in,
+            such as free-text comments, additional attributes, or ICD-10 codes.
+            Default None.
         RETURNS (ConTextItem)
         """
         self.literal = literal.lower()
         self.category = category.upper()
         self.pattern = pattern
         self.rule = rule.upper()
-        self.comment = comment
+        self.metadata = metadata
 
         if self.rule not in self._ALLOWED_RULES:
             raise ValueError("Rule {0} not recognized. Must be one of: {1}".format(self.rule, self._ALLOWED_RULES))

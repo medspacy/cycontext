@@ -1,7 +1,10 @@
 import spacy
+from spacy.tokens import Span
 
 from cycontext import ConTextComponent
 from cycontext import ConTextItem
+
+import pytest
 
 
 
@@ -77,5 +80,45 @@ class TestConTextComponent:
 
         assert doc.ents[0]._.is_experienced is False
 
-    def test_custom_attributes(self):
-        raise NotImplementedError()
+    def test_custom_attribute_error(self):
+        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
+                        }
+        with pytest.raises(ValueError):
+            ConTextComponent(nlp, add_attrs=custom_attrs)
+
+    def test_custom_attributes_mapping(self):
+        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
+                        }
+        Span.set_extension("is_negated", default=False)
+        context = ConTextComponent(nlp, add_attrs=custom_attrs)
+        assert context.context_attributes_mapping == custom_attrs
+
+    def test_custom_attributes_value(self):
+        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
+                        }
+        try:
+            Span.set_extension("is_negated", default=False)
+        except:
+            pass
+        context = ConTextComponent(nlp, add_attrs=custom_attrs)
+        context.add([ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD")])
+        doc = nlp("There is no evidence of pneumonia.")
+        doc.ents = (doc[-2:-1],)
+        context(doc)
+
+        assert doc.ents[0]._.is_negated is True
+
+    def test_custom_attributes_value(self):
+        custom_attrs = {'FAMILY_HISTORY': ('is_family_history', True),
+                        }
+        try:
+            Span.set_extension("is_family_history", default=False)
+        except:
+            pass
+        context = ConTextComponent(nlp, add_attrs=custom_attrs)
+        context.add([ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD")])
+        doc = nlp("There is no evidence of pneumonia.")
+        doc.ents = (doc[-2:-1],)
+        context(doc)
+
+        assert doc.ents[0]._.is_family_history is False
