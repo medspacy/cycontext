@@ -44,9 +44,9 @@ print(doc._.context_graph.edges)
 >>> [(pneumonia, <TagObject> [No evidence of, definite_negated_existence])]
 
 for target in doc.ents:
-    print(target._.modifiers)
+    print(target._.is_experienced)
 
->>> (<TagObject> [No evidence of, definite_negated_existence],)
+>>> False
 ```
 
 ## Visualization
