@@ -134,7 +134,6 @@ class ConTextComponent:
         for (target, modifier) in edges:
             if modifier.category in self.context_attributes_mapping:
                 attr_name, attr_value = self.context_attributes_mapping[modifier.category]
-                print(attr_name, attr_value)
                 setattr(target._, attr_name, attr_value)
 
     def __call__(self, doc):
