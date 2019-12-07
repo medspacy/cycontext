@@ -3,7 +3,7 @@ class TagObject:
     Is the result of ConTextItem matching a span of text in a Doc.
     """
 
-    def __init__(self, item_data, start, end, doc):
+    def __init__(self, context_item, start, end, doc):
         """Create a new TagObject from a document span.
 
         context_item (int): The ConTextItem object which defines the modifier.
@@ -11,7 +11,7 @@ class TagObject:
         end (int): The end token index (non-inclusive).
         doc (Doc): The spaCy Doc which contains this span.
         """
-        self.context_item = item_data
+        self.context_item = context_item
         self.start = start
         self.end = end
         self.doc = doc

@@ -18,6 +18,14 @@ regular expressions and relates them using a NetworkX graph.
 
 # Basic Usage
 
+## Installation
+Install cycontext using the `setup.py` script:
+```python
+python setup.py install
+```
+
+In the future cycontext should be added to PyPi and be made available through conda.
+
 ## Example
 ```python
 import spacy
