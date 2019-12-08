@@ -10,6 +10,8 @@ relating target concepts (such as "pneumonia") with semantic modifiers (such as 
 This builds on [pyConText](https://github.com/chapmanbe/pyConTextNLP), which extracts both targets and modifiers using
 regular expressions and relates them using a NetworkX graph.
 
+See `notebooks/` for detailed explanations and examples.
+
 # Key Features
 - cycontext is used as a modular [spaCy component](https://spacy.io/usage/processing-pipelines)
 - Modifiers are defined in a knowledge base which are used to modify target spans
