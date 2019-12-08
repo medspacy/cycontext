@@ -21,12 +21,17 @@ See `notebooks/` for detailed explanations and examples.
 # Basic Usage
 
 ## Installation
-Install cycontext using the `setup.py` script:
+You can install cycontext using pip:
+```bash
+pip install cycontext
+```
+
+Or clone this repository install cycontext using the `setup.py` script:
 ```python
 python setup.py install
 ```
 
-In the future cycontext should be added to PyPi and be made available through conda.
+In the future cycontext should be made available through conda.
 
 ## Example
 ```python
