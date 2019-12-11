@@ -27,8 +27,14 @@ pip install cycontext
 ```
 
 Or clone this repository install cycontext using the `setup.py` script:
-```python
-python setup.py install
+```bash
+$ python setup.py install
+```
+
+Once you've installed the package and spaCy, make sure you have a spaCy language model installed (see https://spacy.io/usage/models):
+
+```bash
+$ python -m spacy download en_core_web_sm
 ```
 
 In the future cycontext should be made available through conda.
