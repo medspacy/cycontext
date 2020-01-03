@@ -2,7 +2,13 @@ from spacy import displacy
 
 def visualize_ent(doc, colors=None):
     """Create a NER-style visualization
-    for targets and modifiers in Doc."""
+    for targets and modifiers in Doc.
+
+    doc (Doc): A spacy doc which has been processed by context
+    colors (dict or None): An optional dictionary which maps labels of targets and modifiers
+        to color strings to be rendered. If None, will create a generator which
+        cycles through the default matplotlib colors.
+    """
     ents_data = []
 
     modifier_start_chars = set()
@@ -18,11 +24,30 @@ def visualize_ent(doc, colors=None):
                 "ents": ents_data,
                 }]
     if colors is None:
-        # TODO: Create a color generator
-        colors = dict(CONDITION="orange", DEFINITE_NEGATED_EXISTENCE="#a2bde8")
+        labels = set()
+        for target in doc._.context_graph.targets:
+            labels.add(target.label_.upper())
+        for modifier in doc._.context_graph.modifiers:
+            labels.add(modifier.category.upper())
+        colors = _create_color_mapping(labels)
     options = {"colors": colors,
               }
     displacy.render(viz_data, style="ent", manual=True, options=options)
+
+def _create_color_mapping(labels):
+    mapping = {}
+    color_cycle = _create_color_generator()
+    for label in labels:
+        if label not in mapping:
+            mapping[label] = next(color_cycle)
+    return mapping
+
+def _create_color_generator():
+    """Create a generator which will cycle through a list of default matplotlib colors"""
+    from itertools import cycle
+    colors = [u'#1f77b4', u'#ff7f0e', u'#2ca02c', u'#d62728',
+              u'#9467bd', u'#8c564b', u'#e377c2', u'#7f7f7f', u'#bcbd22', u'#17becf']
+    return cycle(colors)
 
 def visualize_dep(doc):
     """Create a dependency-style visualization for

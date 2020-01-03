@@ -76,9 +76,7 @@ This NER-style visualization highlights the targets and modifiers in text:
 
 ```python
 from cycontext import viz
-viz.visualize_ent(doc, colors ={"EVIDENCE_OF_PNEUMONIA": "orange",
-                                   "DEFINITE_NEGATED_EXISTENCE": "#34b1eb",
-                               })
+viz.visualize_ent(doc)
 ``` 
 
 <p align="center"><img width="75%" src="docs/ent_viz.png" /></p>
