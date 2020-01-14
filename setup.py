@@ -12,7 +12,7 @@ setup(name='cycontext',
       author='Alec Chapman',
       author_email='abchapman93@gmail.com',
       packages=['cycontext'],
-      install_requires=["spacy==2.2.2"],
+      install_requires=["spacy>=2.2.2"],
       long_description=long_description,
       long_description_content_type='text/markdown'
       )
