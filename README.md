@@ -30,8 +30,14 @@ pip install cycontext
 ```
 
 Or clone this repository install cycontext using the `setup.py` script:
-```python
-python setup.py install
+```bash
+$ python setup.py install
+```
+
+Once you've installed the package and spaCy, make sure you have a spaCy language model installed (see https://spacy.io/usage/models):
+
+```bash
+$ python -m spacy download en_core_web_sm
 ```
 
 In the future cycontext should be made available through conda.
@@ -73,9 +79,7 @@ This NER-style visualization highlights the targets and modifiers in text:
 
 ```python
 from cycontext import viz
-viz.visualize_ent(doc, colors ={"EVIDENCE_OF_PNEUMONIA": "orange",
-                                   "DEFINITE_NEGATED_EXISTENCE": "#34b1eb",
-                               })
+viz.visualize_ent(doc)
 ``` 
 
 <p align="center"><img width="75%" src="docs/ent_viz.png" /></p>

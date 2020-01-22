@@ -127,5 +127,8 @@ class TagObject:
     def __le__(self, other):
         return self.span <= other.span
 
+    def __len__(self):
+        return len(self.span)
+
     def __repr__(self):
         return f"<TagObject> [{self.span}, {self.category}]"
