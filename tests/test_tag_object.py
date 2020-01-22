@@ -54,6 +54,18 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 2, 4, doc)
         assert not tag_object2.limit_scope(tag_object)
 
+    def test_set_scope_failes_no_sentences(self):
+        """Test that setting the scope fails if sentence boundaries haven't been set."""
+        nlp = spacy.blank("en")
+        assert nlp.pipeline == []
+        doc = nlp("family history of breast cancer but no diabetes. She has afib.")
+        item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD")
+        with pytest.raises(ValueError) as exception_info:
+            # This should fail because doc.sents are None
+            TagObject(item, 0, 3, doc)
+        exception_info.match("ConText failed because sentence boundaries have not been set. "
+                             "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries.")
+
     def test_update_scope(self):
         doc, item, tag_object = self.create_objects()
         tag_object.update_scope(doc[3:5])
