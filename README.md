@@ -12,6 +12,9 @@ regular expressions and relates them using a NetworkX graph.
 
 See `notebooks/` for detailed explanations and examples.
 
+Before getting started, make sure you've installed [spacy](https://spacy.io/usage) 
+and [downloaded a model](https://spacy.io/usage/models) (ie., **en_core_web_sm**).
+
 # Key Features
 - cycontext is used as a modular [spaCy component](https://spacy.io/usage/processing-pipelines)
 - Modifiers are defined in a knowledge base which are used to modify target spans
@@ -82,6 +85,13 @@ While this dependency-style visualization shows the relationships between target
 viz.visualize_dep(doc)
 ``` 
 <p align="center"><img width="75%" src="docs/dep_viz.png" /></p>
+
+## Tests
+To run tests:
+```bash
+cd cycontext
+pytest tests
+```
 
 
 # Contact Information
