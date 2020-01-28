@@ -37,6 +37,33 @@ class TagObject:
     def scope(self):
         return self.doc[self._scope_start: self._scope_end]
 
+    @property
+    def allowed_types(self):
+        return self.context_item.allowed_types
+
+    @property
+    def excluded_types(self):
+        return self.context_item.excluded_types
+
+    def allows(self, target_label):
+        """Returns True if a modifier is able to modify a target type.
+        A modifier may not be allowed if either self.allowed_types is not None and
+        target_label is not in it, or if self.excluded_types is not None and
+        target_label is in it.
+        """
+        if self.allowed_types is not None:
+            if target_label not in self.allowed_types:
+                return False
+            else:
+                return True
+        if self.excluded_types is not None:
+            if target_label not in self.excluded_types:
+                return True
+            else:
+                return False
+        return True
+
+
     def set_scope(self):
         """Applies the rule of the ConTextItem which generated
         this TagObject to define a scope in the sentence.
@@ -92,11 +119,14 @@ class TagObject:
             return False
 
     def modifies(self, target):
-        """Returns True if the target is within the modifier scope.
+        """Returns True if the target is within the modifier scope
+        and self is allowed to modify target.
 
         target (Span): a spaCy span representing a target concept.
         """
         if self.rule == "TERMINATE":
+            return False
+        if not self.allows(target.label_.upper()):
             return False
         if target[0] in self.scope:
             return True

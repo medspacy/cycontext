@@ -34,3 +34,9 @@ class PyRuSHSentencizer:
             sent = doc.char_span(span.begin, span.end)
             sent[0].is_sent_start = True
         return doc
+
+def is_modified_by(span, modifier_label):
+    for modifier in span._.modifiers:
+        if modifier.category.upper() == modifier_label.upper():
+            return True
+    return False

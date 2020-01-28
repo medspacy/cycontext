@@ -3,8 +3,9 @@ class ConTextItem:
     the category/semantic class, and the rule which the modifier executes.
     """
     _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE")
-    _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "metadata"}
-    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, metadata=None):
+    _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "metadata", "allowed_types", "filtered_types"}
+    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, allowed_types=None, excluded_types=None,
+                 metadata=None, ):
         """Create an ConTextItem object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -14,6 +15,12 @@ class ConTextItem:
             See https://spacy.io/usage/rule-based-matching.
         rule (str): The directionality or action of a modifier.
             One of ("forward", "backward", "bidirectional", or "terminate").
+        allowed_types (set or None): A set of target labels to allow a modifier to modify.
+            If None, will apply to any type not specifically excluded in excluded_types.
+            Only one of allowed_types and excluded_types can be used. An error will be thrown
+            if both or not None.
+        excluded_types (set or None): A set of target labels which this modifier cannot modify.
+            If None, will apply to all target types unless allowed_types is not None.
         metadata (dict or None): A dict of additional data to pass in,
             such as free-text comments, additional attributes, or ICD-10 codes.
             Default None.
@@ -23,7 +30,20 @@ class ConTextItem:
         self.category = category.upper()
         self.pattern = pattern
         self.rule = rule.upper()
+
+        if allowed_types is not None and excluded_types is not None:
+            raise ValueError("A ConTextItem was instantiated with non-null values for both allowed_types and excluded_types. "
+                             "Only one of these can be non-null, since cycontext either explicitly includes or excludes target types.")
+        if allowed_types is not None:
+            self.allowed_types = {label.upper() for label in allowed_types}
+        else:
+            self.allowed_types = None
+        if excluded_types is not None:
+            self.excluded_types = {label.upper() for label in excluded_types}
+        else:
+            self.excluded_types = None
         self.metadata = metadata
+
 
         if self.rule not in self._ALLOWED_RULES:
             raise ValueError("Rule {0} not recognized. Must be one of: {1}".format(self.rule, self._ALLOWED_RULES))
