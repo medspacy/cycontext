@@ -2,10 +2,10 @@ class ConTextItem:
     """An ConTextItem defines a ConText modifier. It defines the phrase to be matched,
     the category/semantic class, and the rule which the modifier executes.
     """
-    _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE")
+    _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE", "MAX_TARGETS", "MAX_SCOPE")
     _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "metadata", "allowed_types", "filtered_types"}
     def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, allowed_types=None, excluded_types=None,
-                 metadata=None, ):
+                 max_targets=None, max_scope=None, metadata=None):
         """Create an ConTextItem object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -21,6 +21,9 @@ class ConTextItem:
             if both or not None.
         excluded_types (set or None): A set of target labels which this modifier cannot modify.
             If None, will apply to all target types unless allowed_types is not None.
+        max_targets (int or None): The maximum number of targets which a modifier can modify.
+            If None, will modify all targets in its scope.
+        max_scope (int or None): A number to explicitly limit the size of the modifier's scope
         metadata (dict or None): A dict of additional data to pass in,
             such as free-text comments, additional attributes, or ICD-10 codes.
             Default None.
@@ -42,6 +45,14 @@ class ConTextItem:
             self.excluded_types = {label.upper() for label in excluded_types}
         else:
             self.excluded_types = None
+
+        if max_targets is not None and max_targets <= 0:
+            raise ValueError("max_targets must be >= 0 or None.")
+        self.max_targets = max_targets
+        if max_scope is not None and max_scope <= 0:
+            raise ValueError("max_scope must be >= 0 or None.")
+        self.max_scope = max_scope
+
         self.metadata = metadata
 
 
@@ -89,7 +100,7 @@ class ConTextItem:
     def to_dict(self):
         d = {}
         for key in self._ALLOWED_KEYS:
-            d[key] = self.__dict__[key]
+            d[key] = self.__dict__.get(key)
         return d
 
     def __repr__(self):

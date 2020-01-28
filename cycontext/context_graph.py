@@ -37,7 +37,15 @@ class ConTextGraph:
         for target in self.targets:
             for modifier in self.modifiers:
                 if modifier.modifies(target):
-                    edges.append((target, modifier))
+                    modifier.modify(target)
+
+        # Now do a second pass and reduce the number of targets
+        # for any modifiers with a max_targets int
+        for modifier in self.modifiers:
+            modifier.reduce_targets()
+            for target in modifier._targets:
+                edges.append((target, modifier))
+
         self.edges = edges
 
     def prune_modifiers(self):

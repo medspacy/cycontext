@@ -16,8 +16,12 @@ class TagObject:
         self.end = end
         self.doc = doc
 
+        self._targets = []
+        self._num_targets = 0
+
         self._scope_start = None
         self._scope_end = None
+
         self.set_scope()
 
     @property
@@ -45,6 +49,18 @@ class TagObject:
     def excluded_types(self):
         return self.context_item.excluded_types
 
+    @property
+    def num_targets(self):
+        return self._num_targets
+
+    @property
+    def max_targets(self):
+        return self.context_item.max_targets
+
+    @property
+    def max_scope(self):
+        return self.context_item.max_scope
+
     def allows(self, target_label):
         """Returns True if a modifier is able to modify a target type.
         A modifier may not be allowed if either self.allowed_types is not None and
@@ -66,9 +82,16 @@ class TagObject:
 
     def set_scope(self):
         """Applies the rule of the ConTextItem which generated
-        this TagObject to define a scope in the sentence.
+        this TagObject to define a scope.
+        If self.max_scope is None, then the default scope is the sentence which it occurs in
+        in whichever direction defined by self.rule.
         For example, if the rule is "forward", the scope will be [self.end: sentence.end].
         If the rule is "backward", it will be [self.start: sentence.start].
+
+        If self.max_scope is not None and the length of the default scope is longer than self.max_scope,
+        it will be reduced to self.max_scope.
+
+
         """
         sent = self.doc[self.start].sent
         if sent is None:
@@ -77,10 +100,24 @@ class TagObject:
 
         if self.rule.lower() == "forward":
             self._scope_start, self._scope_end = self.end, sent.end
+            if self.max_scope is not None and (self._scope_end - self._scope_start) > self.max_scope:
+                self._scope_end = self.end + self.max_scope
+
+
         elif self.rule.lower() == "backward":
             self._scope_start, self._scope_end = sent.start, self.start
-        else:
+            if self.max_scope is not None and (self._scope_end - self._scope_start) > self.max_scope:
+                self._scope_start = self.start - self.max_scope
+        else: # bidirectional
             self._scope_start, self._scope_end = sent.start, sent.end
+
+            # Set the max scope on either side
+            # Backwards
+            if self.max_scope is not None and (self.start - self._scope_start) > self.max_scope:
+                self._scope_start = self.start - self.max_scope
+            # Forwards
+            if self.max_scope is not None and (self._scope_end - self.end) > self.max_scope:
+                self._scope_end = self.end + self.max_scope
 
     def update_scope(self, span):
         """Change the scope of self to be the given spaCy span.
@@ -133,6 +170,27 @@ class TagObject:
         if target[-1] in self.scope:
             return True
         return False
+
+    def modify(self, target):
+        """Add target to the list of self._targets and increment self._num_targets."""
+        self._targets.append(target)
+        self._num_targets += 1
+
+    def reduce_targets(self):
+        """If self.max_targets is not None, reduce the targets which are modified
+        so that only the n closest targets are left. Distance is measured as
+        the distance to either the start or end of a target (whichever is closer).
+        """
+        if self.max_targets is None or self.num_targets <= self.max_targets:
+            return
+
+        target_dists = []
+        for target in self._targets:
+            dist = min(abs(self.start - target.end), abs(target.start - self.end))
+            target_dists.append((target, dist))
+        srtd_targets, _ = zip(*sorted(target_dists, key=lambda x: x[1]))
+        self._targets = srtd_targets[:self.max_targets]
+        self._num_targets = len(self._targets)
 
     def overlaps(self, other):
         if self.span[0] in other.span:

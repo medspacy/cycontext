@@ -23,6 +23,16 @@ class TestTagObject:
         doc.ents = (span1, span2)
         return doc
 
+    def create_num_target_examples(self):
+        doc = nlp("Pt with diabetes, pneumonia vs COPD")
+        spans = [
+            Span(doc, 2, 3, "CONDITION"),
+            Span(doc, 4, 5, "CONDITION"),
+            Span(doc, 6, 7, "CONDITION")
+        ]
+        doc.ents = spans
+        return doc
+
     def test_init(self):
         assert self.create_objects()
 
@@ -133,6 +143,62 @@ class TestTagObject:
         travel, condition = doc.ents # "puerto rico", "pneumonia"
         assert tag_object.modifies(travel) is True
         assert tag_object.modifies(condition) is True
+
+    def test_max_targets_less_than_targets(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=2)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 2
+        for target in tag_object._targets:
+            assert target.lower_ in ("pneumonia", "copd")
+
+    def test_max_targets_equal_to_targets(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=3)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 3
+
+    def test_max_targets_none(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=None)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 3
+
+    def test_max_scope(self):
+        raise NotImplementedError("Need to write this test.")
 
 
 
