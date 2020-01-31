@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='cycontext',
-      version='0.1.3',
+      version='0.1.4',
       description='ConText algorithm using spaCy for clinical NLP',
       author='Alec Chapman',
       author_email='abchapman93@gmail.com',
