@@ -51,7 +51,26 @@ class ConTextGraph:
     def prune_modifiers(self):
         """Prune overlapping modifiers
         so that only the longest span is kept.
+        For example, if "no" and "no evidence of" are both tagged as modifiers,
+        only "no evidence of" will be kept.
+
+        Additionally, this removes any modifiers which overlap with a target.
+        For example, if doc.ents contains a span "does not know" and "not" is tagged by
+        context as a modifier, "not" will be removed.
+
+        # TODO: Consider only removing modifiers which are subspans.
         """
+
+        # Start by comparing modifiers against targets
+        # Remove any modifiers which overlap with a target
+        # Go backwards so we can remove modifiers which need to be pruned
+        for i in range(len(self.modifiers)-1, -1, -1):
+            modifier = self.modifiers[i]
+            for target in self.targets:
+                if _spans_overlap(target, modifier.span):
+                    self.modifiers.pop(i)
+                    break
+
         unpruned = sorted(self.modifiers, key=lambda x: (x.end - x.end))
         if len(unpruned) > 0:
             rslt = self.prune_overlapping_modifiers(unpruned)
@@ -97,4 +116,11 @@ class ConTextGraph:
 
     def __repr__(self):
         return "<ConTextGraph> with {0} targets and {1} modifiers".format(len(self.targets), len(self.modifiers))
+
+def _spans_overlap(span1, span2):
+    """Checks whether two spacy spans overlap."""
+    if span1.start >= span2.start or span1.end <= span2.end:
+        return True
+    if span2.start >= span1.start or span2.end <= span1.end:
+        return True
 
