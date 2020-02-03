@@ -67,7 +67,7 @@ class ConTextGraph:
         for i in range(len(self.modifiers)-1, -1, -1):
             modifier = self.modifiers[i]
             for target in self.targets:
-                if _spans_overlap(target, modifier.span):
+                if overlap_target_modifiers(target, modifier.span):
                     self.modifiers.pop(i)
                     break
 
@@ -117,10 +117,18 @@ class ConTextGraph:
     def __repr__(self):
         return "<ConTextGraph> with {0} targets and {1} modifiers".format(len(self.targets), len(self.modifiers))
 
-def _spans_overlap(span1, span2):
+def overlap_target_modifiers(span1, span2):
     """Checks whether two spacy spans overlap."""
-    if span1.start >= span2.start or span1.end <= span2.end:
+    if _spans_overlap(span1, span2):
         return True
-    if span2.start >= span1.start or span2.end <= span1.end:
+    if _spans_overlap(span2, span1):
         return True
+    return False
+
+def _spans_overlap(span1, span2):
+    if span1.end > span2.start and span1.end <= span2.end:
+        return True
+    if span1.start >= span2.start and span1.start < span2.end:
+        return True
+
 
