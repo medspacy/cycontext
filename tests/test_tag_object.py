@@ -1,8 +1,10 @@
 import pytest
 import spacy
+from spacy.tokens import Span
 
-from cycontext import ConTextItem
+from cycontext import ConTextItem, ConTextComponent
 from cycontext.tag_object import TagObject
+from cycontext.helpers import is_modified_by
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -13,6 +15,23 @@ class TestTagObject:
         item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD")
         tag_object = TagObject(item, 0, 3, doc)
         return doc, item, tag_object
+
+    def create_target_type_examples(self):
+        doc = nlp("no history of travel to Puerto Rico pneumonia")
+        span1 = Span(doc, start=5, end=7, label="TRAVEL")
+        span2 = Span(doc, start=7, end=8, label="CONDITION")
+        doc.ents = (span1, span2)
+        return doc
+
+    def create_num_target_examples(self):
+        doc = nlp("Pt with diabetes, pneumonia vs COPD")
+        spans = [
+            Span(doc, 2, 3, "CONDITION"),
+            Span(doc, 4, 5, "CONDITION"),
+            Span(doc, 6, 7, "CONDITION")
+        ]
+        doc.ents = spans
+        return doc
 
     def test_init(self):
         assert self.create_objects()
@@ -83,6 +102,107 @@ class TestTagObject:
     def test_context_item(self):
         doc, item, tag_object = self.create_objects()
         assert tag_object.context_item is item
+
+    def test_allowed_types(self):
+        """Test that specifying allowed_types will only modify that target type."""
+        doc = self.create_target_type_examples()
+        item = ConTextItem("no history of travel to",
+                           category="DEFINITE_NEGATED_EXISTENCE",
+                           rule="FORWARD",
+                            allowed_types={"TRAVEL"},
+                           )
+        tag_object = TagObject(item, 0, 5, doc)
+        tag_object.set_scope()
+        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        assert tag_object.modifies(travel) is True
+        assert tag_object.modifies(condition) is False
+
+    def test_excluded_types(self):
+        """Test that specifying excluded_types will not modify that target type."""
+        doc = self.create_target_type_examples()
+        item = ConTextItem("no history of travel to",
+                           category="DEFINITE_NEGATED_EXISTENCE",
+                           rule="FORWARD",
+                            excluded_types={"CONDITION"},
+                           )
+        tag_object = TagObject(item, 0, 5, doc)
+        tag_object.set_scope()
+        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        assert tag_object.modifies(travel) is True
+        assert tag_object.modifies(condition) is False
+
+    def test_no_types(self):
+        """Test that not specifying allowed_types or excluded_types will modify all targets."""
+        doc = self.create_target_type_examples()
+        item = ConTextItem("no history of travel to",
+                           category="DEFINITE_NEGATED_EXISTENCE",
+                           rule="FORWARD"
+                           )
+        tag_object = TagObject(item, 0, 5, doc)
+        tag_object.set_scope()
+        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        assert tag_object.modifies(travel) is True
+        assert tag_object.modifies(condition) is True
+
+    def test_max_targets_less_than_targets(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=2)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 2
+        for target in tag_object._targets:
+            assert target.lower_ in ("pneumonia", "copd")
+
+    def test_max_targets_equal_to_targets(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=3)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 3
+
+    def test_max_targets_none(self):
+        """Check that if max_targets is not None it will reduce the targets
+        to the two closest ents.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_targets=None)
+        # Set "vs" to be the modifier
+        tag_object = TagObject(item, 5, 6, doc)
+        for target in doc.ents:
+            tag_object.modify(target)
+        assert tag_object.num_targets == 3
+
+        tag_object.reduce_targets()
+        assert tag_object.num_targets == 3
+
+    def test_max_scope(self):
+        raise NotImplementedError("Need to write this test.")
+
+
+
+
 
 
 

@@ -49,5 +49,9 @@ class TestConTextGraph:
         graph.update_scopes()
         assert graph.modifiers[0].scope == doc[5:6]
 
+    def test_prune_modifiers_overlap_target(self):
+        """Test that a modifier which overlaps with a target is pruned."""
+        raise NotImplementedError("Need to write this test.")
+
 
 
