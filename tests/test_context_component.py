@@ -15,6 +15,14 @@ class TestConTextComponent:
     def test_initiate(self):
         assert ConTextComponent(nlp)
 
+    def test_default_patterns(self):
+        context = ContextComponent(nlp)
+        assert context.item_data()
+
+    def test_empty_patterns(self):
+        context = ContextComponent(nlp, context_items=None)
+        assert not context.item_data()
+
     def test_call(self):
         doc = nlp("Pulmonary embolism has been ruled out.")
         context = ConTextComponent(nlp)

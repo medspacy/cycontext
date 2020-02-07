@@ -85,10 +85,11 @@ class ConTextComponent:
 
         if context_items == 'default':
             # use a default rule list, pneumonia for testing
-            ContextItem.from_json("../kb/pneumonia_modifiers.json")
-        elif !context_items: 
+            self._item_data = ContextItem.from_json("../kb/pneumonia_modifiers.json")
+        elif not context_items: 
             # otherwise leave the list empty.
-            continue
+            # do nothing
+            self._item_data = []
         else:
             # loading from json path or list is possible later
             raise ValueError("context_items must either be 'default' (default) or None at this time.")
