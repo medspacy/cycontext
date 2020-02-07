@@ -14,7 +14,7 @@ DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_experienced", False),
 class ConTextComponent:
     name = "context"
 
-    def __init__(self, nlp, targets="ents", add_attrs=True, prune=True):
+    def __init__(self, nlp, targets="ents", add_attrs=True, prune=True, context_items='default'):
 
         """Create a new ConTextComponent algorithm.
         This component matches modifiers in a Doc,
@@ -39,6 +39,8 @@ class ConTextComponent:
             the text "no history of afib", but only "no history of" should modify afib.
             If True, will drop shorter substrings completely.
             Default True.
+        context_items (str): Whether to load a set of default rules. By default, this loads pneumonia
+            modifiers. If None, no modifiers will be loaded.
 
         RETURNS (ConTextComponent)
         """
@@ -80,6 +82,16 @@ class ConTextComponent:
 
         else:
             raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
+
+        if context_items == 'default':
+            # use a default rule list, pneumonia for testing
+            ContextItem.from_json("../kb/pneumonia_modifiers.json")
+        elif !context_items: 
+            # otherwise leave the list empty.
+            continue
+        else:
+            # loading from json path or list is possible later
+            raise ValueError("context_items must either be 'default' (default) or None at this time.")
 
 
     @property
