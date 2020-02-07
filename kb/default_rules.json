@@ -4,31 +4,31 @@
       "category": "neg",
       "literal": "absence of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "adequate to rule her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "adequate to rule him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "adequate to rule out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "adequate to rule the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -40,7 +40,7 @@
       "category": "neg",
       "literal": "any other",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -52,13 +52,13 @@
       "category": "neg",
       "literal": "are negative",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "are ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
@@ -298,7 +298,7 @@
       "category": "hypo",
       "literal": "as needed",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -424,7 +424,7 @@
       "category": "neg",
       "literal": "as well as any",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -436,25 +436,25 @@
       "category": "exp",
       "literal": "aunt",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "aunt's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
@@ -466,19 +466,19 @@
       "category": "poss",
       "literal": "being ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "exp",
       "literal": "brother",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "brother's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -490,91 +490,91 @@
       "category": "poss",
       "literal": "can be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "can be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule her out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule him out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule the patinet out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "can rule the patinet out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "cannot",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -604,25 +604,25 @@
       "category": "neg",
       "literal": "checked for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "clear of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "come back for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "come back to",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -634,25 +634,25 @@
       "category": "poss",
       "literal": "concerned about",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "concerning for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "could be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "could be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -664,139 +664,139 @@
       "category": "exp",
       "literal": "dad",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "dad's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "daughter",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "declined",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "declines",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "denied",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "denies",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "denying",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "did not rule out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "did rule her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule her out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule him out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule the patient out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "did rule the patient out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "doesn't look like",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "doubt",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hist",
@@ -826,7 +826,7 @@
       "category": "neg",
       "literal": "evaluate for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -838,85 +838,85 @@
       "category": "neg",
       "literal": "fails to reveal",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "family",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "fam hx",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "father",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "father's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "free",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "free of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "grandfather",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "grandfather's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "grandmother",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "grandmother's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "has been negative",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "has been ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "have been ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "hypoexp",
@@ -934,7 +934,7 @@
       "category": "hist",
       "literal": "history",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -946,175 +946,175 @@
       "category": "hist",
       "literal": "h/o",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hist",
       "literal": "ho",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hist",
       "literal": "hx",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "if",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "inconsistent with",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "is not",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "is ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "is to be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "is to be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "is negative",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "is neg",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "isn't",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "lack of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "lacked",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "likely",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "may be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "may be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "might be",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "might be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "might be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "mom",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "mom's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "mother",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "mother's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "must be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "must be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "negative for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "never developed",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "never had",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -1126,217 +1126,217 @@
       "category": "neg",
       "literal": "no abnormal",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no cause of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no complaints of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no findings of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no findings to indicate",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no history of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no longer present",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "no mammographic evidence of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no new",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no new evidence",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no other evidence",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no radiographic evidence of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no sign( of)?",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no significant",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no signs of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no suggestion of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "no suspicious",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "non diagnostic",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "not",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not appear",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not appreciate",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not associated with",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "not been ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "not complain of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not demonstrate",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not exhibit",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not feel",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not had",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not have",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not have evidence of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not know of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not known to have",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not reveal",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "not ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "not see",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "not to be",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -1348,7 +1348,7 @@
       "category": "neg",
       "literal": "now resolved",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
@@ -1384,25 +1384,25 @@
       "category": "poss",
       "literal": "ought to be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "ought to be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hist",
       "literal": "past history",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hist",
       "literal": "past medical history",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypoexp",
@@ -1414,7 +1414,7 @@
       "category": "neg",
       "literal": "patient was not",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypoexp",
@@ -1426,13 +1426,13 @@
       "category": "poss",
       "literal": "possible",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "poss",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -1456,25 +1456,25 @@
       "category": "poss",
       "literal": "probable",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "prophylaxis",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "r/o",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rather than",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -1516,187 +1516,187 @@
       "category": "neg",
       "literal": "resolved",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "return",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "ro",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "rule the patinet out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled her out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled him out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled the patient out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "ruled the patient out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "rules the patient out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -1714,37 +1714,37 @@
       "category": "poss",
       "literal": "should be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "should be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "should he",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "should she",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "should the patient",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
       "literal": "should there",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "hypo",
@@ -1756,19 +1756,19 @@
       "category": "exp",
       "literal": "sister",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "sister's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "son",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -1810,91 +1810,91 @@
       "category": "neg",
       "literal": "sufficient to rule her out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule her out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule her out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule him out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule him out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule him out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule the patient out",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule the patient out against",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "sufficient to rule the patient out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "suggest(ive of)?",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "suspicious for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "test for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
@@ -1906,7 +1906,7 @@
       "category": "neg",
       "literal": "to exclude",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -1924,25 +1924,25 @@
       "category": "exp",
       "literal": "uncle",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
       "literal": "uncle's",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "unlikely",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "unremarkable for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "histexp",
@@ -1954,31 +1954,31 @@
       "category": "neg",
       "literal": "was negative",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "was not",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "was ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "neg",
       "literal": "wasn't",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "what must be ruled out is",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "exp",
@@ -1996,61 +1996,61 @@
       "category": "poss",
       "literal": "will be ruled out",
       "pattern": null,
-      "rule": "FORWARD"
+      "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "will be ruled out for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "with no",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "without",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "without any evidence of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "without evidence",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "without indication of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "without sign of",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "worrisome for",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "worried about",
       "pattern": null,
-      "rule": "BACKWARD"
+      "rule": "FORWARD"
     },
     {
       "category": "neg",
