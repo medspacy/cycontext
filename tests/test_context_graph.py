@@ -5,7 +5,8 @@ from cycontext import ConTextComponent
 from cycontext import ConTextItem
 from cycontext.tag_object import TagObject
 from cycontext.context_graph import ConTextGraph
-
+from spacy.tokens import Span
+from cycontext.context_graph import overlap_target_modifiers
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -51,7 +52,25 @@ class TestConTextGraph:
 
     def test_prune_modifiers_overlap_target(self):
         """Test that a modifier which overlaps with a target is pruned."""
-        raise NotImplementedError("Need to write this test.")
+        doc = nlp("The patient has heart failure.")
+        doc.ents = (Span(doc, 3, 5, "CONDITION"),)
+        context_item = ConTextItem("failure", "MODIFIER")
+        tag_object = TagObject(context_item, 4, 5, doc)
+        graph = ConTextGraph()
+
+        graph.modifiers = [tag_object]
+        graph.targets = doc.ents
+        graph.prune_modifiers()
+        graph.apply_modifiers()
+
+        assert overlap_target_modifiers(tag_object.span, doc.ents[0])
+        assert len(graph.modifiers) == 0
+        assert len(graph.edges) == 0
+
+
+
+
+
 
 
 

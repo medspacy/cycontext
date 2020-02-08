@@ -68,6 +68,7 @@ class ConTextGraph:
             modifier = self.modifiers[i]
             for target in self.targets:
                 if overlap_target_modifiers(target, modifier.span):
+
                     self.modifiers.pop(i)
                     break
 

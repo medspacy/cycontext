@@ -181,7 +181,7 @@ class TestTagObject:
         assert tag_object.num_targets == 3
 
     def test_max_targets_none(self):
-        """Check that if max_targets is not None it will reduce the targets
+        """Check that if max_targets is None it will not reduce the targets
         to the two closest ents.
         """
         doc = self.create_num_target_examples()
@@ -198,12 +198,33 @@ class TestTagObject:
         assert tag_object.num_targets == 3
 
     def test_max_scope(self):
-        raise NotImplementedError("Need to write this test.")
+        """Test that if max_scope is not None it will reduce the range
+        of text which is modified.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_scope=1)
+        tag_object = TagObject(item, 5, 6, doc)
 
+        for target in doc.ents:
+            if tag_object.modifies(target):
+                tag_object.modify(target)
+        assert tag_object.num_targets == 2
+        for target in tag_object._targets:
+            assert target.lower_ in ("pneumonia", "copd")
 
+    def test_max_scope_none(self):
+        """Test that if max_scope is not None it will reduce the range
+        of text which is modified.
+        """
+        doc = self.create_num_target_examples()
+        assert len(doc.ents) == 3
+        item = ConTextItem("vs", category="UNCERTAIN",
+                           rule="BIDIRECTIONAL", max_scope=None)
+        tag_object = TagObject(item, 5, 6, doc)
 
-
-
-
-
-
+        for target in doc.ents:
+            if tag_object.modifies(target):
+                tag_object.modify(target)
+        assert tag_object.num_targets == 3
