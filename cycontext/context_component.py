@@ -137,7 +137,11 @@ class ConTextComponent:
 
         context_item (list)
         """
-        self._item_data += item_data
+        try:
+            self._item_data += item_data
+        except TypeError:
+            raise TypeError("item_data must be a list of ConText items. If you're just passing in a single ConText Item, "
+                            "make sure to wrap the item in a list: `context.add([item])`")
 
         for item in item_data:
 
