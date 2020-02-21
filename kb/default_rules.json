@@ -1447,12 +1447,6 @@
       "rule": "TERMINATE"
     },
     {
-      "category": "hist",
-      "literal": "previous",
-      "pattern": null,
-      "rule": "one"
-    },
-    {
       "category": "poss",
       "literal": "probable",
       "pattern": null,
