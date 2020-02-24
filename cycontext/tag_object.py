@@ -131,6 +131,12 @@ class TagObject:
         """If self and obj have the same category
         or if obj has a directionality of 'terminate',
         use the span of obj to update the scope of self.
+        Limiting the scope of two modifiers of the same category
+        reduces the number of modifiers. For example, in
+        'no evidence of CHF, no pneumonia', 'pneumonia' will only
+        be modified by 'no', not 'no evidence of'.
+        'terminate' modifiers limit the scope of a modifier
+        like 'no evidence of' in 'no evidence of CHF, **but** there is pneumonia'
 
         other (TagObject)
         Returns True if obj modfified the scope of self
@@ -140,6 +146,11 @@ class TagObject:
         if self.rule.lower() == "terminate":
             return False
         if (other.rule.lower() != "terminate") and (other.category.lower() != self.category.lower()):
+            return False
+
+        # If two modifiers have the same category but modify different target types,
+        # don't limit scope.
+        if (self.allowed_types != other.allowed_types) or (self.excluded_types != other.excluded_types):
             return False
 
         orig_scope = self.scope
