@@ -67,11 +67,35 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 2, 4, doc)
         assert tag_object.limit_scope(tag_object2)
 
+
     def test_limit_scope2(self):
         doc, item, tag_object = self.create_objects()
         item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
         tag_object2 = TagObject(item2, 2, 4, doc)
         assert not tag_object2.limit_scope(tag_object)
+
+    def test_limit_scope3(self):
+        """Test that two modifiers of the same type limit the scope of the first modifier."""
+        doc = nlp("no evidence of CHF, neg for pneumonia")
+        item = ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD")
+        item2 = ConTextItem("neg for", "DEFINITE_NEGATED_EXISTENCE", "FORWARD")
+        tag_object = TagObject(item, 0, 3, doc)
+        tag_object2 = TagObject(item2, 5, 7, doc)
+        assert tag_object.limit_scope(tag_object2)
+
+    def test_no_limit_scope_same_category_different_allowed_types(self):
+        """Test that a two TagObjects of the same type but with different
+         allowed types does not limits the scope of the tag object.
+         """
+        doc = nlp("no history of travel to Puerto Rico, neg for pneumonia")
+
+        item = ConTextItem("no history of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD",
+                           allowed_types={"TRAVEL"})
+        item2 = ConTextItem("neg for", "DEFINITE_NEGATED_EXISTENCE", "FORWARD",
+                            allowed_types={"CONDITION"})
+        tag_object = TagObject(item, 0, 3, doc)
+        tag_object2 = TagObject(item2, 8, 10, doc)
+        assert not tag_object.limit_scope(tag_object2)
 
     def test_set_scope_failes_no_sentences(self):
         """Test that setting the scope fails if sentence boundaries haven't been set."""
