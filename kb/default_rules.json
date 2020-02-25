@@ -8,26 +8,27 @@
     },
     {
       "category": "neg",
-      "literal": "adequate to rule her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "adequate to rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
       "literal": "adequate to rule out",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": "adequate"},
+        {"LOWER": "to"},
+        {"LOWER": "rule"},
+        {"LOWER": {"IN": ["him", "her", "them", "patient", "pt"]}, "OP": "?"},
+        {"LOWER": "out"}
+        ],
       "rule": "FORWARD"
     },
     {
       "category": "neg",
       "literal": "adequate to rule the patient out",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": "adequate"},
+        {"LOWER": "to"},
+        {"LOWER": "rule"},
+        {"LOWER": "the"},
+        {"LOWER": {"IN": ["patient", "pt"]}},
+        {"LOWER": "out"}
+        ],
       "rule": "FORWARD"
     },
     {
@@ -63,229 +64,13 @@
     {
       "category": "neg",
       "literal": "as a cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an source of",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": "as"},
+        {"LOWER": {"IN": ["a", "an", "the"]}},
+        {"LOWER": "secondary", "OP": "?"},
+        {"LOWER": {"IN": ["cause", "etiology", "source", "reason"]}},
+        {"LOWER": {"IN": ["for", "of"]}}
+        ],
       "rule": "TERMINATE"
     },
     {
@@ -299,126 +84,6 @@
       "literal": "as needed",
       "pattern": null,
       "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "as the cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the source of",
-      "pattern": null,
-      "rule": "TERMINATE"
     },
     {
       "category": "neg",
@@ -1035,31 +700,33 @@
     {
       "category": "poss",
       "literal": "may be ruled out",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": {"IN": ["may", "might"]}},
+        {"LOWER": "be"},
+        {"LOWER": "ruled"},
+        {"LOWER": "out"}
+        ],
       "rule": "BACKWARD"
     },
     {
       "category": "poss",
       "literal": "may be ruled out for",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": {"IN": ["may", "might"]}},
+        {"LOWER": "be"},
+        {"LOWER": "ruled"},
+        {"LOWER": "out"},
+        {"LOWER": "for"}
+        ],
       "rule": "FORWARD"
     },
     {
       "category": "poss",
       "literal": "might be",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "might be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "might be ruled out for",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": {"IN": ["may", "might"]}},
+        {"LOWER": "be"}
+        ]
       "rule": "FORWARD"
     },
     {
@@ -2013,25 +1680,12 @@
     {
       "category": "neg",
       "literal": "without any evidence of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "without evidence",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "without indication of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "without sign of",
-      "pattern": null,
+      "pattern": [
+        {"LOWER": "without"},
+        {"LOWER": "any", "OP": "?"},
+        {"LOWER": {"IN": ["evidence", "indication", "sign"]}},
+        {"LOWER": {"IN": ["of", "for"]}, "OP":"?"}
+        ],
       "rule": "FORWARD"
     },
     {
