@@ -1,8 +1,11 @@
+from os import path
+
 from spacy.matcher import Matcher, PhraseMatcher
 from spacy.tokens import Doc, Span
 
 from .tag_object import TagObject
 from .context_graph import ConTextGraph
+from .context_item import ConTextItem
 
 #
 DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_experienced", False),
@@ -14,7 +17,7 @@ DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_experienced", False),
 class ConTextComponent:
     name = "context"
 
-    def __init__(self, nlp, targets="ents", add_attrs=True, prune=True):
+    def __init__(self, nlp, targets="ents", add_attrs=True, prune=True, rules='default', rule_list=None):
 
         """Create a new ConTextComponent algorithm.
         This component matches modifiers in a Doc,
@@ -39,6 +42,13 @@ class ConTextComponent:
             the text "no history of afib", but only "no history of" should modify afib.
             If True, will drop shorter substrings completely.
             Default True.
+        rules (str): Which rules to load on initialization. Default is 'default'.
+            - 'default': Load the default set of rules provided with cyConText
+            - 'other': Load a custom set of rules, please also set _______ with a file path or list.
+            - None: Load no rules.
+        rule_list (str or list): The location of rules in json format or a list of ContextItems. Default
+            is None.
+
 
         RETURNS (ConTextComponent)
         """
@@ -80,6 +90,41 @@ class ConTextComponent:
 
         else:
             raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
+
+        if rules == 'default':
+            # use a default rule list, pneumonia for testing
+            self._item_data = ConTextItem.from_json("./kb/default_rules.json")
+
+        elif rules == 'other':
+            # use custom rules
+            if isinstance(rule_list, str):
+                # if rules_list is a string, then it must be a path to a json
+                if path.exists(rule_list):
+                    self._item_data = ConTextItem.from_json(rule_list)
+                else:
+                    raise ValueError("rule_list must be a valid path. Currently is: {0}".format(rule_list))
+
+            elif isinstance(rule_list, list):
+                # otherwise it is a list of contextitems
+                if not rule_list:
+                    raise ValueError("rule_list must not be empty.")
+                for item in rule_list:
+                    # check that all items are contextitems
+                    if not isinstance(item, ConTextItem):
+                        raise ValueError("rule_list must contain only ContextItems. Currently contains: {0}".format(type(item)))
+                self._item_data = rule_list
+
+            else:
+                raise ValueError("rule_list must be a valid path or list of ContextItems. Currenty is: {0}".format(type(rule_list)))
+
+        elif not rules: 
+            # otherwise leave the list empty.
+            # do nothing
+            self._item_data = []
+
+        else:
+            # loading from json path or list is possible later
+            raise ValueError("rules must either be 'default' (default), 'other' or None.")
 
 
     @property

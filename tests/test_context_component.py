@@ -15,6 +15,43 @@ class TestConTextComponent:
     def test_initiate(self):
         assert ConTextComponent(nlp)
 
+    def test_default_patterns(self):
+        """Test that default rules are loaded"""
+        context = ConTextComponent(nlp)
+        assert context.item_data
+
+    def test_empty_patterns(self):
+        """Test that no rules are loaded"""
+        context = ConTextComponent(nlp, rules=None)
+        assert not context.item_data
+
+    def test_custom_patterns_json(self):
+        """Test that rules are loaded from a json"""
+        context = ConTextComponent(nlp, rules='other', rule_list='./kb/default_rules.json')
+        assert context.item_data
+
+    def test_custom_patterns_list(self):
+        """Test that rules are loaded from a list"""
+        item = ConTextItem("evidence of", "DEFINITE_EXISTENCE", "forward")
+        context = ConTextComponent(nlp, rules='other', rule_list=[item])
+        assert context.item_data
+
+    def test_bad_rules_arg(self):
+        with pytest.raises(ValueError):
+            ConTextComponent(nlp, rules='not valid')
+
+    def test_bad_rule_list_path(self):
+        with pytest.raises(ValueError):
+            ConTextComponent(nlp, rules='other', rule_list='not a path')
+
+    def test_bad_rule_list_empty(self):
+        with pytest.raises(ValueError):
+            ConTextComponent(nlp, rules='other', rule_list=[])
+
+    def test_bad_rule_list_items(self):
+        with pytest.raises(ValueError):
+            ConTextComponent(nlp, rules='other', rule_list=["list of strings"])
+
     def test_call(self):
         doc = nlp("Pulmonary embolism has been ruled out.")
         context = ConTextComponent(nlp)
@@ -35,7 +72,7 @@ class TestConTextComponent:
         'is_negated' are registered on spaCy spans.
         """
         doc = nlp("This is a span.")
-        context = ConTextComponent(nlp, add_attrs=True)
+        context = ConTextComponent(nlp, add_attrs=True, rules=None)
         context(doc)
         span = doc[-2:]
         assert hasattr(span._, "is_current")
@@ -43,7 +80,7 @@ class TestConTextComponent:
 
     def test_default_attribute_values(self):
         doc = nlp("There is evidence of pneumonia.")
-        context = ConTextComponent(nlp, add_attrs=True)
+        context = ConTextComponent(nlp, add_attrs=True, rules=None)
         doc.ents = (doc[-2:-1],)
         context(doc)
 
@@ -52,7 +89,7 @@ class TestConTextComponent:
 
     def test_is_negated(self):
         doc = nlp("There is no evidence of pneumonia.")
-        context = ConTextComponent(nlp, add_attrs=True)
+        context = ConTextComponent(nlp, add_attrs=True, rules=None)
         item_data = [ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")]
         context.add(item_data)
         doc.ents = (doc[-2:-1],)
@@ -62,7 +99,7 @@ class TestConTextComponent:
 
     def test_is_current(self):
         doc = nlp("History of pneumonia.")
-        context = ConTextComponent(nlp, add_attrs=True)
+        context = ConTextComponent(nlp, add_attrs=True, rules=None)
         item_data = [ConTextItem("history of", "HISTORICAL", rule="forward")]
         context.add(item_data)
         doc.ents = (doc[-2:-1],)
@@ -72,7 +109,7 @@ class TestConTextComponent:
 
     def test_is_experienced(self):
         doc = nlp("Family history of breast cancer.")
-        context = ConTextComponent(nlp, add_attrs=True)
+        context = ConTextComponent(nlp, add_attrs=True, rules=None)
         item_data = [ConTextItem("family history of", "FAMILY_HISTORY", rule="forward")]
         context.add(item_data)
         doc.ents = (doc[-3:-1],)
