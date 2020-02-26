@@ -980,7 +980,7 @@
         },
         {
           "LOWER": {"IN": ["not", "n't"]}
-        },
+        }
       ],
       "rule": "FORWARD"
     },
