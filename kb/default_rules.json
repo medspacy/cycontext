@@ -1058,7 +1058,7 @@
       "pattern": [
         {
           "LOWER": {
-            "IN": ["may", "might", "must", "should", "will", "could", "can"]
+            "IN": ["may", "might", "must", "should", "will", "could"]
           },
           "OP": "?"
         },
@@ -1089,7 +1089,7 @@
       "pattern": [
         {
           "LOWER": {
-            "IN": ["may", "might", "must", "should", "will", "could", "can"]
+            "IN": ["may", "might", "must", "should", "will", "could"]
           },
           "OP": "?"
         },
