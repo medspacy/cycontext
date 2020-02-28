@@ -8,10 +8,11 @@ from .context_graph import ConTextGraph
 from .context_item import ConTextItem
 
 #
-DEFAULT_ATTRS = {"DEFINITE_NEGATED_EXISTENCE": ("is_experienced", False),
-                 "FAMILY_HISTORY": ("is_experienced", False),
-                 "INDICATION": ("is_experienced", False),
-                 "HISTORICAL": ("is_current", False),
+DEFAULT_ATTRS = {"NEGATED_EXISTENCE": {"is_negated": True},
+                 "POSSIBLE_EXISTENCE": {"is_uncertain": True},
+                 "HISTORICAL": {"is_historical": True},
+                 "HYPOTHETICAL": {"is_hypothetical": True},
+                 "FAMILY": {"is_family": True},
                  }
 
 class ConTextComponent:
@@ -33,9 +34,11 @@ class ConTextComponent:
             Otherwise will look for a custom attribute in Doc._.{targets}
         add_attrs (bool): Whether or not to add the additional spaCy Span attributes (ie., Span._.x)
             defining assertion on the targets. By default, these are:
-            - is_negated: True if a target is modified by 'DEFINITE_NEGATED_EXISTENCE', default False
-            - is_current: False if a target is modified by 'HISTORICAL', default True
-            - is_experiencer: False if a target is modified by 'FAMILY_HISTORY', default True
+            - is_negated: True if a target is modified by 'NEGATED_EXISTENCE', default False
+            - is_uncertain: True if a target is modified by 'POSSIBLE_EXISTENCE', default False
+            - is_historical: True if a target is modified by 'HISTORICAL', default False
+            - is_hypothetical: True if a target is modified by 'HYPOTHETICAL', default False
+            - is_family: True if a target is modified by 'FAMILY', default False
             In the future, these should be made customizable.
         prune (bool): Whether or not to prune modifiers which are substrings of another modifier.
             For example, if "no history of" and "history of" are both ConTextItems, both will match
@@ -71,19 +74,20 @@ class ConTextComponent:
         self.matcher = Matcher(nlp.vocab, validate=True)
 
 
-        self.register_attributes()
+        self.register_graph_attributes()
         if add_attrs is False:
             self.add_attrs = False
         elif add_attrs is True:
             self.add_attrs = True
             self.context_attributes_mapping = DEFAULT_ATTRS
-            Span.set_extension("is_current", default=True, force=True)
-            Span.set_extension("is_experienced", default=True, force=True)
+            self.register_default_attributes()
         elif isinstance(add_attrs, dict):
             # Check that each of the attributes being added has been set
-            for _, (attr_name, _) in add_attrs.items():
-                if not Span.has_extension(attr_name):
-                    raise ValueError("Custom extension {0} has not been set. Call Span.set_extension.")
+            for modifier in add_attrs.keys():
+                attr_dict = add_attrs[modifier]
+                for attr_name, attr_value in attr_dict.items():
+                    if not Span.has_extension(attr_name):
+                        raise ValueError("Custom extension {0} has not been set. Call Span.set_extension.")
 
             self.add_attrs = True
             self.context_attributes_mapping = add_attrs
@@ -92,8 +96,10 @@ class ConTextComponent:
             raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
 
         if rules == 'default':
-            # use a default rule list, pneumonia for testing
-            self._item_data = ConTextItem.from_json("./kb/default_rules.json")
+            from pathlib import Path
+            default_rules_filepath = path.join(Path(__file__).resolve().parents[1], "kb", "default_rules.json")
+            self._item_data = ConTextItem.from_json(default_rules_filepath)
+
 
         elif rules == 'other':
             # use custom rules
@@ -134,7 +140,6 @@ class ConTextComponent:
     def add(self, item_data):
         """Add a list of ConTextItem items to ConText.
 
-
         context_item (list)
         """
         try:
@@ -162,7 +167,16 @@ class ConTextComponent:
             self._modifier_item_mapping[uid] = item
             self._i += 1
 
-    def register_attributes(self):
+    def register_default_attributes(self):
+        """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
+        for attr_name in ["is_negated", "is_uncertain", "is_historical", "is_hypothetical", "is_family"]:
+            try:
+                Span.set_extension(attr_name, default=False)
+            except ValueError: # Extension already set
+                pass
+
+
+    def register_graph_attributes(self):
         """Register spaCy container custom attribute extensions.
         By default will register Span._.modifiers and Doc._.context_graph.
 
@@ -182,8 +196,9 @@ class ConTextComponent:
 
         for (target, modifier) in edges:
             if modifier.category in self.context_attributes_mapping:
-                attr_name, attr_value = self.context_attributes_mapping[modifier.category]
-                setattr(target._, attr_name, attr_value)
+                attr_dict = self.context_attributes_mapping[modifier.category]
+                for attr_name, attr_value in attr_dict.items():
+                    setattr(target._, attr_name, attr_value)
 
     def __call__(self, doc):
         """Applies the ConText algorithm to a Doc.

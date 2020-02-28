@@ -75,29 +75,30 @@ class TestConTextComponent:
         context = ConTextComponent(nlp, add_attrs=True, rules=None)
         context(doc)
         span = doc[-2:]
-        assert hasattr(span._, "is_current")
-        assert hasattr(span._, "is_experienced")
+        for attr_name in ["is_negated", "is_uncertain", "is_historical", "is_hypothetical", "is_family"]:
+            assert hasattr(span._, attr_name)
 
     def test_default_attribute_values(self):
+        """Check that default Span attributes have False values without any modifiers."""
         doc = nlp("There is evidence of pneumonia.")
         context = ConTextComponent(nlp, add_attrs=True, rules=None)
         doc.ents = (doc[-2:-1],)
         context(doc)
+        for attr_name in ["is_negated", "is_uncertain", "is_historical", "is_hypothetical", "is_family"]:
+            assert getattr(doc.ents[0]._, attr_name) is False
 
-        assert doc.ents[0]._.is_current is True
-        assert doc.ents[0]._.is_experienced is True
 
     def test_is_negated(self):
         doc = nlp("There is no evidence of pneumonia.")
         context = ConTextComponent(nlp, add_attrs=True, rules=None)
-        item_data = [ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", rule="forward")]
+        item_data = [ConTextItem("no evidence of", "NEGATED_EXISTENCE", rule="forward")]
         context.add(item_data)
         doc.ents = (doc[-2:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_experienced is False
+        assert doc.ents[0]._.is_negated is True
 
-    def test_is_current(self):
+    def test_is_historical(self):
         doc = nlp("History of pneumonia.")
         context = ConTextComponent(nlp, add_attrs=True, rules=None)
         item_data = [ConTextItem("history of", "HISTORICAL", rule="forward")]
@@ -105,51 +106,57 @@ class TestConTextComponent:
         doc.ents = (doc[-2:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_current is False
+        assert doc.ents[0]._.is_historical is True
 
-    def test_is_experienced(self):
+    def test_is_family(self):
         doc = nlp("Family history of breast cancer.")
         context = ConTextComponent(nlp, add_attrs=True, rules=None)
-        item_data = [ConTextItem("family history of", "FAMILY_HISTORY", rule="forward")]
+        item_data = [ConTextItem("family history of", "FAMILY", rule="forward")]
         context.add(item_data)
         doc.ents = (doc[-3:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_experienced is False
+        assert doc.ents[0]._.is_family is True
 
     def test_custom_attribute_error(self):
-        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
+        """Test that a custom spacy attribute which has not been set
+        will throw a ValueError.
+        """
+        custom_attrs = {'FAKE_MODIFIER': {'non_existent_attribute': True},
                         }
         with pytest.raises(ValueError):
             ConTextComponent(nlp, add_attrs=custom_attrs)
 
     def test_custom_attributes_mapping(self):
-        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
-                        }
-        Span.set_extension("is_negated", default=False)
-        context = ConTextComponent(nlp, add_attrs=custom_attrs)
-        assert context.context_attributes_mapping == custom_attrs
-
-    def test_custom_attributes_value(self):
-        custom_attrs = {'DEFINITE_NEGATED_EXISTENCE': ('is_negated', True),
+        custom_attrs = {'NEGATED_EXISTENCE': {'is_negated': True},
                         }
         try:
             Span.set_extension("is_negated", default=False)
         except:
             pass
         context = ConTextComponent(nlp, add_attrs=custom_attrs)
-        context.add([ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD")])
+        assert context.context_attributes_mapping == custom_attrs
+
+    def test_custom_attributes_value1(self):
+        custom_attrs = {'NEGATED_EXISTENCE': {'is_negated': True},
+                        }
+        try:
+            Span.set_extension("is_negated", default=False)
+        except:
+            pass
+        context = ConTextComponent(nlp, add_attrs=custom_attrs)
+        context.add([ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD")])
         doc = nlp("There is no evidence of pneumonia.")
         doc.ents = (doc[-2:-1],)
         context(doc)
 
         assert doc.ents[0]._.is_negated is True
 
-    def test_custom_attributes_value(self):
-        custom_attrs = {'FAMILY_HISTORY': ('is_family_history', True),
+    def test_custom_attributes_value2(self):
+        custom_attrs = {'FAMILY': {'is_family': True},
                         }
         try:
-            Span.set_extension("is_family_history", default=False)
+            Span.set_extension("is_family", default=False)
         except:
             pass
         context = ConTextComponent(nlp, add_attrs=custom_attrs)
@@ -158,4 +165,4 @@ class TestConTextComponent:
         doc.ents = (doc[-2:-1],)
         context(doc)
 
-        assert doc.ents[0]._.is_family_history is False
+        assert doc.ents[0]._.is_family is False
