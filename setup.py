@@ -14,5 +14,6 @@ setup(name='cycontext',
       packages=['cycontext'],
       install_requires=["spacy>=2.2.2"],
       long_description=long_description,
-      long_description_content_type='text/markdown'
+      long_description_content_type='text/markdown',
+      package_data={'cycontext': ['../kb/*']},
       )

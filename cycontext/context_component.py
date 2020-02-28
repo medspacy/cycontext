@@ -96,8 +96,10 @@ class ConTextComponent:
             raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
 
         if rules == 'default':
-            # use a default rule list, pneumonia for testing
-            self._item_data = ConTextItem.from_json("./kb/default_rules.json")
+            from pathlib import Path
+            default_rules_filepath = path.join(Path(__file__).resolve().parents[1], "kb", "default_rules.json")
+            self._item_data = ConTextItem.from_json(default_rules_filepath)
+
 
         elif rules == 'other':
             # use custom rules
