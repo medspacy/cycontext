@@ -98,7 +98,8 @@ class ConTextComponent:
         if rules == 'default':
             from pathlib import Path
             default_rules_filepath = path.join(Path(__file__).resolve().parents[1], "kb", "default_rules.json")
-            self._item_data = ConTextItem.from_json(default_rules_filepath)
+            item_data = ConTextItem.from_json(default_rules_filepath)
+            self.add(item_data)
 
 
         elif rules == 'other':
@@ -106,7 +107,8 @@ class ConTextComponent:
             if isinstance(rule_list, str):
                 # if rules_list is a string, then it must be a path to a json
                 if path.exists(rule_list):
-                    self._item_data = ConTextItem.from_json(rule_list)
+                    item_data = ConTextItem.from_json(rule_list)
+                    self.add(item_data)
                 else:
                     raise ValueError("rule_list must be a valid path. Currently is: {0}".format(rule_list))
 
@@ -118,7 +120,7 @@ class ConTextComponent:
                     # check that all items are contextitems
                     if not isinstance(item, ConTextItem):
                         raise ValueError("rule_list must contain only ContextItems. Currently contains: {0}".format(type(item)))
-                self._item_data = rule_list
+                self.add(rule_list)
 
             else:
                 raise ValueError("rule_list must be a valid path or list of ContextItems. Currenty is: {0}".format(type(rule_list)))

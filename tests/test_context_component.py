@@ -87,6 +87,17 @@ class TestConTextComponent:
         for attr_name in ["is_negated", "is_uncertain", "is_historical", "is_hypothetical", "is_family"]:
             assert getattr(doc.ents[0]._, attr_name) is False
 
+    def test_default_rules_match(self):
+        context = ConTextComponent(nlp)
+        matcher = context.matcher
+        assert matcher(nlp("no evidence of"))
+
+    def test_custom_rules_match(self):
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "forward")
+        context = ConTextComponent(nlp, rules='other', rule_list=[item])
+        matcher = context.phrase_matcher
+        assert matcher(nlp("no evidence of"))
+
 
     def test_is_negated(self):
         doc = nlp("There is no evidence of pneumonia.")
