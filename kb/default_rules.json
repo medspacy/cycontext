@@ -1,2056 +1,1373 @@
 {
   "item_data": [
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "absence of",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "adequate to rule her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "adequate to rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "adequate to rule out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["adequate", "sufficient"]
+          }
+        },
+        {
+          "LOWER": "to"
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": {
+            "IN": ["him", "her", "them", "patient", "pt"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "adequate to rule the patient out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["adequate", "sufficient"]
+          }
+        },
+        {
+          "LOWER": "to"
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": "the"
+        },
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "although",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "any other",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "apart from",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "apart"
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "from"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "are negative",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "are ruled out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["are", "is", "was"]
+          }
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "as a cause for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "as"
+        },
+        {
+          "LOWER": {
+            "IN": ["a", "an", "the"]
+          }
+        },
+        {
+          "LOWER": "secondary",
+          "OP": "?"
+        },
+        {
+          "LOWER": {
+            "IN": ["cause", "etiology", "source", "reason"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "of"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "as a cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as a source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as an source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "as has",
       "pattern": null,
       "rule": "TERMINATE"
     },
     {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "as needed",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "as the cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary cause for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary origin for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the secondary source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the source for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "as the source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "as well as any",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "aside from",
       "pattern": null,
       "rule": "TERMINATE"
     },
     {
-      "category": "exp",
-      "literal": "aunt",
-      "pattern": null,
+      "category": "FAMILY",
+      "literal": "family",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": [
+              "aunt",
+              "aunts",
+              "brother",
+              "brothers",
+              "child",
+              "children",
+              "cousin",
+              "cousins",
+              "dad",
+              "dads",
+              "daughter",
+              "daughters",
+              "fam",
+              "family",
+              "families",
+              "father",
+              "fathers",
+              "grandchild",
+              "grandchildren",
+              "granddaughter",
+              "granddaughters",
+              "grandfather",
+              "grandfathers",
+              "grandmother",
+              "grandmothers",
+              "grandparent",
+              "grandparents",
+              "grandson",
+              "grandsons",
+              "mom",
+              "moms",
+              "mother",
+              "mothers",
+              "nephew",
+              "nephews",
+              "niece",
+              "nieces",
+              "parent",
+              "parents",
+              "sibling",
+              "siblings",
+              "sister",
+              "sisters",
+              "son",
+              "sons",
+              "uncle",
+              "uncles"
+            ]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["'s", "'"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "exp",
-      "literal": "aunt's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "because",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["because", "since"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "poss",
-      "literal": "being ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "brother",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "brother's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "but",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["but", "however", "nevertheless", "still", "except", "though", "although", "yet"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "poss",
-      "literal": "can be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "can be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule her out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule him out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "can rule out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["can", "did"]
+          }
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": {
+            "IN": ["him", "her", "them", "patient", "pt"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "can rule out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "can rule the patient out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["can", "did"]
+          }
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": "the"
+        },
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "can rule the patinet out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "can rule the patinet out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "cannot",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "cause for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["cause", "causes", "reason", "reasons", "etiology"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "of"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "cause of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "causes for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "causes of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "checked for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "clear of",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "come back for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "come"
+        },
+        {
+          "LOWER": "back"
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "to"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
-      "literal": "come back to",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "histexp",
-      "literal": "complains",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "concerned about",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["concerned", "concerning"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "about"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "concerning for",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "decline",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["decline", "declined", "declines", "declining"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "could be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "could be ruled out for",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "deny",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["deny", "denied", "denies", "denying"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "histexp",
-      "literal": "currently",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "exp",
-      "literal": "dad",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "dad's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "daughter",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "declined",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "declines",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "denied",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "denies",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "denying",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "did not rule out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["did", "could"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": "out"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
-      "literal": "did rule her out",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "does not look like",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["does", "did"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "look"
+        },
+        {
+          "LOWER": "like"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "did rule her out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule him out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule the patient out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule the patient out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "did rule the patient out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "doesn't look like",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "doubt",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "hist",
-      "literal": "ED",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "hist",
-      "literal": "emergency department",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "etiology for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "etiology of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "evaluate for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "except",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "fails to reveal",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "exp",
-      "literal": "family",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "fam hx",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "father",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "father's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "free",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "free of",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "exp",
-      "literal": "grandfather",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "grandfather's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "grandmother",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "grandmother's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "has been negative",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "has been ruled out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["has", "have"]
+          }
+        },
+        {
+          "LOWER": "been"
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
-      "literal": "have been ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "hypoexp",
-      "literal": "her",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "hypoexp",
-      "literal": "his",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "hist",
+      "category": "HISTORICAL",
       "literal": "history",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["history", "hx", "hist", "ho"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "however",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "hist",
+      "category": "HISTORICAL",
       "literal": "h/o",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "hist",
-      "literal": "ho",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hist",
-      "literal": "hx",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "if",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "inconsistent with",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "is not",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "is ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "is to be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "is to be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "is negative",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "is neg",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "isn't",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "lack of",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "lacked",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["lacked", "lacking"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "likely",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "may be ruled out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["may", "might", "must", "should", "will", "could", "can"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "be"
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "may be ruled out for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["may", "might", "must", "should", "will", "could", "can"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "be"
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": "for"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "might be",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["may", "might"]
+          }
+        },
+        {
+          "LOWER": "be"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "might be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "might be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "mom",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "mom's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "mother",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "mother's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "must be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "must be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "negative for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["negative", "neg"]
+          }
+        },
+        {
+          "LOWER": "for"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "never developed",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "never had",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "never"
+        },
+        {
+          "LOWER": {
+            "IN": ["developed", "had"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "nevertheless",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "no abnormal",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "no",
+      "pattern": [
+        {
+          "LOWER": "no"
+        },
+        {
+          "LOWER": {
+            "IN": ["abnormal", "new"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "no cause of",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "no"
+        },
+        {
+          "LOWER": {
+            "IN": ["cause", "history", "findings", "complaints", "sign", "signs", "suggestion"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["of", "for"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "no complaints of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no findings of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "no findings to indicate",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "no history of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "no longer present",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
-      "literal": "no mammographic evidence of",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "no evidence",
+      "pattern": [
+        {
+          "LOWER": "no"
+        },
+        {
+          "LOWER": {
+            "IN": ["new", "other"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": {
+            "IN": ["mammographic", "radiographic"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "evidence"
+        },
+        {
+          "LOWER": {
+            "IN": ["of", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "no new",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no new evidence",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no other evidence",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no radiographic evidence of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no sign( of)?",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "no significant",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "no"
+        },
+        {
+          "LOWER": {
+            "IN": ["significant", "suspicious"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "no signs of",
-      "pattern": null,
-      "rule": "FORWARD"
+      "category": "NEGATED_EXISTENCE",
+      "literal": "not significant",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["significant", "suspicious"]
+          }
+        }
+      ],
+      "rule": "BACKWARD"
     },
     {
-      "category": "neg",
-      "literal": "no suggestion of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "no suspicious",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "non diagnostic",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "not",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["appear", "appreciate", "demonstrate", "exhibit", "feel", "had", "have", "reveal", "see"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "not appear",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not appreciate",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "not associated with",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "associated"
+        },
+        {
+          "LOWER": "with"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "not been ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not complain of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not demonstrate",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not exhibit",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not feel",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not had",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not have",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not have evidence of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not know of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not known to have",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "not reveal",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "not ruled out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "been",
+          "OP": "?"
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
-      "literal": "not see",
-      "pattern": null,
+      "category": "NEGATED_EXISTENCE",
+      "literal": "not complain of",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["complain", "know"]
+          }
+        },
+        {
+          "LOWER": "of"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
+      "literal": "not have evidence of",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "have"
+        },
+        {
+          "LOWER": "evidence"
+        },
+        {
+          "LOWER": {
+            "IN": ["of", "for"]
+          }
+        }
+      ],
+      "rule": "FORWARD"
+    },
+    {
+      "category": "NEGATED_EXISTENCE",
+      "literal": "not known to have",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "known"
+        },
+        {
+          "LOWER": "to"
+        },
+        {
+          "LOWER": "have"
+        }
+      ],
+      "rule": "FORWARD"
+    },
+    {
+      "category": "NEGATED_EXISTENCE",
       "literal": "not to be",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        },
+        {
+          "LOWER": "to"
+        },
+        {
+          "LOWER": "be"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "histexp",
-      "literal": "noted",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "now resolved",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "origin for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["origin", "origins"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["of", "for"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "origin of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "origins for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "origins of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "other possibilities of",
       "pattern": null,
       "rule": "TERMINATE"
     },
     {
-      "category": "poss",
-      "literal": "ought to be ruled out",
-      "pattern": null,
+      "category": "POSSIBLE_EXISTENCE",
+      "literal": "is to be ruled out",
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["is", "ought"]
+          }
+        },
+        {
+          "LOWER": "to"
+        },
+        {
+          "LOWER": "be"
+        },
+        {
+          "LOWER": "ruled"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "against"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "poss",
-      "literal": "ought to be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hist",
+      "category": "HISTORICAL",
       "literal": "past history",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "past"
+        },
+        {
+          "LOWER": "medical",
+          "OP": "?"
+        },
+        {
+          "LOWER": "history"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "hist",
-      "literal": "past medical history",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hypoexp",
-      "literal": "patient",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "patient was not",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["was", "is"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "hypoexp",
-      "literal": "patient's",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "possible",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["poss", "possible", "probably", "likely"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "poss",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "histexp",
-      "literal": "presenting",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "histexp",
-      "literal": "presents",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "poss",
-      "literal": "probable",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "prophylaxis",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "r/o",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "rather than",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "reason for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "reason of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "reasons for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "reasons of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "histexp",
-      "literal": "reported",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "histexp",
-      "literal": "reports",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "resolved",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "return",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "ro",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "rule her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "rule her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "rule him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "rule out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["may", "might", "must", "should", "will", "could"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": {
+            "IN": ["him", "her", "them", "patient", "pt"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "rule out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "rule the patient out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["may", "might", "must", "should", "will", "could"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "rule"
+        },
+        {
+          "LOWER": "the"
+        },
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
-      "literal": "rule the patinet out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled her out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled him out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "ruled out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["ruled", "rules"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["him", "her", "them", "patient", "pt"]
+          },
+          "OP": "?"
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "ruled out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "ruled the patient out",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["ruled", "rules"]
+          }
+        },
+        {
+          "LOWER": "the"
+        },
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        },
+        {
+          "LOWER": "out"
+        },
+        {
+          "LOWER": {
+            "IN": ["against", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "ruled the patient out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "ruled the patient out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules her out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules the patient out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "rules the patient out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "secondary",
-      "pattern": null,
+      "pattern": [{
+          "LOWER": "secondary"
+        }, {
+          "LOWER": "to", "OP": "?"
+        }],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "secondary to",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "poss",
-      "literal": "should be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "should be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "should he",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "should"
+        },
+        {
+          "LOWER": {
+            "IN": ["she", "he", "they", "patient", "pt"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
-      "literal": "should she",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "should the patient",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "should"
+        },
+        {
+          "LOWER": "the"
+        },
+        {
+          "LOWER": {
+            "IN": ["patient", "pt"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
+      "category": "HYPOTHETICAL",
       "literal": "should there",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "hypo",
-      "literal": "since",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "exp",
-      "literal": "sister",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "sister's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "son",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "source for",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["source", "sources"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["for", "of"]
+          }
+        }
+      ],
       "rule": "TERMINATE"
     },
     {
-      "category": "neg",
-      "literal": "source of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "sources for",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "sources of",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "histexp",
-      "literal": "states",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "still",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule her out",
+      "category": "POSSIBLE_EXISTENCE",
+      "literal": "suggestive of",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "sufficient to rule her out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule her out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule him out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule him out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule him out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule the patient out",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule the patient out against",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "sufficient to rule the patient out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "suggest(ive of)?",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "suspicious for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "test for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "though",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "to exclude",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "histexp",
-      "literal": "today",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "trigger event for",
       "pattern": null,
       "rule": "TERMINATE"
     },
     {
-      "category": "exp",
-      "literal": "uncle",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "exp",
-      "literal": "uncle's",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "unlikely",
       "pattern": null,
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "unremarkable for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "histexp",
-      "literal": "was found",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "was negative",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["was", "is", "are"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["negative", "neg"]
+          }
+        }
+      ],
       "rule": "BACKWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "was not",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": {
+            "IN": ["was", "is", "are", "can"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["not", "n't"]
+          }
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "was ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "wasn't",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "what must be ruled out is",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "exp",
-      "literal": "which",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "hypoexp",
-      "literal": "who",
-      "pattern": null,
-      "rule": "TERMINATE"
-    },
-    {
-      "category": "poss",
-      "literal": "will be ruled out",
-      "pattern": null,
-      "rule": "BACKWARD"
-    },
-    {
-      "category": "poss",
-      "literal": "will be ruled out for",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "with no",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "without",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
+      "category": "NEGATED_EXISTENCE",
       "literal": "without any evidence of",
-      "pattern": null,
+      "pattern": [
+        {
+          "LOWER": "without"
+        },
+        {
+          "LOWER": "any",
+          "OP": "?"
+        },
+        {
+          "LOWER": {
+            "IN": ["evidence", "indication", "sign"]
+          }
+        },
+        {
+          "LOWER": {
+            "IN": ["of", "for"]
+          },
+          "OP": "?"
+        }
+      ],
       "rule": "FORWARD"
     },
     {
-      "category": "neg",
-      "literal": "without evidence",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "without indication of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "without sign of",
-      "pattern": null,
-      "rule": "FORWARD"
-    },
-    {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "worrisome for",
       "pattern": null,
       "rule": "FORWARD"
     },
     {
-      "category": "poss",
+      "category": "POSSIBLE_EXISTENCE",
       "literal": "worried about",
       "pattern": null,
       "rule": "FORWARD"
-    },
-    {
-      "category": "neg",
-      "literal": "yet",
-      "pattern": null,
-      "rule": "TERMINATE"
     }
   ]
 }
