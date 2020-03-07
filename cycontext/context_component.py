@@ -15,6 +15,10 @@ DEFAULT_ATTRS = {"NEGATED_EXISTENCE": {"is_negated": True},
                  "FAMILY": {"is_family": True},
                  }
 
+# Filepath to default rules which are included in package
+from pathlib import Path
+DEFAULT_RULES_FILEPATH = path.join(Path(__file__).resolve().parents[1], "kb", "default_rules.json")
+
 class ConTextComponent:
     name = "context"
 
@@ -64,6 +68,7 @@ class ConTextComponent:
 
         self._item_data = []
         self._i = 0
+        self._categories = set()
 
 
         # _modifier_item_mapping: A mapping from spaCy Matcher match_ids to ConTextItem
@@ -96,9 +101,8 @@ class ConTextComponent:
             raise ValueError("add_attrs must be either True (default), False, or a dictionary, not {0}".format(add_attrs))
 
         if rules == 'default':
-            from pathlib import Path
-            default_rules_filepath = path.join(Path(__file__).resolve().parents[1], "kb", "default_rules.json")
-            item_data = ConTextItem.from_json(default_rules_filepath)
+
+            item_data = ConTextItem.from_json(DEFAULT_RULES_FILEPATH)
             self.add(item_data)
 
 
@@ -139,6 +143,10 @@ class ConTextComponent:
     def item_data(self):
         return self._item_data
 
+    @property
+    def categories(self):
+        return self._categories
+
     def add(self, item_data):
         """Add a list of ConTextItem items to ConText.
 
@@ -168,6 +176,7 @@ class ConTextComponent:
                                  item.pattern)
             self._modifier_item_mapping[uid] = item
             self._i += 1
+            self._categories.add(item.category)
 
     def register_default_attributes(self):
         """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
