@@ -1,6 +1,8 @@
 # cycontext
 A Python implementation of the ConText algorithm for clinical text concept assertion using the spaCy framework
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 # Overview
 This package implements the ConText algorithm within the [spaCy](https://spacy.io) framework. 
 [ConText](https://www.sciencedirect.com/science/article/pii/S1532046409000744) detects semantic modifiers such as **negation**, 

@@ -1,10 +1,8 @@
 class ConTextGraph:
-
     def __init__(self):
         self.targets = []
         self.modifiers = []
         self.edges = []
-
 
     def update_scopes(self):
         """For each modifier in a list of TagObjects,
@@ -64,7 +62,7 @@ class ConTextGraph:
         # Start by comparing modifiers against targets
         # Remove any modifiers which overlap with a target
         # Go backwards so we can remove modifiers which need to be pruned
-        for i in range(len(self.modifiers)-1, -1, -1):
+        for i in range(len(self.modifiers) - 1, -1, -1):
             modifier = self.modifiers[i]
             for target in self.targets:
                 if overlap_target_modifiers(target, modifier.span):
@@ -112,24 +110,20 @@ class ConTextGraph:
         # Recursion base point
         if len(pruned) == num_mods:
             return pruned
-        else:
-            return self.prune_overlapping_modifiers(pruned)
+        return self.prune_overlapping_modifiers(pruned)
 
     def __repr__(self):
-        return "<ConTextGraph> with {0} targets and {1} modifiers".format(len(self.targets), len(self.modifiers))
+        return "<ConTextGraph> with {0} targets and {1} modifiers".format(
+            len(self.targets), len(self.modifiers)
+        )
+
 
 def overlap_target_modifiers(span1, span2):
     """Checks whether two spacy spans overlap."""
-    if _spans_overlap(span1, span2):
-        return True
-    if _spans_overlap(span2, span1):
-        return True
-    return False
+    return _spans_overlap(span1, span2)
+
 
 def _spans_overlap(span1, span2):
-    if span1.end > span2.start and span1.end <= span2.end:
-        return True
-    if span1.start >= span2.start and span1.start < span2.end:
-        return True
-
-
+    return (span1.end > span2.start and span1.end <= span2.end) or (
+        span1.start >= span2.start and span1.start < span2.end
+    )

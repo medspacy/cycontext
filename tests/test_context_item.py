@@ -2,8 +2,8 @@ import pytest
 
 from cycontext import ConTextItem
 
-class TestItemData:
 
+class TestItemData:
     def test_instantiate1(self):
         literal = "no evidence of"
         category = "DEFINITE_NEGATED_EXISTENCE"
@@ -43,12 +43,18 @@ class TestItemData:
         assert item.metadata
 
     def test_from_dict(self):
-        d = dict(literal="reason for examination", category="INDICATION", rule="FORWARD")
+        d = dict(
+            literal="reason for examination", category="INDICATION", rule="FORWARD"
+        )
         assert ConTextItem.from_dict(d)
 
     def test_from_dict_error(self):
-        d = dict(literal="reason for examination", category="INDICATION", rule="FORWARD",
-                 invalid="this is an invalid key")
+        d = dict(
+            literal="reason for examination",
+            category="INDICATION",
+            rule="FORWARD",
+            invalid="this is an invalid key",
+        )
         with pytest.raises(ValueError):
             ConTextItem.from_dict(d)
 
@@ -64,6 +70,7 @@ class TestItemData:
 
     def test_to_json(self):
         import json, os
+
         literal = "no evidence of"
         category = "definite_negated_existence"
         rule = "forward"
@@ -81,10 +88,10 @@ class TestItemData:
         os.remove("test_modifiers.json")
 
 
-
 @pytest.fixture
 def from_json_file():
     import json, os
+
     json_filepath = "test_modifiers.json"
 
     item_data = [
@@ -92,15 +99,13 @@ def from_json_file():
             "literal": "are ruled out",
             "category": "DEFINITE_NEGATED_EXISTENCE",
             "pattern": None,
-            "rule": "backward"
+            "rule": "backward",
         },
         {
             "literal": "is negative",
             "category": "DEFINITE_NEGATED_EXISTENCE",
-            "pattern": [
-                {"LEMMA": "be"}, {"LOWER": "negative"}
-            ],
-            "rule": "backward"
+            "pattern": [{"LEMMA": "be"}, {"LOWER": "negative"}],
+            "rule": "backward",
         },
     ]
 

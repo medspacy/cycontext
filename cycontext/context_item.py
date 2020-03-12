@@ -1,11 +1,41 @@
+import json
+
+
 class ConTextItem:
     """An ConTextItem defines a ConText modifier. It defines the phrase to be matched,
     the category/semantic class, and the rule which the modifier executes.
     """
-    _ALLOWED_RULES = ("FORWARD", "BACKWARD", "BIDIRECTIONAL", "TERMINATE", "MAX_TARGETS", "MAX_SCOPE")
-    _ALLOWED_KEYS = {"literal", "rule", "pattern", "category", "metadata", "allowed_types", "filtered_types"}
-    def __init__(self, literal, category, rule="BIDIRECTIONAL", pattern=None, allowed_types=None, excluded_types=None,
-                 max_targets=None, max_scope=None, metadata=None):
+
+    _ALLOWED_RULES = (
+        "FORWARD",
+        "BACKWARD",
+        "BIDIRECTIONAL",
+        "TERMINATE",
+        "MAX_TARGETS",
+        "MAX_SCOPE",
+    )
+    _ALLOWED_KEYS = {
+        "literal",
+        "rule",
+        "pattern",
+        "category",
+        "metadata",
+        "allowed_types",
+        "filtered_types",
+    }
+
+    def __init__(
+        self,
+        literal,
+        category,
+        rule="BIDIRECTIONAL",
+        pattern=None,
+        allowed_types=None,
+        excluded_types=None,
+        max_targets=None,
+        max_scope=None,
+        metadata=None,
+    ):
         """Create an ConTextItem object.
 
         literal (str): The actual string of a concept. If pattern is None,
@@ -35,8 +65,10 @@ class ConTextItem:
         self.rule = rule.upper()
 
         if allowed_types is not None and excluded_types is not None:
-            raise ValueError("A ConTextItem was instantiated with non-null values for both allowed_types and excluded_types. "
-                             "Only one of these can be non-null, since cycontext either explicitly includes or excludes target types.")
+            raise ValueError(
+                "A ConTextItem was instantiated with non-null values for both allowed_types and excluded_types. "
+                "Only one of these can be non-null, since cycontext either explicitly includes or excludes target types."
+            )
         if allowed_types is not None:
             self.allowed_types = {label.upper() for label in allowed_types}
         else:
@@ -55,9 +87,12 @@ class ConTextItem:
 
         self.metadata = metadata
 
-
         if self.rule not in self._ALLOWED_RULES:
-            raise ValueError("Rule {0} not recognized. Must be one of: {1}".format(self.rule, self._ALLOWED_RULES))
+            raise ValueError(
+                "Rule {0} not recognized. Must be one of: {1}".format(
+                    self.rule, self._ALLOWED_RULES
+                )
+            )
 
     @classmethod
     def from_json(cls, filepath):
@@ -69,43 +104,57 @@ class ConTextItem:
         RAISES KeyError if the dictionary contains any keys other than
             those accepted by ConTextItem.__init__
         """
-        import json
-        with open(filepath) as f:
-            modifier_data = json.load(f)
+
+        with open(filepath) as file:
+            modifier_data = json.load(file)
         item_data = []
         for data in modifier_data["item_data"]:
             item_data.append(ConTextItem.from_dict(data))
         return item_data
 
     @classmethod
-    def from_dict(cls, d):
+    def from_dict(cls, item_dict):
+        """Reads a dictionary into a ConTextItem. Used when reading from a json file.
+
+        item_dict (dictionary): the dictionary to convert
+
+        RETURNS item (ConTextItem): the ConTextItem created from the dictionary
+        """
         try:
-            item = ConTextItem(**d)
+            item = ConTextItem(**item_dict)
         except TypeError:
-            keys = set(d.keys())
+            keys = set(item_dict.keys())
             invalid_keys = keys.difference(cls._ALLOWED_KEYS)
-            msg = ("JSON object contains invalid keys: {0}.\n"
-                   "Must be one of: {1}".format(invalid_keys, cls._ALLOWED_KEYS))
+            msg = (
+                "JSON object contains invalid keys: {0}.\n"
+                "Must be one of: {1}".format(invalid_keys, cls._ALLOWED_KEYS)
+            )
             raise ValueError(msg)
 
         return item
 
     @classmethod
     def to_json(cls, item_data, filepath):
-        import json
+        """
+        Writes ConTextItems to a json file.
+
+        item_data (ConTextItem): a list of ConTextItems that will be written to a file.
+        filepath (text): the .json file to contain modifier rules
+        """
+
         data = {"item_data": [item.to_dict() for item in item_data]}
-        with open(filepath, "w") as f:
-            json.dump(data, f, indent=4)
+        with open(filepath, "w") as file:
+            json.dump(data, file, indent=4)
 
     def to_dict(self):
-        d = {}
+        """Converts ConTextItems to a python dictionary. Used when writing context items to a json file.
+
+        RETURNS item_dict (dictionary): the dictionary containing the ConTextItem info.
+        """
+        item_dict = {}
         for key in self._ALLOWED_KEYS:
-            d[key] = self.__dict__.get(key)
-        return d
+            item_dict[key] = self.__dict__.get(key)
+        return item_dict
 
     def __repr__(self):
         return f"ConTextItem(literal='{self.literal}', category='{self.category}', pattern={self.pattern}, rule='{self.rule}')"
-
-
-
-

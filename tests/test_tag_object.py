@@ -8,8 +8,8 @@ from cycontext.helpers import is_modified_by
 
 nlp = spacy.load("en_core_web_sm")
 
-class TestTagObject:
 
+class TestTagObject:
     def create_objects(self):
         doc = nlp("family history of breast cancer but no diabetes. She has afib.")
         item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD")
@@ -28,7 +28,7 @@ class TestTagObject:
         spans = [
             Span(doc, 2, 3, "CONDITION"),
             Span(doc, 4, 5, "CONDITION"),
-            Span(doc, 6, 7, "CONDITION")
+            Span(doc, 6, 7, "CONDITION"),
         ]
         doc.ents = spans
         return doc
@@ -67,7 +67,6 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 2, 4, doc)
         assert tag_object.limit_scope(tag_object2)
 
-
     def test_limit_scope2(self):
         doc, item, tag_object = self.create_objects()
         item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
@@ -89,10 +88,18 @@ class TestTagObject:
          """
         doc = nlp("no history of travel to Puerto Rico, neg for pneumonia")
 
-        item = ConTextItem("no history of", "DEFINITE_NEGATED_EXISTENCE", "FORWARD",
-                           allowed_types={"TRAVEL"})
-        item2 = ConTextItem("neg for", "DEFINITE_NEGATED_EXISTENCE", "FORWARD",
-                            allowed_types={"CONDITION"})
+        item = ConTextItem(
+            "no history of",
+            "DEFINITE_NEGATED_EXISTENCE",
+            "FORWARD",
+            allowed_types={"TRAVEL"},
+        )
+        item2 = ConTextItem(
+            "neg for",
+            "DEFINITE_NEGATED_EXISTENCE",
+            "FORWARD",
+            allowed_types={"CONDITION"},
+        )
         tag_object = TagObject(item, 0, 3, doc)
         tag_object2 = TagObject(item2, 8, 10, doc)
         assert not tag_object.limit_scope(tag_object2)
@@ -106,8 +113,10 @@ class TestTagObject:
         with pytest.raises(ValueError) as exception_info:
             # This should fail because doc.sents are None
             TagObject(item, 0, 3, doc)
-        exception_info.match("ConText failed because sentence boundaries have not been set. "
-                             "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries.")
+        exception_info.match(
+            "ConText failed because sentence boundaries have not been set. "
+            "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries."
+        )
 
     def test_update_scope(self):
         doc, item, tag_object = self.create_objects()
@@ -130,41 +139,44 @@ class TestTagObject:
     def test_allowed_types(self):
         """Test that specifying allowed_types will only modify that target type."""
         doc = self.create_target_type_examples()
-        item = ConTextItem("no history of travel to",
-                           category="DEFINITE_NEGATED_EXISTENCE",
-                           rule="FORWARD",
-                            allowed_types={"TRAVEL"},
-                           )
+        item = ConTextItem(
+            "no history of travel to",
+            category="DEFINITE_NEGATED_EXISTENCE",
+            rule="FORWARD",
+            allowed_types={"TRAVEL"},
+        )
         tag_object = TagObject(item, 0, 5, doc)
         tag_object.set_scope()
-        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        travel, condition = doc.ents  # "puerto rico", "pneumonia"
         assert tag_object.modifies(travel) is True
         assert tag_object.modifies(condition) is False
 
     def test_excluded_types(self):
         """Test that specifying excluded_types will not modify that target type."""
         doc = self.create_target_type_examples()
-        item = ConTextItem("no history of travel to",
-                           category="DEFINITE_NEGATED_EXISTENCE",
-                           rule="FORWARD",
-                            excluded_types={"CONDITION"},
-                           )
+        item = ConTextItem(
+            "no history of travel to",
+            category="DEFINITE_NEGATED_EXISTENCE",
+            rule="FORWARD",
+            excluded_types={"CONDITION"},
+        )
         tag_object = TagObject(item, 0, 5, doc)
         tag_object.set_scope()
-        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        travel, condition = doc.ents  # "puerto rico", "pneumonia"
         assert tag_object.modifies(travel) is True
         assert tag_object.modifies(condition) is False
 
     def test_no_types(self):
         """Test that not specifying allowed_types or excluded_types will modify all targets."""
         doc = self.create_target_type_examples()
-        item = ConTextItem("no history of travel to",
-                           category="DEFINITE_NEGATED_EXISTENCE",
-                           rule="FORWARD"
-                           )
+        item = ConTextItem(
+            "no history of travel to",
+            category="DEFINITE_NEGATED_EXISTENCE",
+            rule="FORWARD",
+        )
         tag_object = TagObject(item, 0, 5, doc)
         tag_object.set_scope()
-        travel, condition = doc.ents # "puerto rico", "pneumonia"
+        travel, condition = doc.ents  # "puerto rico", "pneumonia"
         assert tag_object.modifies(travel) is True
         assert tag_object.modifies(condition) is True
 
@@ -174,8 +186,9 @@ class TestTagObject:
         """
         doc = self.create_num_target_examples()
         assert len(doc.ents) == 3
-        item = ConTextItem("vs", category="UNCERTAIN",
-                           rule="BIDIRECTIONAL", max_targets=2)
+        item = ConTextItem(
+            "vs", category="UNCERTAIN", rule="BIDIRECTIONAL", max_targets=2
+        )
         # Set "vs" to be the modifier
         tag_object = TagObject(item, 5, 6, doc)
         for target in doc.ents:
@@ -193,8 +206,9 @@ class TestTagObject:
         """
         doc = self.create_num_target_examples()
         assert len(doc.ents) == 3
-        item = ConTextItem("vs", category="UNCERTAIN",
-                           rule="BIDIRECTIONAL", max_targets=3)
+        item = ConTextItem(
+            "vs", category="UNCERTAIN", rule="BIDIRECTIONAL", max_targets=3
+        )
         # Set "vs" to be the modifier
         tag_object = TagObject(item, 5, 6, doc)
         for target in doc.ents:
@@ -210,8 +224,9 @@ class TestTagObject:
         """
         doc = self.create_num_target_examples()
         assert len(doc.ents) == 3
-        item = ConTextItem("vs", category="UNCERTAIN",
-                           rule="BIDIRECTIONAL", max_targets=None)
+        item = ConTextItem(
+            "vs", category="UNCERTAIN", rule="BIDIRECTIONAL", max_targets=None
+        )
         # Set "vs" to be the modifier
         tag_object = TagObject(item, 5, 6, doc)
         for target in doc.ents:
@@ -227,8 +242,9 @@ class TestTagObject:
         """
         doc = self.create_num_target_examples()
         assert len(doc.ents) == 3
-        item = ConTextItem("vs", category="UNCERTAIN",
-                           rule="BIDIRECTIONAL", max_scope=1)
+        item = ConTextItem(
+            "vs", category="UNCERTAIN", rule="BIDIRECTIONAL", max_scope=1
+        )
         tag_object = TagObject(item, 5, 6, doc)
 
         for target in doc.ents:
@@ -244,8 +260,9 @@ class TestTagObject:
         """
         doc = self.create_num_target_examples()
         assert len(doc.ents) == 3
-        item = ConTextItem("vs", category="UNCERTAIN",
-                           rule="BIDIRECTIONAL", max_scope=None)
+        item = ConTextItem(
+            "vs", category="UNCERTAIN", rule="BIDIRECTIONAL", max_scope=None
+        )
         tag_object = TagObject(item, 5, 6, doc)
 
         for target in doc.ents:
