@@ -1,3 +1,4 @@
+"""The ConTextComponent definiton."""
 from os import path
 
 # Filepath to default rules which are included in package
@@ -25,6 +26,7 @@ DEFAULT_RULES_FILEPATH = path.join(
 
 
 class ConTextComponent:
+    """The ConTextComponent for spaCy processing."""
     name = "context"
 
     def __init__(
@@ -38,6 +40,7 @@ class ConTextComponent:
     ):
 
         """Create a new ConTextComponent algorithm.
+
         This component matches modifiers in a Doc,
         defines their scope, and identifies edges between targets and modifiers.
         Sets two spaCy extensions:
@@ -45,32 +48,37 @@ class ConTextComponent:
             - Doc._.context_graph: a ConText graph object which contains the targets,
                 modifiers, and edges between them.
 
-        nlp (spacy.lang): a spaCy NLP model
-        targets (str): the attribute of Doc which contains targets.
-            Default is "ents", in which case it will use the standard Doc.ents attribute.
-            Otherwise will look for a custom attribute in Doc._.{targets}
-        add_attrs (bool): Whether or not to add the additional spaCy Span attributes (ie., Span._.x)
-            defining assertion on the targets. By default, these are:
-            - is_negated: True if a target is modified by 'NEGATED_EXISTENCE', default False
-            - is_uncertain: True if a target is modified by 'POSSIBLE_EXISTENCE', default False
-            - is_historical: True if a target is modified by 'HISTORICAL', default False
-            - is_hypothetical: True if a target is modified by 'HYPOTHETICAL', default False
-            - is_family: True if a target is modified by 'FAMILY', default False
-            In the future, these should be made customizable.
-        prune (bool): Whether or not to prune modifiers which are substrings of another modifier.
-            For example, if "no history of" and "history of" are both ConTextItems, both will match
-            the text "no history of afib", but only "no history of" should modify afib.
-            If True, will drop shorter substrings completely.
-            Default True.
-        rules (str): Which rules to load on initialization. Default is 'default'.
-            - 'default': Load the default set of rules provided with cyConText
-            - 'other': Load a custom set of rules, please also set _______ with a file path or list.
-            - None: Load no rules.
-        rule_list (str or list): The location of rules in json format or a list of ContextItems. Default
-            is None.
+        Args:
+            nlp: a spaCy NLP model
+            targets: the attribute of Doc which contains targets.
+                Default is "ents", in which case it will use the standard Doc.ents attribute.
+                Otherwise will look for a custom attribute in Doc._.{targets}
+            add_attrs: Whether or not to add the additional spaCy Span attributes (ie., Span._.x)
+                defining assertion on the targets. By default, these are:
+                - is_negated: True if a target is modified by 'NEGATED_EXISTENCE', default False
+                - is_uncertain: True if a target is modified by 'POSSIBLE_EXISTENCE', default False
+                - is_historical: True if a target is modified by 'HISTORICAL', default False
+                - is_hypothetical: True if a target is modified by 'HYPOTHETICAL', default False
+                - is_family: True if a target is modified by 'FAMILY', default False
+                In the future, these should be made customizable.
+            prune: Whether or not to prune modifiers which are substrings of another modifier.
+                For example, if "no history of" and "history of" are both ConTextItems, both will match
+                the text "no history of afib", but only "no history of" should modify afib.
+                If True, will drop shorter substrings completely.
+                Default True.
+            rules: Which rules to load on initialization. Default is 'default'.
+                - 'default': Load the default set of rules provided with cyConText
+                - 'other': Load a custom set of rules, please also set rule_list with a file path or list.
+                - None: Load no rules.
+            rule_list: The location of rules in json format or a list of ContextItems. Default
+                is None.
 
 
-        RETURNS (ConTextComponent)
+        Returns: 
+            context: a ConTextComponent
+
+        Raises:
+            ValueError: if one of the parameters is incorrectly formatted.
         """
 
         self.nlp = nlp
@@ -182,8 +190,12 @@ class ConTextComponent:
 
     def add(self, item_data):
         """Add a list of ConTextItem items to ConText.
+        
+        Args:
+            item_data: a list of ConTextItems to add.
 
-        context_item (list)
+        Raises:
+            TypeError: if item_data contains an object that is not a ConTextItem.
         """
         try:
             self._item_data += item_data
@@ -227,6 +239,7 @@ class ConTextComponent:
 
     def register_graph_attributes(self):
         """Register spaCy container custom attribute extensions.
+
         By default will register Span._.modifiers and Doc._.context_graph.
 
         If self.add_attrs is True, will add additional attributes to span
@@ -240,6 +253,10 @@ class ConTextComponent:
 
     def set_context_attributes(self, edges):
         """Add Span-level attributes to targets with modifiers.
+
+        Args:
+            edges: the edges to modify
+
         """
 
         for (target, modifier) in edges:
@@ -251,9 +268,11 @@ class ConTextComponent:
     def __call__(self, doc):
         """Applies the ConText algorithm to a Doc.
 
-        doc (Doc): a spaCy Doc
+        Args:
+            doc: a spaCy Doc
 
-        RETURNS (Doc)
+        Returns:
+            doc: a spaCy Doc
         """
         if self._target_attr == "ents":
             targets = doc.ents

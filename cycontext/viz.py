@@ -2,13 +2,13 @@ from spacy import displacy
 
 
 def visualize_ent(doc, colors=None):
-    """Create a NER-style visualization
-    for targets and modifiers in Doc.
+    """Create a NER-style visualization for targets and modifiers in Doc.
 
-    doc (Doc): A spacy doc which has been processed by context
-    colors (dict or None): An optional dictionary which maps labels of targets and modifiers
-        to color strings to be rendered. If None, will create a generator which
-        cycles through the default matplotlib colors.
+    Args:
+        doc: A spacy doc which has been processed by context
+        colors: An optional dictionary which maps labels of targets and modifiers
+            to color strings to be rendered. If None, will create a generator which
+            cycles through the default matplotlib colors.
     """
     ents_data = []
 

@@ -38,26 +38,30 @@ class ConTextItem:
     ):
         """Create an ConTextItem object.
 
-        literal (str): The actual string of a concept. If pattern is None,
-            this string will be lower-cased and matched to the lower-case string.
-        category (str): The semantic class of the item.
-        pattern (list or None): A spaCy pattern to match using token attributes.
-            See https://spacy.io/usage/rule-based-matching.
-        rule (str): The directionality or action of a modifier.
-            One of ("forward", "backward", "bidirectional", or "terminate").
-        allowed_types (set or None): A set of target labels to allow a modifier to modify.
-            If None, will apply to any type not specifically excluded in excluded_types.
-            Only one of allowed_types and excluded_types can be used. An error will be thrown
-            if both or not None.
-        excluded_types (set or None): A set of target labels which this modifier cannot modify.
-            If None, will apply to all target types unless allowed_types is not None.
-        max_targets (int or None): The maximum number of targets which a modifier can modify.
-            If None, will modify all targets in its scope.
-        max_scope (int or None): A number to explicitly limit the size of the modifier's scope
-        metadata (dict or None): A dict of additional data to pass in,
-            such as free-text comments, additional attributes, or ICD-10 codes.
-            Default None.
-        RETURNS (ConTextItem)
+
+        Args:
+            literal (str): The actual string of a concept. If pattern is None,
+                this string will be lower-cased and matched to the lower-case string.
+            category (str): The semantic class of the item.
+            pattern (list or None): A spaCy pattern to match using token attributes.
+                See https://spacy.io/usage/rule-based-matching.
+            rule (str): The directionality or action of a modifier.
+                One of ("forward", "backward", "bidirectional", or "terminate").
+            allowed_types (set or None): A set of target labels to allow a modifier to modify.
+                If None, will apply to any type not specifically excluded in excluded_types.
+                Only one of allowed_types and excluded_types can be used. An error will be thrown
+                if both or not None.
+            excluded_types (set or None): A set of target labels which this modifier cannot modify.
+                If None, will apply to all target types unless allowed_types is not None.
+            max_targets (int or None): The maximum number of targets which a modifier can modify.
+                If None, will modify all targets in its scope.
+            max_scope (int or None): A number to explicitly limit the size of the modifier's scope
+            metadata (dict or None): A dict of additional data to pass in,
+                such as free-text comments, additional attributes, or ICD-10 codes.
+                Default None.
+
+        Returns: 
+            item: a ConTextItem
         """
         self.literal = literal.lower()
         self.category = category.upper()
@@ -98,11 +102,14 @@ class ConTextItem:
     def from_json(cls, filepath):
         """Read in a lexicon of modifiers from a JSON file.
 
-        filepath (text): the .json file containing modifier rules
+        Args:
+            filepath: the .json file containing modifier rules
 
-        RETURNS context_item (list): a list of ConTextItem objects
-        RAISES KeyError if the dictionary contains any keys other than
-            those accepted by ConTextItem.__init__
+        Returns:
+            context_item: a list of ConTextItem objects
+        Raises:
+            KeyError: if the dictionary contains any keys other than
+                those accepted by ConTextItem.__init__
         """
 
         with open(filepath) as file:
@@ -116,9 +123,14 @@ class ConTextItem:
     def from_dict(cls, item_dict):
         """Reads a dictionary into a ConTextItem. Used when reading from a json file.
 
-        item_dict (dictionary): the dictionary to convert
+        Args:
+            item_dict: the dictionary to convert
 
-        RETURNS item (ConTextItem): the ConTextItem created from the dictionary
+        Returns: 
+            item: the ConTextItem created from the dictionary
+
+        Raises:
+            ValueError: if the json is invalid
         """
         try:
             item = ConTextItem(**item_dict)
@@ -135,11 +147,11 @@ class ConTextItem:
 
     @classmethod
     def to_json(cls, item_data, filepath):
-        """
-        Writes ConTextItems to a json file.
+        """Writes ConTextItems to a json file.
 
-        item_data (ConTextItem): a list of ConTextItems that will be written to a file.
-        filepath (text): the .json file to contain modifier rules
+        Args:
+            item_data: a list of ConTextItems that will be written to a file.
+            filepath: the .json file to contain modifier rules
         """
 
         data = {"item_data": [item.to_dict() for item in item_data]}
@@ -149,7 +161,8 @@ class ConTextItem:
     def to_dict(self):
         """Converts ConTextItems to a python dictionary. Used when writing context items to a json file.
 
-        RETURNS item_dict (dictionary): the dictionary containing the ConTextItem info.
+        Returns:
+            item_dict: the dictionary containing the ConTextItem info.
         """
         item_dict = {}
         for key in self._ALLOWED_KEYS:
