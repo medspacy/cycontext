@@ -84,13 +84,13 @@ from cycontext import viz
 viz.visualize_ent(doc)
 ``` 
 
-<p align="center"><img width="75%" src="docs/ent_viz.png" /></p>
+<p align="center"><img width="75%" src="img/ent_viz.png" /></p>
 
 While this dependency-style visualization shows the relationships between targets and modifiers:
 ```python
 viz.visualize_dep(doc)
 ``` 
-<p align="center"><img width="75%" src="docs/dep_viz.png" /></p>
+<p align="center"><img width="75%" src="img/dep_viz.png" /></p>
 
 ## Tests
 To run tests:

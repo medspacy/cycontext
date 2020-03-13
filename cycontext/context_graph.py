@@ -5,13 +5,15 @@ class ConTextGraph:
         self.edges = []
 
     def update_scopes(self):
-        """For each modifier in a list of TagObjects,
-        check against each other modifier to see if one of the modifiers
-        should update the other. This allows neighboring similar modifiers
-        to extend each other's scope and allows "terminate" modifiers
-        to end a modifier's scope.
+        """Update the scope of all TagObjects.
 
-        marked_modifiers (list): A list of TagObjects in a Doc.
+        For each modifier in a list of TagObjects, check against each other
+        modifier to see if one of the modifiers should update the other. 
+        This allows neighboring similar modifiers to extend each other's 
+        scope and allows "terminate" modifiers to end a modifier's scope.
+
+        Args:
+            marked_modifiers: A list of TagObjects in a Doc.
         """
         for i in range(len(self.modifiers) - 1):
             modifier1 = self.modifiers[i]
@@ -25,11 +27,12 @@ class ConTextGraph:
         """Checks each target/modifier pair. If modifier modifies target,
         create an edge between them.
 
-        marked_targets (list): A list of Spans
-        marked_modifiers (list): A list of TagObjects
+        Args:
+            marked_targets: A list of Spans
+            marked_modifiers: A list of TagObjects
 
-        RETURNS edges (list): A list of tuples consisting of
-            target/modifier pairs
+        RETURNS 
+            edges: A list of tuples consisting of target/modifier pairs
         """
         edges = []
         for target in self.targets:
@@ -47,8 +50,8 @@ class ConTextGraph:
         self.edges = edges
 
     def prune_modifiers(self):
-        """Prune overlapping modifiers
-        so that only the longest span is kept.
+        """Prune overlapping modifiers so that only the longest span is kept.
+
         For example, if "no" and "no evidence of" are both tagged as modifiers,
         only "no evidence of" will be kept.
 
@@ -119,7 +122,12 @@ class ConTextGraph:
 
 
 def overlap_target_modifiers(span1, span2):
-    """Checks whether two spacy spans overlap."""
+    """Checks whether two modifiers overlap.
+        
+    Args:
+        span1: the first span
+        span2: the second span
+    """
     return _spans_overlap(span1, span2)
 
 
