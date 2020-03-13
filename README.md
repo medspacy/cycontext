@@ -101,4 +101,4 @@ pytest tests
 
 
 # Contact Information
-Alec Chapman: abchapman93@gmail.com
+medSpaCy team: medspacy.dev@gmail.com
