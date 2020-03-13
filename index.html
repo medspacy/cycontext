@@ -1,0 +1,559 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to cycontext’s documentation! &mdash; cycontext 0.1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/jquery.fancybox.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/glpi.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="cycontext 0.1.5 documentation" href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> cycontext
+          
+
+          
+          </a>
+
+          
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to cycontext’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">cycontext</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to cycontext’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-cycontext.context_component">
+<span id="welcome-to-cycontext-s-documentation"></span><h1>Welcome to cycontext’s documentation!<a class="headerlink" href="#module-cycontext.context_component" title="Permalink to this headline">¶</a></h1>
+<p>The ConTextComponent definiton.</p>
+<dl class="class">
+<dt id="cycontext.context_component.ConTextComponent">
+<em class="property">class </em><code class="sig-prename descclassname">cycontext.context_component.</code><code class="sig-name descname">ConTextComponent</code><span class="sig-paren">(</span><em class="sig-param">nlp</em>, <em class="sig-param">targets='ents'</em>, <em class="sig-param">add_attrs=True</em>, <em class="sig-param">prune=True</em>, <em class="sig-param">rules='default'</em>, <em class="sig-param">rule_list=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_component.ConTextComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ConTextComponent for spaCy processing.</p>
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">item_data</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_component.ConTextComponent.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a list of ConTextItem items to ConText.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item_data</strong> – a list of ConTextItems to add.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if item_data contains an object that is not a ConTextItem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.categories">
+<em class="property">property </em><code class="sig-name descname">categories</code><a class="headerlink" href="#cycontext.context_component.ConTextComponent.categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of categories from ConTextItems</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.item_data">
+<em class="property">property </em><code class="sig-name descname">item_data</code><a class="headerlink" href="#cycontext.context_component.ConTextComponent.item_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of ConTextItems</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.register_default_attributes">
+<code class="sig-name descname">register_default_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_component.ConTextComponent.register_default_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register the default values for the Span attributes defined in DEFAULT_ATTRS.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.register_graph_attributes">
+<code class="sig-name descname">register_graph_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_component.ConTextComponent.register_graph_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register spaCy container custom attribute extensions.</p>
+<p>By default will register Span._.modifiers and Doc._.context_graph.</p>
+<dl class="simple">
+<dt>If self.add_attrs is True, will add additional attributes to span</dt><dd><p>as defined in DEFAULT_ATTRS:
+- is_negated
+- is_historical
+- is_experiencer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_component.ConTextComponent.set_context_attributes">
+<code class="sig-name descname">set_context_attributes</code><span class="sig-paren">(</span><em class="sig-param">edges</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_component.ConTextComponent.set_context_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add Span-level attributes to targets with modifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>edges</strong> – the edges to modify</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cycontext.context_graph"></span><dl class="function">
+<dt id="cycontext.context_graph.overlap_target_modifiers">
+<code class="sig-prename descclassname">cycontext.context_graph.</code><code class="sig-name descname">overlap_target_modifiers</code><span class="sig-paren">(</span><em class="sig-param">span1</em>, <em class="sig-param">span2</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_graph.overlap_target_modifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether two modifiers overlap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>span1</strong> – the first span</p></li>
+<li><p><strong>span2</strong> – the second span</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-cycontext.context_item"></span><dl class="class">
+<dt id="cycontext.context_item.ConTextItem">
+<em class="property">class </em><code class="sig-prename descclassname">cycontext.context_item.</code><code class="sig-name descname">ConTextItem</code><span class="sig-paren">(</span><em class="sig-param">literal</em>, <em class="sig-param">category</em>, <em class="sig-param">rule='BIDIRECTIONAL'</em>, <em class="sig-param">pattern=None</em>, <em class="sig-param">allowed_types=None</em>, <em class="sig-param">excluded_types=None</em>, <em class="sig-param">max_targets=None</em>, <em class="sig-param">max_scope=None</em>, <em class="sig-param">metadata=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_item.ConTextItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>An ConTextItem defines a ConText modifier. It defines the phrase to be matched,
+the category/semantic class, and the rule which the modifier executes.</p>
+<dl class="method">
+<dt id="cycontext.context_item.ConTextItem.from_dict">
+<em class="property">classmethod </em><code class="sig-name descname">from_dict</code><span class="sig-paren">(</span><em class="sig-param">item_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_item.ConTextItem.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a dictionary into a ConTextItem. Used when reading from a json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item_dict</strong> – the dictionary to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the ConTextItem created from the dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>item</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the json is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_item.ConTextItem.from_json">
+<em class="property">classmethod </em><code class="sig-name descname">from_json</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_item.ConTextItem.from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read in a lexicon of modifiers from a JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong> – the .json file containing modifier rules</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of ConTextItem objects</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>context_item</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the dictionary contains any keys other than
+    those accepted by ConTextItem.__init__</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_item.ConTextItem.to_dict">
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_item.ConTextItem.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts ConTextItems to a python dictionary. Used when writing context items to a json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the dictionary containing the ConTextItem info.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>item_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.context_item.ConTextItem.to_json">
+<em class="property">classmethod </em><code class="sig-name descname">to_json</code><span class="sig-paren">(</span><em class="sig-param">item_data</em>, <em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.context_item.ConTextItem.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes ConTextItems to a json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item_data</strong> – a list of ConTextItems that will be written to a file.</p></li>
+<li><p><strong>filepath</strong> – the .json file to contain modifier rules</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cycontext.tag_object"></span><dl class="class">
+<dt id="cycontext.tag_object.TagObject">
+<em class="property">class </em><code class="sig-prename descclassname">cycontext.tag_object.</code><code class="sig-name descname">TagObject</code><span class="sig-paren">(</span><em class="sig-param">context_item</em>, <em class="sig-param">start</em>, <em class="sig-param">end</em>, <em class="sig-param">doc</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a concept found by ConText in a document.
+Is the result of ConTextItem matching a span of text in a Doc.</p>
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.allowed_types">
+<em class="property">property </em><code class="sig-name descname">allowed_types</code><a class="headerlink" href="#cycontext.tag_object.TagObject.allowed_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated allowed types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.allows">
+<code class="sig-name descname">allows</code><span class="sig-paren">(</span><em class="sig-param">target_label</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.allows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if a modifier is able to modify a target type.
+A modifier may not be allowed if either self.allowed_types is not None and
+target_label is not in it, or if self.excluded_types is not None and
+target_label is in it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.category">
+<em class="property">property </em><code class="sig-name descname">category</code><a class="headerlink" href="#cycontext.tag_object.TagObject.category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated category.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.excluded_types">
+<em class="property">property </em><code class="sig-name descname">excluded_types</code><a class="headerlink" href="#cycontext.tag_object.TagObject.excluded_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated excluded types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.limit_scope">
+<code class="sig-name descname">limit_scope</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.limit_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>If self and obj have the same category
+or if obj has a directionality of ‘terminate’,
+use the span of obj to update the scope of self.
+Limiting the scope of two modifiers of the same category
+reduces the number of modifiers. For example, in
+‘no evidence of CHF, no pneumonia’, ‘pneumonia’ will only
+be modified by ‘no’, not ‘no evidence of’.
+‘terminate’ modifiers limit the scope of a modifier
+like ‘no evidence of’ in ‘no evidence of CHF, <strong>but</strong> there is pneumonia’</p>
+<p>other (TagObject)
+Returns True if obj modfified the scope of self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.max_scope">
+<em class="property">property </em><code class="sig-name descname">max_scope</code><a class="headerlink" href="#cycontext.tag_object.TagObject.max_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated maximum scope.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.max_targets">
+<em class="property">property </em><code class="sig-name descname">max_targets</code><a class="headerlink" href="#cycontext.tag_object.TagObject.max_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated maximum number of targets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.modifies">
+<code class="sig-name descname">modifies</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.modifies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the target is within the modifier scope
+and self is allowed to modify target.</p>
+<p>target (Span): a spaCy span representing a target concept.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.modify">
+<code class="sig-name descname">modify</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.modify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add target to the list of self._targets and increment self._num_targets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.num_targets">
+<em class="property">property </em><code class="sig-name descname">num_targets</code><a class="headerlink" href="#cycontext.tag_object.TagObject.num_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated number of targets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.overlaps">
+<code class="sig-name descname">overlaps</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.overlaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether the object overlaps with another span</p>
+<p>other (): the other object to check for overlaps</p>
+<p>RETURNS: true if there is overlap, false otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.reduce_targets">
+<code class="sig-name descname">reduce_targets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.reduce_targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>If self.max_targets is not None, reduce the targets which are modified
+so that only the n closest targets are left. Distance is measured as
+the distance to either the start or end of a target (whichever is closer).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.rule">
+<em class="property">property </em><code class="sig-name descname">rule</code><a class="headerlink" href="#cycontext.tag_object.TagObject.rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated rule.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.scope">
+<em class="property">property </em><code class="sig-name descname">scope</code><a class="headerlink" href="#cycontext.tag_object.TagObject.scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the associated scope.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.set_scope">
+<code class="sig-name descname">set_scope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.set_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the rule of the ConTextItem which generated
+this TagObject to define a scope.
+If self.max_scope is None, then the default scope is the sentence which it occurs in
+in whichever direction defined by self.rule.
+For example, if the rule is “forward”, the scope will be [self.end: sentence.end].
+If the rule is “backward”, it will be [self.start: sentence.start].</p>
+<p>If self.max_scope is not None and the length of the default scope is longer than self.max_scope,
+it will be reduced to self.max_scope.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.span">
+<em class="property">property </em><code class="sig-name descname">span</code><a class="headerlink" href="#cycontext.tag_object.TagObject.span" title="Permalink to this definition">¶</a></dt>
+<dd><p>The spaCy Span object, which is a view of self.doc, covered by this match.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycontext.tag_object.TagObject.update_scope">
+<code class="sig-name descname">update_scope</code><span class="sig-paren">(</span><em class="sig-param">span</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.tag_object.TagObject.update_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the scope of self to be the given spaCy span.</p>
+<p>span (Span): a spaCy Span which contains the scope
+which a modifier should cover.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cycontext.viz"></span><dl class="function">
+<dt id="cycontext.viz.visualize_dep">
+<code class="sig-prename descclassname">cycontext.viz.</code><code class="sig-name descname">visualize_dep</code><span class="sig-paren">(</span><em class="sig-param">doc</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.viz.visualize_dep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dependency-style visualization for
+targets and modifiers in doc.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cycontext.viz.visualize_ent">
+<code class="sig-prename descclassname">cycontext.viz.</code><code class="sig-name descname">visualize_ent</code><span class="sig-paren">(</span><em class="sig-param">doc</em>, <em class="sig-param">colors=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cycontext.viz.visualize_ent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a NER-style visualization for targets and modifiers in Doc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> – A spacy doc which has been processed by context</p></li>
+<li><p><strong>colors</strong> – An optional dictionary which maps labels of targets and modifiers
+to color strings to be rendered. If None, will create a generator which
+cycles through the default matplotlib colors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-cycontext.helpers"></span><p>This module will contain helper functions and classes for common clinical processing tasks
+which will be done in conjunction with cycontext.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, medspacy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.5',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="_static/jquery.fancybox.min.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+  <script type="text/javascript">
+    $(function(){
+      $('.image-reference').fancybox();
+    })
+  </script>
+
+</body>
+</html>
