@@ -9,7 +9,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="cycontext",
-    version="0.1.5",
+    version="1.0.0",
     description="ConText algorithm using spaCy for clinical NLP",
     author="Alec Chapman",
     author_email="abchapman93@gmail.com",
