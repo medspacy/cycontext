@@ -217,7 +217,6 @@ class ConTextComponent:
                     str(self._i), None, self.nlp.make_doc(item.literal)
                 )
             else:
-                print(item.pattern)
                 self.matcher.add(str(self._i), None, item.pattern)
             self._modifier_item_mapping[uid] = item
             self._i += 1
