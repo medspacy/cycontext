@@ -195,3 +195,20 @@ class TestConTextComponent:
         context(doc)
 
         assert doc.ents[0]._.is_family is False
+
+    def test_simple_callback(self, capsys):
+        context = ConTextComponent(nlp, rules=None)
+
+        def simple_callback(matcher, doc, i, matches):
+            match_id, start, end = matches[i]
+            span = doc[start:end]
+            print("Matched on span:", span)
+
+        context.add(
+            [ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", on_match=simple_callback)]
+        )
+
+        doc = nlp("There is no evidence of pneumonia.")
+        context(doc)
+        captured = capsys.readouterr()
+        assert captured.out == "Matched on span: no evidence of\n"

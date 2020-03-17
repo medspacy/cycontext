@@ -214,10 +214,11 @@ class ConTextComponent:
             # match on the literal phrase.
             if item.pattern is None:
                 self.phrase_matcher.add(
-                    str(self._i), None, self.nlp.make_doc(item.literal)
+                    str(self._i), [self.nlp.make_doc(item.literal)], on_match=item.on_match
                 )
             else:
-                self.matcher.add(str(self._i), None, item.pattern)
+
+                self.matcher.add(str(self._i), [item.pattern], on_match=item.on_match)
             self._modifier_item_mapping[uid] = item
             self._i += 1
             self._categories.add(item.category)
