@@ -212,3 +212,38 @@ class TestConTextComponent:
         context(doc)
         captured = capsys.readouterr()
         assert captured.out == "Matched on span: no evidence of\n"
+
+    def test_global_allowed_types1(self):
+        """Check that if the ConTextComponent has allowed_types defined
+        and a ConTextItem does not, the ConTextItem will receive the component's
+        value.
+        """
+        context = ConTextComponent(nlp, rules=None, allowed_types={"PROBLEM"})
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types=None)
+        context.add(
+            [item]
+        )
+        assert item.allowed_types == {"PROBLEM"}
+
+    def test_global_allowed_types2(self):
+        """Check that if the ConTextComponent does not have allowed_types defined
+        and a ConTextItem does, the ConTextItem will not receive the component's
+        value.
+        """
+        context = ConTextComponent(nlp, rules=None, allowed_types=None)
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
+        context.add(
+            [item]
+        )
+        assert item.allowed_types == {"PROBLEM"}
+
+    def test_global_allowed_types2(self):
+        """Check that if both the ConTextComponent and a ConTextItem have allowed_types defined,
+        the ConTextItem will not receive the component's value.
+        """
+        context = ConTextComponent(nlp, rules=None, allowed_types={"TREATMENT"})
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
+        context.add(
+            [item]
+        )
+        assert item.allowed_types == {"PROBLEM"}

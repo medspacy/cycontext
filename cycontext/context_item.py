@@ -50,7 +50,7 @@ class ConTextItem:
                 One of ("forward", "backward", "bidirectional", or "terminate").
             on_match (callable or None): Callback function to act on spaCy matches.
                 Takes the argument matcher, doc, i, and matches.
-#            allowed_types (set or None): A set of target labels to allow a modifier to modify.
+#           allowed_types (set or None): A set of target labels to allow a modifier to modify.
                 If None, will apply to any type not specifically excluded in excluded_types.
                 Only one of allowed_types and excluded_types can be used. An error will be thrown
                 if both or not None.
