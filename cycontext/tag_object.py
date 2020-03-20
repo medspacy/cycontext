@@ -27,38 +27,46 @@ class TagObject:
     @property
     def span(self):
         """The spaCy Span object, which is a view of self.doc, covered by this match."""
-        return self.doc[self.start: self.end]
+        return self.doc[self.start : self.end]
 
     @property
     def rule(self):
+        """Returns the associated rule."""
         return self.context_item.rule
 
     @property
     def category(self):
+        """Returns the associated category."""
         return self.context_item.category
 
     @property
     def scope(self):
-        return self.doc[self._scope_start: self._scope_end]
+        """Returns the associated scope."""
+        return self.doc[self._scope_start : self._scope_end]
 
     @property
     def allowed_types(self):
+        """Returns the associated allowed types."""
         return self.context_item.allowed_types
 
     @property
     def excluded_types(self):
+        """Returns the associated excluded types."""
         return self.context_item.excluded_types
 
     @property
     def num_targets(self):
+        """Returns the associated number of targets."""
         return self._num_targets
 
     @property
     def max_targets(self):
+        """Returns the associated maximum number of targets."""
         return self.context_item.max_targets
 
     @property
     def max_scope(self):
+        """Returns the associated maximum scope."""
         return self.context_item.max_scope
 
     def allows(self, target_label):
@@ -70,15 +78,12 @@ class TagObject:
         if self.allowed_types is not None:
             if target_label not in self.allowed_types:
                 return False
-            else:
-                return True
+            return True
         if self.excluded_types is not None:
             if target_label not in self.excluded_types:
                 return True
-            else:
-                return False
+            return False
         return True
-
 
     def set_scope(self):
         """Applies the rule of the ConTextItem which generated
@@ -95,28 +100,41 @@ class TagObject:
         """
         sent = self.doc[self.start].sent
         if sent is None:
-            raise ValueError("ConText failed because sentence boundaries have not been set. "
-                             "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries.")
+            raise ValueError(
+                "ConText failed because sentence boundaries have not been set. "
+                "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries."
+            )
 
         if self.rule.lower() == "forward":
             self._scope_start, self._scope_end = self.end, sent.end
-            if self.max_scope is not None and (self._scope_end - self._scope_start) > self.max_scope:
+            if (
+                self.max_scope is not None
+                and (self._scope_end - self._scope_start) > self.max_scope
+            ):
                 self._scope_end = self.end + self.max_scope
-
 
         elif self.rule.lower() == "backward":
             self._scope_start, self._scope_end = sent.start, self.start
-            if self.max_scope is not None and (self._scope_end - self._scope_start) > self.max_scope:
+            if (
+                self.max_scope is not None
+                and (self._scope_end - self._scope_start) > self.max_scope
+            ):
                 self._scope_start = self.start - self.max_scope
-        else: # bidirectional
+        else:  # bidirectional
             self._scope_start, self._scope_end = sent.start, sent.end
 
             # Set the max scope on either side
             # Backwards
-            if self.max_scope is not None and (self.start - self._scope_start) > self.max_scope:
+            if (
+                self.max_scope is not None
+                and (self.start - self._scope_start) > self.max_scope
+            ):
                 self._scope_start = self.start - self.max_scope
             # Forwards
-            if self.max_scope is not None and (self._scope_end - self.end) > self.max_scope:
+            if (
+                self.max_scope is not None
+                and (self._scope_end - self.end) > self.max_scope
+            ):
                 self._scope_end = self.end + self.max_scope
 
     def update_scope(self, span):
@@ -145,26 +163,27 @@ class TagObject:
             return False
         if self.rule.lower() == "terminate":
             return False
-        if (other.rule.lower() != "terminate") and (other.category.lower() != self.category.lower()):
+        if (other.rule.lower() != "terminate") and (
+            other.category.lower() != self.category.lower()
+        ):
             return False
 
         # If two modifiers have the same category but modify different target types,
         # don't limit scope.
-        if (self.allowed_types != other.allowed_types) or (self.excluded_types != other.excluded_types):
+        if (self.allowed_types != other.allowed_types) or (
+            self.excluded_types != other.excluded_types
+        ):
             return False
 
         orig_scope = self.scope
 
-        if (self.rule.lower() in ("forward", "bidirectional")):
+        if self.rule.lower() in ("forward", "bidirectional"):
             if other > self:
                 self._scope_end = min(self._scope_end, other.start)
-        elif (self.rule.lower() in ("backward", "bidirectional")):
+        elif self.rule.lower() in ("backward", "bidirectional"):
             if other < self:
                 self._scope_start = max(self._scope_start, other.end)
-        if orig_scope != self.scope:
-            return True
-        else:
-            return False
+        return orig_scope != self.scope
 
     def modifies(self, target):
         """Returns True if the target is within the modifier scope
@@ -200,19 +219,22 @@ class TagObject:
             dist = min(abs(self.start - target.end), abs(target.start - self.end))
             target_dists.append((target, dist))
         srtd_targets, _ = zip(*sorted(target_dists, key=lambda x: x[1]))
-        self._targets = srtd_targets[:self.max_targets]
+        self._targets = srtd_targets[: self.max_targets]
         self._num_targets = len(self._targets)
 
     def overlaps(self, other):
-        if self.span[0] in other.span:
-            return True
-        if self.span[-1] in other.span:
-            return True
-        if other.span[0] in self.span:
-            return True
-        if other.span[-1] in self.span:
-            return True
-        return False
+        """ Returns whether the object overlaps with another span
+
+        other (): the other object to check for overlaps
+
+        RETURNS: true if there is overlap, false otherwise.
+        """
+        return (
+            self.span[0] in other.span
+            or self.span[-1] in other.span
+            or other.span[0] in self.span
+            or other.span[-1] in self.span
+        )
 
     def __gt__(self, other):
         return self.span > other.span

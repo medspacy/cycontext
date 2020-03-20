@@ -1,6 +1,8 @@
 # cycontext
 A Python implementation of the ConText algorithm for clinical text concept assertion using the spaCy framework
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 # Overview
 This package implements the ConText algorithm within the [spaCy](https://spacy.io) framework. 
 [ConText](https://www.sciencedirect.com/science/article/pii/S1532046409000744) detects semantic modifiers such as **negation**, 
@@ -82,13 +84,13 @@ from cycontext import viz
 viz.visualize_ent(doc)
 ``` 
 
-<p align="center"><img width="75%" src="docs/ent_viz.png" /></p>
+<p align="center"><img width="75%" src="img/ent_viz.png" /></p>
 
 While this dependency-style visualization shows the relationships between targets and modifiers:
 ```python
 viz.visualize_dep(doc)
 ``` 
-<p align="center"><img width="75%" src="docs/dep_viz.png" /></p>
+<p align="center"><img width="75%" src="img/dep_viz.png" /></p>
 
 ## Tests
 To run tests:
@@ -99,4 +101,4 @@ pytest tests
 
 
 # Contact Information
-Alec Chapman: abchapman93@gmail.com
+medSpaCy team: medspacy.dev@gmail.com

@@ -10,11 +10,13 @@ from cycontext.context_graph import overlap_target_modifiers
 
 nlp = spacy.load("en_core_web_sm")
 
-class TestConTextGraph:
 
+class TestConTextGraph:
     def context_graph(self):
         doc = nlp("There is no evidence of pneumonia but there is chf.")
-        item_data1 = ConTextItem("no evidence of", "DEFINITE_NEGATED_EXISTENCE", "forward")
+        item_data1 = ConTextItem(
+            "no evidence of", "DEFINITE_NEGATED_EXISTENCE", "forward"
+        )
         tag_object1 = TagObject(item_data1, 2, 5, doc)
 
         item_data2 = ConTextItem("evidence of", "DEFINITE_EXISTENCE", "forward")
@@ -32,13 +34,13 @@ class TestConTextGraph:
 
     def test_apply_modifiers(self):
         doc, graph = self.context_graph()
-        graph.targets = [doc[5:6]] # "pneumonia"
+        graph.targets = [doc[5:6]]  # "pneumonia"
         graph.apply_modifiers()
         assert len(graph.edges) == 2
 
     def test_prune_modifiers(self):
         doc, graph = self.context_graph()
-        graph.targets = [doc[5:6]] # "pneumonia"
+        graph.targets = [doc[5:6]]  # "pneumonia"
         graph.prune_modifiers()
         assert len(graph.modifiers) == 2
 
@@ -66,11 +68,3 @@ class TestConTextGraph:
         assert overlap_target_modifiers(tag_object.span, doc.ents[0])
         assert len(graph.modifiers) == 0
         assert len(graph.edges) == 0
-
-
-
-
-
-
-
-
