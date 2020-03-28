@@ -43,29 +43,35 @@ def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
                 continue
             ent_data = {"start": header.start_char, "end": header.end_char, "label": f"<< {title.upper()} >>"}
             ents_data.append((ent_data, "section"))
+    if len(ents_data) == 0: # No data to display
+        viz_data = [{"text": doc.text,
+                     "ents": []
+                     }]
+        options = dict()
+    else:
+        ents_data = sorted(ents_data, key=lambda x: x[0]["start"])
 
-    ents_data = sorted(ents_data, key=lambda x: x[0]["start"])
 
-    # If colors aren't defined, generate color mappings for each entity and modifier label
-    # And set all section titles to a light gray
-    if colors is None:
-        labels = set()
-        section_titles = set()
-        for (ent_data, ent_type) in ents_data:
-            if ent_type in ("ent", "modifier"):
-                labels.add(ent_data["label"])
-            elif ent_type == "section":
-                section_titles.add(ent_data["label"])
-        colors = _create_color_mapping(labels)
-        for title in section_titles:
-            colors[title] = "#dee0e3"
-    ents_display_data, _ = zip(*ents_data)
-    viz_data = [{"text": doc.text,
-                "ents": ents_display_data,
-                }]
+        # If colors aren't defined, generate color mappings for each entity and modifier label
+        # And set all section titles to a light gray
+        if colors is None:
+            labels = set()
+            section_titles = set()
+            for (ent_data, ent_type) in ents_data:
+                if ent_type in ("ent", "modifier"):
+                    labels.add(ent_data["label"])
+                elif ent_type == "section":
+                    section_titles.add(ent_data["label"])
+            colors = _create_color_mapping(labels)
+            for title in section_titles:
+                colors[title] = "#dee0e3"
+        ents_display_data, _ = zip(*ents_data)
+        viz_data = [{"text": doc.text,
+                    "ents": ents_display_data,
+                    }]
 
-    options = {"colors": colors,
-              }
+        options = {"colors": colors,
+                  }
     return displacy.render(viz_data, style="ent", manual=True, options=options, jupyter=jupyter)
 
 
