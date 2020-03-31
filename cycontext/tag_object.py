@@ -191,6 +191,12 @@ class TagObject:
 
         target (Span): a spaCy span representing a target concept.
         """
+        # If the target and modifier overlap, meaning at least one token
+        # one extracted as both a target and modifier, return False
+        # to avoid self-modifying concepts
+
+        if self.overlaps_target(target):
+            return False
         if self.rule == "TERMINATE":
             return False
         if not self.allows(target.label_.upper()):
@@ -234,6 +240,15 @@ class TagObject:
             or self.span[-1] in other.span
             or other.span[0] in self.span
             or other.span[-1] in self.span
+        )
+
+    def overlaps_target(self, target):
+        """Returns True if self overlaps with a spaCy span."""
+        return (
+                self.span[0] in target
+                or self.span[-1] in target
+                or target[0] in self.span
+                or target[-1] in self.span
         )
 
     def __gt__(self, other):
