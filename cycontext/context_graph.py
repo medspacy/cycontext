@@ -62,17 +62,6 @@ class ConTextGraph:
         # TODO: Consider only removing modifiers which are subspans.
         """
 
-        # Start by comparing modifiers against targets
-        # Remove any modifiers which overlap with a target
-        # Go backwards so we can remove modifiers which need to be pruned
-        for i in range(len(self.modifiers) - 1, -1, -1):
-            modifier = self.modifiers[i]
-            for target in self.targets:
-                if overlap_target_modifiers(target, modifier.span):
-
-                    self.modifiers.pop(i)
-                    break
-
         unpruned = sorted(self.modifiers, key=lambda x: (x.end - x.end))
         if len(unpruned) > 0:
             rslt = self.prune_overlapping_modifiers(unpruned)

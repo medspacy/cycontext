@@ -309,3 +309,16 @@ class TestTagObject:
             if tag_object.modifies(target):
                 tag_object.modify(target)
         assert tag_object.num_targets == 3
+
+    def test_overlapping_target(self):
+        """Test that a modifier will not modify a target if it is
+        in the same span as the modifier.
+        """
+        doc = nlp("Pt presents for r/o of pneumonia.")
+        item = ConTextItem(
+            "r/o", "UNCERTAIN", rule="BIDIRECTIONAL"
+        )
+        tag_object = TagObject(item, 3, 4, doc)
+        target = Span(doc, 3, 4, "TEST")
+
+        assert tag_object.modifies(target) is False
