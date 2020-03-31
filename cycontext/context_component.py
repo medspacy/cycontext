@@ -35,6 +35,7 @@ class ConTextComponent:
         targets="ents",
         add_attrs=True,
         prune=True,
+        remove_overlapping_modifiers=False,
         rules="default",
         rule_list=None,
         allowed_types=None,
@@ -70,6 +71,10 @@ class ConTextComponent:
                 the text "no history of afib", but only "no history of" should modify afib.
                 If True, will drop shorter substrings completely.
                 Default True.
+            remove_overlapping_modifiers: Whether or not to remove any matched modifiers which overlap
+                with target entities. If False, any overlapping modifiers will not modify the overlapping
+                entity but will still modify any other targets in its scope.
+                Default False.
             rules: Which rules to load on initialization. Default is 'default'.
                 - 'default': Load the default set of rules provided with cyConText
                 - 'other': Load a custom set of rules, please also set rule_list with a file path or list.
@@ -107,6 +112,7 @@ class ConTextComponent:
             raise NotImplementedError()
         self._target_attr = targets
         self.prune = prune
+        self.remove_overlapping_modifiers = remove_overlapping_modifiers
 
         self._item_data = []
         self._i = 0
@@ -322,7 +328,7 @@ class ConTextComponent:
 
         # Store data in ConTextGraph object
         # TODO: move some of this over to ConTextGraph
-        context_graph = ConTextGraph()
+        context_graph = ConTextGraph(remove_overlapping_modifiers=self.remove_overlapping_modifiers)
 
         context_graph.targets = targets
 
