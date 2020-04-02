@@ -34,7 +34,7 @@ def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
         ents_data.append((ent_data, "ent"))
 
     if context:
-        for modifier in doc._.context_graph.modifiers:
+        for _, modifier in doc._.context_graph.edges:
             ent_data = {"start": modifier.span.start_char, "end": modifier.span.end_char, "label": modifier.category}
             ents_data.append((ent_data, "modifier"))
     if sections:
@@ -90,7 +90,7 @@ def _create_color_generator():
               u'#9467bd', u'#8c564b', u'#e377c2', u'#7f7f7f', u'#bcbd22', u'#17becf']
     return cycle(colors)
 
-def visualize_dep(doc):
+def visualize_dep(doc, jupyter=True):
     """Create a dependency-style visualization for
     targets and modifiers in doc."""
     token_data = []
@@ -136,5 +136,5 @@ def visualize_dep(doc):
                 "dir": "right" if target > modifier.span else "left"
             }
         )
-    displacy.render(dep_data, manual=True)
+    displacy.render(dep_data, manual=True, jupyter=jupyter)
     return
