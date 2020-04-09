@@ -211,9 +211,6 @@ class ConTextComponent:
                 "rules must either be 'default' (default), 'other' or None."
             )
 
-
-
-
     @property
     def item_data(self):
         """Returns list of ConTextItems"""
@@ -250,7 +247,9 @@ class ConTextComponent:
             # match on the literal phrase.
             if item.pattern is None:
                 self.phrase_matcher.add(
-                    str(self._i), [self.nlp.make_doc(item.literal)], on_match=item.on_match
+                    str(self._i),
+                    [self.nlp.make_doc(item.literal)],
+                    on_match=item.on_match,
                 )
             else:
 
@@ -259,17 +258,16 @@ class ConTextComponent:
             self._i += 1
             self._categories.add(item.category)
 
-
             # If global attributes like allowed_types and max_scope are defined,
             # check if the ConTextItem has them defined. If not, set to the global
             for attr in ("allowed_types", "excluded_types", "max_scope", "max_targets"):
                 value = getattr(self, attr)
-                if value is None: # No global value set
+                if value is None:  # No global value set
                     continue
-                if getattr(item, attr) is None: # If the item itself has it defined, don't override
+                if (
+                    getattr(item, attr) is None
+                ):  # If the item itself has it defined, don't override
                     setattr(item, attr, value)
-
-
 
     def register_default_attributes(self):
         """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
@@ -329,7 +327,9 @@ class ConTextComponent:
 
         # Store data in ConTextGraph object
         # TODO: move some of this over to ConTextGraph
-        context_graph = ConTextGraph(remove_overlapping_modifiers=self.remove_overlapping_modifiers)
+        context_graph = ConTextGraph(
+            remove_overlapping_modifiers=self.remove_overlapping_modifiers
+        )
 
         context_graph.targets = targets
 

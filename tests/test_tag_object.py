@@ -90,7 +90,7 @@ class TestTagObject:
         tag_object = TagObject(item, 6, 8, doc)
 
         item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
-        tag_object2 = TagObject(item2, 3, 4, doc )
+        tag_object2 = TagObject(item2, 3, 4, doc)
         assert tag_object.limit_scope(tag_object2)
 
     def terminate_stops_forward_modifier(self):
@@ -118,9 +118,6 @@ class TestTagObject:
         chf, pneumonia = doc.ents
         assert len(chf._.modifiers) == 0
         assert len(pneumonia._.modifiers) > 0
-
-
-
 
     def test_no_limit_scope_same_category_different_allowed_types(self):
         """Test that a two TagObjects of the same type but with different
@@ -315,9 +312,7 @@ class TestTagObject:
         in the same span as the modifier.
         """
         doc = nlp("Pt presents for r/o of pneumonia.")
-        item = ConTextItem(
-            "r/o", "UNCERTAIN", rule="BIDIRECTIONAL"
-        )
+        item = ConTextItem("r/o", "UNCERTAIN", rule="BIDIRECTIONAL")
         tag_object = TagObject(item, 3, 4, doc)
         target = Span(doc, 3, 4, "TEST")
 

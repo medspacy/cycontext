@@ -245,10 +245,10 @@ class TagObject:
     def overlaps_target(self, target):
         """Returns True if self overlaps with a spaCy span."""
         return (
-                self.span[0] in target
-                or self.span[-1] in target
-                or target[0] in self.span
-                or target[-1] in self.span
+            self.span[0] in target
+            or self.span[-1] in target
+            or target[0] in self.span
+            or target[-1] in self.span
         )
 
     def __gt__(self, other):

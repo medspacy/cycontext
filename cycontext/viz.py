@@ -1,5 +1,6 @@
 from spacy import displacy
 
+
 def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
     """Create a NER-style visualization
     for targets and modifiers in Doc.
@@ -28,29 +29,37 @@ def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
 
     ents_data = []
 
-
     for target in doc.ents:
-        ent_data = {"start": target.start_char, "end":  target.end_char, "label": target.label_.upper()}
+        ent_data = {
+            "start": target.start_char,
+            "end": target.end_char,
+            "label": target.label_.upper(),
+        }
         ents_data.append((ent_data, "ent"))
 
     if context:
         for _, modifier in doc._.context_graph.edges:
-            ent_data = {"start": modifier.span.start_char, "end": modifier.span.end_char, "label": modifier.category}
+            ent_data = {
+                "start": modifier.span.start_char,
+                "end": modifier.span.end_char,
+                "label": modifier.category,
+            }
             ents_data.append((ent_data, "modifier"))
     if sections:
         for (title, header, _) in doc._.sections:
             if title is None:
                 continue
-            ent_data = {"start": header.start_char, "end": header.end_char, "label": f"<< {title.upper()} >>"}
+            ent_data = {
+                "start": header.start_char,
+                "end": header.end_char,
+                "label": f"<< {title.upper()} >>",
+            }
             ents_data.append((ent_data, "section"))
-    if len(ents_data) == 0: # No data to display
-        viz_data = [{"text": doc.text,
-                     "ents": []
-                     }]
+    if len(ents_data) == 0:  # No data to display
+        viz_data = [{"text": doc.text, "ents": []}]
         options = dict()
     else:
         ents_data = sorted(ents_data, key=lambda x: x[0]["start"])
-
 
         # If colors aren't defined, generate color mappings for each entity and modifier label
         # And set all section titles to a light gray
@@ -66,13 +75,14 @@ def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
             for title in section_titles:
                 colors[title] = "#dee0e3"
         ents_display_data, _ = zip(*ents_data)
-        viz_data = [{"text": doc.text,
-                    "ents": ents_display_data,
-                    }]
+        viz_data = [{"text": doc.text, "ents": ents_display_data,}]
 
-        options = {"colors": colors,
-                  }
-    return displacy.render(viz_data, style="ent", manual=True, options=options, jupyter=jupyter)
+        options = {
+            "colors": colors,
+        }
+    return displacy.render(
+        viz_data, style="ent", manual=True, options=options, jupyter=jupyter
+    )
 
 
 def _create_color_mapping(labels):
@@ -83,12 +93,25 @@ def _create_color_mapping(labels):
             mapping[label] = next(color_cycle)
     return mapping
 
+
 def _create_color_generator():
     """Create a generator which will cycle through a list of default matplotlib colors"""
     from itertools import cycle
-    colors = [u'#1f77b4', u'#ff7f0e', u'#2ca02c', u'#d62728',
-              u'#9467bd', u'#8c564b', u'#e377c2', u'#7f7f7f', u'#bcbd22', u'#17becf']
+
+    colors = [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf",
+    ]
     return cycle(colors)
+
 
 def visualize_dep(doc, jupyter=True):
     """Create a dependency-style visualization for
@@ -119,11 +142,10 @@ def visualize_dep(doc, jupyter=True):
             token_data.pop(idx + 1)
 
         # Lower the index of the following tokens
-        for other_data in token_data[idx+1:]:
+        for other_data in token_data[idx + 1 :]:
             other_data["index"] -= len(span) - 1
 
-    dep_data = {"words": token_data,
-               "arcs": []}
+    dep_data = {"words": token_data, "arcs": []}
     # Gather the edges between targets and modifiers
     for target, modifier in doc._.context_graph.edges:
         target_data = token_data_mapping[target[0]]
@@ -133,7 +155,7 @@ def visualize_dep(doc, jupyter=True):
                 "start": min(target_data["index"], modifier_data["index"]),
                 "end": max(target_data["index"], modifier_data["index"]),
                 "label": modifier.category,
-                "dir": "right" if target > modifier.span else "left"
+                "dir": "right" if target > modifier.span else "left",
             }
         )
     displacy.render(dep_data, manual=True, jupyter=jupyter)

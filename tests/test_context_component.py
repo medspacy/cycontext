@@ -205,7 +205,14 @@ class TestConTextComponent:
             print("Matched on span:", span)
 
         context.add(
-            [ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", on_match=simple_callback)]
+            [
+                ConTextItem(
+                    "no evidence of",
+                    "NEGATED_EXISTENCE",
+                    "FORWARD",
+                    on_match=simple_callback,
+                )
+            ]
         )
 
         doc = nlp("There is no evidence of pneumonia.")
@@ -219,10 +226,10 @@ class TestConTextComponent:
         value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types={"PROBLEM"})
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types=None)
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types=None
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
 
     def test_global_allowed_types2(self):
@@ -231,10 +238,10 @@ class TestConTextComponent:
         value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types=None)
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"}
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
 
     def test_global_allowed_types2(self):
@@ -242,8 +249,8 @@ class TestConTextComponent:
         the ConTextItem will not receive the component's value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types={"TREATMENT"})
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"}
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
