@@ -82,6 +82,46 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 5, 7, doc)
         assert tag_object.limit_scope(tag_object2)
 
+    def test_terminate_limit_scope_backward(self):
+        """Test that a 'TERMINATE' modifier will limit the scope of a 'BACKWARD' modifier.
+        """
+        doc = nlp("Pt has chf but pneumonia is ruled out")
+        item = ConTextItem("is ruled out", "NEGATED_EXISTENCE", "BACKWARD")
+        tag_object = TagObject(item, 6, 8, doc)
+
+        item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
+        tag_object2 = TagObject(item2, 3, 4, doc )
+        assert tag_object.limit_scope(tag_object2)
+
+    def terminate_stops_forward_modifier(self):
+        context = ConTextComponent(nlp, rules=None)
+
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD")
+        item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
+        context.add([item, item2])
+        doc = nlp("No evidence of chf but she has pneumonia.")
+        doc.ents = (Span(doc, 3, 4, "PROBLEM"), Span(doc, 7, 8, "PROBLEM"))
+        context(doc)
+        chf, pneumonia = doc.ents
+        assert len(chf._.modifiers) > 0
+        assert len(pneumonia._.modifiers) == 0
+
+    def terminate_stops_backward_modifier(self):
+        context = ConTextComponent(nlp, rules=None)
+
+        item = ConTextItem("is ruled out", "NEGATED_EXISTENCE", "BACKWARD")
+        item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
+        context.add([item, item2])
+        doc = nlp("Pt has chf but pneumonia is ruled out")
+        doc.ents = (Span(doc, 2, 3, "PROBLEM"), Span(doc, 4, 5, "PROBLEM"))
+        context(doc)
+        chf, pneumonia = doc.ents
+        assert len(chf._.modifiers) == 0
+        assert len(pneumonia._.modifiers) > 0
+
+
+
+
     def test_no_limit_scope_same_category_different_allowed_types(self):
         """Test that a two TagObjects of the same type but with different
          allowed types does not limits the scope of the tag object.
@@ -104,7 +144,7 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 8, 10, doc)
         assert not tag_object.limit_scope(tag_object2)
 
-    def test_set_scope_failes_no_sentences(self):
+    def test_set_scope_fails_no_sentences(self):
         """Test that setting the scope fails if sentence boundaries haven't been set."""
         nlp = spacy.blank("en")
         assert nlp.pipeline == []
@@ -269,3 +309,16 @@ class TestTagObject:
             if tag_object.modifies(target):
                 tag_object.modify(target)
         assert tag_object.num_targets == 3
+
+    def test_overlapping_target(self):
+        """Test that a modifier will not modify a target if it is
+        in the same span as the modifier.
+        """
+        doc = nlp("Pt presents for r/o of pneumonia.")
+        item = ConTextItem(
+            "r/o", "UNCERTAIN", rule="BIDIRECTIONAL"
+        )
+        tag_object = TagObject(item, 3, 4, doc)
+        target = Span(doc, 3, 4, "TEST")
+
+        assert tag_object.modifies(target) is False

@@ -30,6 +30,7 @@ class ConTextItem:
         category,
         rule="BIDIRECTIONAL",
         pattern=None,
+        on_match=None,
         allowed_types=None,
         excluded_types=None,
         max_targets=None,
@@ -47,7 +48,9 @@ class ConTextItem:
                 See https://spacy.io/usage/rule-based-matching.
             rule (str): The directionality or action of a modifier.
                 One of ("forward", "backward", "bidirectional", or "terminate").
-            allowed_types (set or None): A set of target labels to allow a modifier to modify.
+            on_match (callable or None): Callback function to act on spaCy matches.
+                Takes the argument matcher, doc, i, and matches.
+#           allowed_types (set or None): A set of target labels to allow a modifier to modify.
                 If None, will apply to any type not specifically excluded in excluded_types.
                 Only one of allowed_types and excluded_types can be used. An error will be thrown
                 if both or not None.
@@ -67,6 +70,7 @@ class ConTextItem:
         self.category = category.upper()
         self.pattern = pattern
         self.rule = rule.upper()
+        self.on_match = on_match
 
         if allowed_types is not None and excluded_types is not None:
             raise ValueError(

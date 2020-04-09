@@ -52,13 +52,13 @@ class TestConTextGraph:
         graph.update_scopes()
         assert graph.modifiers[0].scope == doc[5:6]
 
-    def test_prune_modifiers_overlap_target(self):
-        """Test that a modifier which overlaps with a target is pruned."""
+    def test_remove_modifiers_overlap_target(self):
+        """Test that a modifier which overlaps with a target is removed when set to True."""
         doc = nlp("The patient has heart failure.")
         doc.ents = (Span(doc, 3, 5, "CONDITION"),)
         context_item = ConTextItem("failure", "MODIFIER")
         tag_object = TagObject(context_item, 4, 5, doc)
-        graph = ConTextGraph()
+        graph = ConTextGraph(remove_overlapping_modifiers=True)
 
         graph.modifiers = [tag_object]
         graph.targets = doc.ents
@@ -67,4 +67,19 @@ class TestConTextGraph:
 
         assert overlap_target_modifiers(tag_object.span, doc.ents[0])
         assert len(graph.modifiers) == 0
-        assert len(graph.edges) == 0
+
+    def test_not_remove_modifiers_overlap_target(self):
+        """Test that a modifier which overlaps with a target is not pruned but does not modify itself."""
+        doc = nlp("The patient has heart failure.")
+        doc.ents = (Span(doc, 3, 5, "CONDITION"),)
+        context_item = ConTextItem("failure", "MODIFIER")
+        tag_object = TagObject(context_item, 4, 5, doc)
+        graph = ConTextGraph(remove_overlapping_modifiers=False)
+
+        graph.modifiers = [tag_object]
+        graph.targets = doc.ents
+        graph.prune_modifiers()
+        graph.apply_modifiers()
+
+        assert overlap_target_modifiers(tag_object.span, doc.ents[0])
+        assert len(graph.modifiers) == 1
