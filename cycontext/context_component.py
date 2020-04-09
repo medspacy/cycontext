@@ -27,6 +27,7 @@ DEFAULT_RULES_FILEPATH = path.join(
 
 class ConTextComponent:
     """The ConTextComponent for spaCy processing."""
+
     name = "context"
 
     def __init__(
