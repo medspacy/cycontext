@@ -36,8 +36,13 @@ class ConTextComponent:
         targets="ents",
         add_attrs=True,
         prune=True,
+        remove_overlapping_modifiers=False,
         rules="default",
         rule_list=None,
+        allowed_types=None,
+        excluded_types=None,
+        max_targets=None,
+        max_scope=None,
     ):
 
         """Create a new ConTextComponent algorithm.
@@ -67,12 +72,33 @@ class ConTextComponent:
                 the text "no history of afib", but only "no history of" should modify afib.
                 If True, will drop shorter substrings completely.
                 Default True.
+            remove_overlapping_modifiers: Whether or not to remove any matched modifiers which overlap
+                with target entities. If False, any overlapping modifiers will not modify the overlapping
+                entity but will still modify any other targets in its scope.
+                Default False.
             rules: Which rules to load on initialization. Default is 'default'.
                 - 'default': Load the default set of rules provided with cyConText
                 - 'other': Load a custom set of rules, please also set rule_list with a file path or list.
                 - None: Load no rules.
             rule_list: The location of rules in json format or a list of ContextItems. Default
                 is None.
+            allowed_types (set or None): A set of target labels to allow a ConTextItem to modify.
+                If None, will apply to any type not specifically excluded in excluded_types.
+                Only one of allowed_types and excluded_types can be used. An error will be thrown
+                if both or not None.
+                If this attribute is also defined in the ConTextItem, it will keep that value.
+                Otherwise it will inherit this value.
+            excluded_types (set or None): A set of target labels which this modifier cannot modify.
+                If None, will apply to all target types unless allowed_types is not None.
+                If this attribute is also defined in the ConTextItem, it will keep that value.
+                Otherwise it will inherit this value.
+            max_targets (int or None): The maximum number of targets which a modifier can modify.
+                If None, will modify all targets in its scope.
+                If this attribute is also defined in the ConTextItem, it will keep that value.
+                Otherwise it will inherit this value.
+            max_scope (int or None): A number to explicitly limit the size of the modifier's scope
+                If this attribute is also defined in the ConTextItem, it will keep that value.
+                Otherwise it will inherit this value.
 
 
         Returns: 
@@ -87,6 +113,7 @@ class ConTextComponent:
             raise NotImplementedError()
         self._target_attr = targets
         self.prune = prune
+        self.remove_overlapping_modifiers = remove_overlapping_modifiers
 
         self._item_data = []
         self._i = 0
@@ -127,6 +154,11 @@ class ConTextComponent:
                     add_attrs
                 )
             )
+
+        self.allowed_types = allowed_types
+        self.excluded_types = excluded_types
+        self.max_targets = max_targets
+        self.max_scope = max_scope
 
         if rules == "default":
 
@@ -179,6 +211,9 @@ class ConTextComponent:
                 "rules must either be 'default' (default), 'other' or None."
             )
 
+
+
+
     @property
     def item_data(self):
         """Returns list of ConTextItems"""
@@ -215,13 +250,26 @@ class ConTextComponent:
             # match on the literal phrase.
             if item.pattern is None:
                 self.phrase_matcher.add(
-                    str(self._i), None, self.nlp.make_doc(item.literal)
+                    str(self._i), [self.nlp.make_doc(item.literal)], on_match=item.on_match
                 )
             else:
-                self.matcher.add(str(self._i), None, item.pattern)
+
+                self.matcher.add(str(self._i), [item.pattern], on_match=item.on_match)
             self._modifier_item_mapping[uid] = item
             self._i += 1
             self._categories.add(item.category)
+
+
+            # If global attributes like allowed_types and max_scope are defined,
+            # check if the ConTextItem has them defined. If not, set to the global
+            for attr in ("allowed_types", "excluded_types", "max_scope", "max_targets"):
+                value = getattr(self, attr)
+                if value is None: # No global value set
+                    continue
+                if getattr(item, attr) is None: # If the item itself has it defined, don't override
+                    setattr(item, attr, value)
+
+
 
     def register_default_attributes(self):
         """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
@@ -281,7 +329,7 @@ class ConTextComponent:
 
         # Store data in ConTextGraph object
         # TODO: move some of this over to ConTextGraph
-        context_graph = ConTextGraph()
+        context_graph = ConTextGraph(remove_overlapping_modifiers=self.remove_overlapping_modifiers)
 
         context_graph.targets = targets
 

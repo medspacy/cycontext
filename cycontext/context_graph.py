@@ -1,8 +1,9 @@
 class ConTextGraph:
-    def __init__(self):
+    def __init__(self, remove_overlapping_modifiers=False):
         self.targets = []
         self.modifiers = []
         self.edges = []
+        self.remove_overlapping_modifiers = remove_overlapping_modifiers
 
     def update_scopes(self):
         """Update the scope of all TagObjects.
@@ -34,6 +35,14 @@ class ConTextGraph:
         RETURNS 
             edges: A list of tuples consisting of target/modifier pairs
         """
+        if self.remove_overlapping_modifiers:
+            for i in range(len(self.modifiers) - 1, -1, -1):
+                modifier = self.modifiers[i]
+                for target in self.targets:
+                    if overlap_target_modifiers(target, modifier.span):
+                        self.modifiers.pop(i)
+                        break
+
         edges = []
         for target in self.targets:
             for modifier in self.modifiers:
@@ -61,17 +70,6 @@ class ConTextGraph:
 
         # TODO: Consider only removing modifiers which are subspans.
         """
-
-        # Start by comparing modifiers against targets
-        # Remove any modifiers which overlap with a target
-        # Go backwards so we can remove modifiers which need to be pruned
-        for i in range(len(self.modifiers) - 1, -1, -1):
-            modifier = self.modifiers[i]
-            for target in self.targets:
-                if overlap_target_modifiers(target, modifier.span):
-
-                    self.modifiers.pop(i)
-                    break
 
         unpruned = sorted(self.modifiers, key=lambda x: (x.end - x.end))
         if len(unpruned) > 0:
