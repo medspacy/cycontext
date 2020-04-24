@@ -178,11 +178,10 @@ class TagObject:
             return False
 
         orig_scope = self.scope
-
         if self.rule.lower() in ("forward", "bidirectional"):
             if other > self:
                 self._scope_end = min(self._scope_end, other.start)
-        elif self.rule.lower() in ("backward", "bidirectional"):
+        if self.rule.lower() in ("backward", "bidirectional"):
             if other < self:
                 self._scope_start = max(self._scope_start, other.end)
         return orig_scope != self.scope
