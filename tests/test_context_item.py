@@ -89,11 +89,11 @@ class TestItemData:
 
     def test_default_terminate(self):
         item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by=None)
-        assert item.terminated_by == {"TERMINATE"}
+        assert item.terminated_by == set()
 
     def test_custom_terminate(self):
         item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by={"POSITIVE_EXISTENCE"})
-        assert item.terminated_by == {"TERMINATE", "POSITIVE_EXISTENCE"}
+        assert item.terminated_by == {"POSITIVE_EXISTENCE"}
 
 
 @pytest.fixture

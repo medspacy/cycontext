@@ -96,12 +96,12 @@ class ConTextItem:
             raise ValueError("max_scope must be >= 0 or None.")
         self.max_scope = max_scope
         if terminated_by is None:
-            terminated_by = {"TERMINATE"}
+            terminated_by = set()
         else:
             if isinstance(terminated_by, str):
                 raise ValueError("terminated_by must be an iterable, such as a list or set, not {}.".format(terminated_by))
             terminated_by = {string.upper() for string in terminated_by}
-            terminated_by.add("TERMINATE")
+
         self.terminated_by = terminated_by
 
         self.metadata = metadata

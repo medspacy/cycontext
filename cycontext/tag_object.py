@@ -165,15 +165,15 @@ class TagObject:
             return False
         # Check if the other modifier is a type which can modify self
         # or if they are the same category. If not, don't reduce scope.
-        if (other.category.upper() not in self.context_item.terminated_by) and (
-            other.category.lower() != self.category.lower()
+        if (other.rule.upper() != "TERMINATE") and (other.category.upper() not in self.context_item.terminated_by) and (
+            other.category.upper() != self.category.upper()
         ):
             return False
 
         # If two modifiers have the same category but modify different target types,
         # don't limit scope.
-        if (self.allowed_types != other.allowed_types) or (
-            self.excluded_types != other.excluded_types
+        if self.category == other.category and ((self.allowed_types != other.allowed_types) or (
+            self.excluded_types != other.excluded_types)
         ):
             return False
 
