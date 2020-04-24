@@ -82,6 +82,26 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 5, 7, doc)
         assert tag_object.limit_scope(tag_object2)
 
+    def test_terminate_limit_scope_custom(self):
+        """Test that a modifier will be explicitly terminated by a modifier with a category
+        in terminated_by."""
+        doc = nlp("negative for flu, positive for pneumonia.")
+        item = ConTextItem("negative for", "NEGATED_EXISTENCE", rule="FORWARD", terminated_by={"POSITIVE_EXISTENCE"})
+        item2 = ConTextItem("positive for", "POSITIVE_EXISTENCE", rule="FORWARD")
+        tag_object = TagObject(item, 0, 2, doc)
+        tag_object2 = TagObject(item2, 4, 6, doc)
+        assert tag_object.limit_scope(tag_object2)
+
+    def test_terminate_limit_scope_custom2(self):
+        """Test that a modifier will be explicitly terminated by a modifier with a category
+        in terminated_by."""
+        doc = nlp("flu is negative, pneumonia is positive.")
+        item = ConTextItem("negative", "NEGATED_EXISTENCE", rule="BACKWARD")
+        item2 = ConTextItem("positive", "POSITIVE_EXISTENCE", rule="BACKWARD", terminated_by={"NEGATED_EXISTENCE"})
+        tag_object = TagObject(item, 2, 3, doc)
+        tag_object2 = TagObject(item2, 6, 7, doc)
+        assert tag_object2.limit_scope(tag_object)
+
     def test_terminate_limit_scope_backward(self):
         """Test that a 'TERMINATE' modifier will limit the scope of a 'BACKWARD' modifier.
         """

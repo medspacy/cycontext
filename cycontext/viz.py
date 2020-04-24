@@ -38,13 +38,17 @@ def visualize_ent(doc, context=True, sections=True, jupyter=True, colors=None):
         ents_data.append((ent_data, "ent"))
 
     if context:
+        visualized_modifiers = set()
         for _, modifier in doc._.context_graph.edges:
+            if modifier in visualized_modifiers:
+                continue
             ent_data = {
                 "start": modifier.span.start_char,
                 "end": modifier.span.end_char,
                 "label": modifier.category,
             }
             ents_data.append((ent_data, "modifier"))
+            visualized_modifiers.add(modifier)
     if sections:
         for (title, header, _) in doc._.sections:
             if title is None:

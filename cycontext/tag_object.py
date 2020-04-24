@@ -161,9 +161,11 @@ class TagObject:
         """
         if self.span.sent != other.span.sent:
             return False
-        if self.rule.lower() == "terminate":
+        if self.rule.upper() == "TERMINATE":
             return False
-        if (other.rule.lower() != "terminate") and (
+        # Check if the other modifier is a type which can modify self
+        # or if they are the same category. If not, don't reduce scope.
+        if (other.category.upper() not in self.context_item.terminated_by) and (
             other.category.lower() != self.category.lower()
         ):
             return False
