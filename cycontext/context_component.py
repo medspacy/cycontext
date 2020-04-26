@@ -101,7 +101,7 @@ class ConTextComponent:
                 Otherwise it will inherit this value.
 
 
-        Returns: 
+        Returns:
             context: a ConTextComponent
 
         Raises:
@@ -169,7 +169,14 @@ class ConTextComponent:
             # use custom rules
             if isinstance(rule_list, str):
                 # if rules_list is a string, then it must be a path to a json
-                if path.exists(rule_list):
+                if "yaml" in rule_list or "yml" in rule_list:
+                    try:
+                        item_data = ConTextItem.from_yaml(rule_list)
+                    except:
+                        raise ValueError(
+                            "rule list {0} could not be read".format(rule_list)
+                        )
+                elif path.exists(rule_list):
                     item_data = ConTextItem.from_json(rule_list)
                     self.add(item_data)
                 else:
@@ -223,7 +230,7 @@ class ConTextComponent:
 
     def add(self, item_data):
         """Add a list of ConTextItem items to ConText.
-        
+
         Args:
             item_data: a list of ConTextItems to add.
 
