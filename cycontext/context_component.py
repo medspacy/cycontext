@@ -43,6 +43,7 @@ class ConTextComponent:
         excluded_types=None,
         max_targets=None,
         max_scope=None,
+        terminations=None,
     ):
 
         """Create a new ConTextComponent algorithm.
@@ -99,6 +100,15 @@ class ConTextComponent:
             max_scope (int or None): A number to explicitly limit the size of the modifier's scope
                 If this attribute is also defined in the ConTextItem, it will keep that value.
                 Otherwise it will inherit this value.
+            terminations (dict or None): Optional mapping between different categories which will
+                cause one modifier type to be 'terminated' by another type. For example, if given
+                a mapping:
+                    {"POSITIVE_EXISTENCE": {"NEGATED_EXISTENCE", "UNCERTAIN"},
+                    "NEGATED_EXISTENCE": {"FUTURE"},
+                    }
+                all modifiers of type "POSITIVE_EXISTENCE" will be terminated by "NEGATED_EXISTENCE" or "UNCERTAIN"
+                modifiers, and all "NEGATED_EXISTENCE" modifiers will be terminated by "FUTURE".
+                This can also be defined for specific ConTextItems in the `terminated_by` attribute.
 
 
         Returns: 
@@ -159,6 +169,9 @@ class ConTextComponent:
         self.excluded_types = excluded_types
         self.max_targets = max_targets
         self.max_scope = max_scope
+        if terminations is None:
+            terminations = dict()
+        self.terminations = {k.upper(): v for (k, v) in terminations.items()}
 
         if rules == "default":
 
@@ -268,6 +281,11 @@ class ConTextComponent:
                     getattr(item, attr) is None
                 ):  # If the item itself has it defined, don't override
                     setattr(item, attr, value)
+
+            # Check custom termination points
+            if item.category.upper() in self.terminations:
+                for other_modifier in self.terminations[item.category.upper()]:
+                    item.terminated_by.add(other_modifier.upper())
 
     def register_default_attributes(self):
         """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
