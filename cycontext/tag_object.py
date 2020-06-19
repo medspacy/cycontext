@@ -161,26 +161,27 @@ class TagObject:
         """
         if self.span.sent != other.span.sent:
             return False
-        if self.rule.lower() == "terminate":
+        if self.rule.upper() == "TERMINATE":
             return False
-        if (other.rule.lower() != "terminate") and (
-            other.category.lower() != self.category.lower()
+        # Check if the other modifier is a type which can modify self
+        # or if they are the same category. If not, don't reduce scope.
+        if (other.rule.upper() != "TERMINATE") and (other.category.upper() not in self.context_item.terminated_by) and (
+            other.category.upper() != self.category.upper()
         ):
             return False
 
         # If two modifiers have the same category but modify different target types,
         # don't limit scope.
-        if (self.allowed_types != other.allowed_types) or (
-            self.excluded_types != other.excluded_types
+        if self.category == other.category and ((self.allowed_types != other.allowed_types) or (
+            self.excluded_types != other.excluded_types)
         ):
             return False
 
         orig_scope = self.scope
-
         if self.rule.lower() in ("forward", "bidirectional"):
             if other > self:
                 self._scope_end = min(self._scope_end, other.start)
-        elif self.rule.lower() in ("backward", "bidirectional"):
+        if self.rule.lower() in ("backward", "bidirectional"):
             if other < self:
                 self._scope_start = max(self._scope_start, other.end)
         return orig_scope != self.scope

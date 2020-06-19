@@ -35,6 +35,7 @@ class ConTextItem:
         excluded_types=None,
         max_targets=None,
         max_scope=None,
+        terminated_by=None,
         metadata=None,
     ):
         """Create an ConTextItem object.
@@ -59,6 +60,8 @@ class ConTextItem:
             max_targets (int or None): The maximum number of targets which a modifier can modify.
                 If None, will modify all targets in its scope.
             max_scope (int or None): A number to explicitly limit the size of the modifier's scope
+            terminated_by (iterable or None): An optional array of other modifier categories which will
+                terminate the scope of this modifier. If None, only "TERMINATE" will do this.
             metadata (dict or None): A dict of additional data to pass in,
                 such as free-text comments, additional attributes, or ICD-10 codes.
                 Default None.
@@ -92,6 +95,14 @@ class ConTextItem:
         if max_scope is not None and max_scope <= 0:
             raise ValueError("max_scope must be >= 0 or None.")
         self.max_scope = max_scope
+        if terminated_by is None:
+            terminated_by = set()
+        else:
+            if isinstance(terminated_by, str):
+                raise ValueError("terminated_by must be an iterable, such as a list or set, not {}.".format(terminated_by))
+            terminated_by = {string.upper() for string in terminated_by}
+
+        self.terminated_by = terminated_by
 
         self.metadata = metadata
 

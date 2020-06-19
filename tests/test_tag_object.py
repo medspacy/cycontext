@@ -82,6 +82,26 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 5, 7, doc)
         assert tag_object.limit_scope(tag_object2)
 
+    def test_terminate_limit_scope_custom(self):
+        """Test that a modifier will be explicitly terminated by a modifier with a category
+        in terminated_by."""
+        doc = nlp("negative for flu, positive for pneumonia.")
+        item = ConTextItem("negative for", "NEGATED_EXISTENCE", rule="FORWARD", terminated_by={"POSITIVE_EXISTENCE"})
+        item2 = ConTextItem("positive for", "POSITIVE_EXISTENCE", rule="FORWARD")
+        tag_object = TagObject(item, 0, 2, doc)
+        tag_object2 = TagObject(item2, 4, 6, doc)
+        assert tag_object.limit_scope(tag_object2)
+
+    def test_terminate_limit_scope_custom2(self):
+        """Test that a modifier will be explicitly terminated by a modifier with a category
+        in terminated_by."""
+        doc = nlp("flu is negative, pneumonia is positive.")
+        item = ConTextItem("negative", "NEGATED_EXISTENCE", rule="BACKWARD")
+        item2 = ConTextItem("positive", "POSITIVE_EXISTENCE", rule="BACKWARD", terminated_by={"NEGATED_EXISTENCE"})
+        tag_object = TagObject(item, 2, 3, doc)
+        tag_object2 = TagObject(item2, 6, 7, doc)
+        assert tag_object2.limit_scope(tag_object)
+
     def test_terminate_limit_scope_backward(self):
         """Test that a 'TERMINATE' modifier will limit the scope of a 'BACKWARD' modifier.
         """
@@ -93,7 +113,7 @@ class TestTagObject:
         tag_object2 = TagObject(item2, 3, 4, doc)
         assert tag_object.limit_scope(tag_object2)
 
-    def terminate_stops_forward_modifier(self):
+    def test_terminate_stops_forward_modifier(self):
         context = ConTextComponent(nlp, rules=None)
 
         item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD")
@@ -106,11 +126,11 @@ class TestTagObject:
         assert len(chf._.modifiers) > 0
         assert len(pneumonia._.modifiers) == 0
 
-    def terminate_stops_backward_modifier(self):
+    def test_terminate_stops_backward_modifier(self):
         context = ConTextComponent(nlp, rules=None)
 
         item = ConTextItem("is ruled out", "NEGATED_EXISTENCE", "BACKWARD")
-        item2 = ConTextItem("but", "TERMINATE", "TERMINATE")
+        item2 = ConTextItem("but", "CONJ", "TERMINATE")
         context.add([item, item2])
         doc = nlp("Pt has chf but pneumonia is ruled out")
         doc.ents = (Span(doc, 2, 3, "PROBLEM"), Span(doc, 4, 5, "PROBLEM"))
@@ -118,6 +138,33 @@ class TestTagObject:
         chf, pneumonia = doc.ents
         assert len(chf._.modifiers) == 0
         assert len(pneumonia._.modifiers) > 0
+
+    def test_no_custom_terminate_stops_forward_modifier(self):
+        doc = nlp("negative for flu, positive for pneumonia.")
+        context = ConTextComponent(nlp, rules=None)
+
+        item = ConTextItem("negative for", "NEGATED_EXISTENCE", rule="FORWARD", terminated_by=None)
+        item2 = ConTextItem("positive for", "POSITIVE_EXISTENCE", rule="FORWARD")
+        context.add([item, item2])
+        doc.ents = (Span(doc, 2, 3, "PROBLEM"), Span(doc, 6, 7))
+        flu, pneumonia = doc.ents
+        context(doc)
+        assert len(flu._.modifiers) == 1
+        assert len(pneumonia._.modifiers) == 2
+
+    def test_custom_terminate_stops_forward_modifier(self):
+        doc = nlp("negative for flu, positive for pneumonia.")
+        context = ConTextComponent(nlp, rules=None)
+
+        item = ConTextItem("negative for", "NEGATED_EXISTENCE", rule="FORWARD", terminated_by={"POSITIVE_EXISTENCE"})
+        item2 = ConTextItem("positive for", "POSITIVE_EXISTENCE", rule="FORWARD")
+        context.add([item, item2])
+        doc.ents = (Span(doc, 2, 3, "PROBLEM"), Span(doc, 6, 7))
+        flu, pneumonia = doc.ents
+        context(doc)
+        assert len(flu._.modifiers) == 1
+        assert len(pneumonia._.modifiers) == 1
+
 
     def test_no_limit_scope_same_category_different_allowed_types(self):
         """Test that a two TagObjects of the same type but with different
