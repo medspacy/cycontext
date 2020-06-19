@@ -254,3 +254,29 @@ class TestConTextComponent:
         )
         context.add([item])
         assert item.allowed_types == {"PROBLEM"}
+
+    def test_context_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None, terminations={"NEGATED_EXISTENCE": ["POSITIVE_EXISTENCE", "UNCERTAIN"]})
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by=None
+        )
+        context.add([item])
+        assert item.terminated_by == {"POSITIVE_EXISTENCE", "UNCERTAIN"}
+
+    def test_item_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None,
+                                   terminations=None)
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by={"POSITIVE_EXISTENCE", "UNCERTAIN"}
+        )
+        context.add([item])
+        assert item.terminated_by == {"POSITIVE_EXISTENCE", "UNCERTAIN"}
+
+    def test_null_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None,
+                                   terminations=None)
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by=None
+        )
+        context.add([item])
+        assert item.terminated_by == set()
