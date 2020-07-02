@@ -35,6 +35,7 @@ class ConTextComponent:
         nlp,
         targets="ents",
         add_attrs=True,
+        phrase_matcher_attr="LOWER",
         prune=True,
         remove_overlapping_modifiers=False,
         rules="default",
@@ -68,6 +69,10 @@ class ConTextComponent:
                 - is_hypothetical: True if a target is modified by 'HYPOTHETICAL', default False
                 - is_family: True if a target is modified by 'FAMILY', default False
                 In the future, these should be made customizable.
+            phrase_matcher_attr: The token attribute to be used by the underlying PhraseMatcher.
+                If "LOWER", then the matching of modifiers with a "literal" string will be
+                case-insensitive. If "TEXT" or "ORTH", it will be case-sensitive.
+                Default "LOWER'.
             prune: Whether or not to prune modifiers which are substrings of another modifier.
                 For example, if "no history of" and "history of" are both ConTextItems, both will match
                 the text "no history of afib", but only "no history of" should modify afib.
@@ -134,7 +139,7 @@ class ConTextComponent:
         # To get the rule and category
         self._modifier_item_mapping = dict()
         self.phrase_matcher = PhraseMatcher(
-            nlp.vocab, attr="LOWER", validate=True
+            nlp.vocab, attr=phrase_matcher_attr, validate=True
         )  # TODO: match on custom attributes
         self.matcher = Matcher(nlp.vocab, validate=True)
 
