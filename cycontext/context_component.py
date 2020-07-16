@@ -27,6 +27,7 @@ DEFAULT_RULES_FILEPATH = path.join(
 
 class ConTextComponent:
     """The ConTextComponent for spaCy processing."""
+
     name = "context"
 
     def __init__(
@@ -34,6 +35,7 @@ class ConTextComponent:
         nlp,
         targets="ents",
         add_attrs=True,
+        phrase_matcher_attr="LOWER",
         prune=True,
         remove_overlapping_modifiers=False,
         rules="default",
@@ -42,6 +44,7 @@ class ConTextComponent:
         excluded_types=None,
         max_targets=None,
         max_scope=None,
+        terminations=None,
     ):
 
         """Create a new ConTextComponent algorithm.
@@ -66,6 +69,10 @@ class ConTextComponent:
                 - is_hypothetical: True if a target is modified by 'HYPOTHETICAL', default False
                 - is_family: True if a target is modified by 'FAMILY', default False
                 In the future, these should be made customizable.
+            phrase_matcher_attr: The token attribute to be used by the underlying PhraseMatcher.
+                If "LOWER", then the matching of modifiers with a "literal" string will be
+                case-insensitive. If "TEXT" or "ORTH", it will be case-sensitive.
+                Default "LOWER'.
             prune: Whether or not to prune modifiers which are substrings of another modifier.
                 For example, if "no history of" and "history of" are both ConTextItems, both will match
                 the text "no history of afib", but only "no history of" should modify afib.
@@ -98,6 +105,15 @@ class ConTextComponent:
             max_scope (int or None): A number to explicitly limit the size of the modifier's scope
                 If this attribute is also defined in the ConTextItem, it will keep that value.
                 Otherwise it will inherit this value.
+            terminations (dict or None): Optional mapping between different categories which will
+                cause one modifier type to be 'terminated' by another type. For example, if given
+                a mapping:
+                    {"POSITIVE_EXISTENCE": {"NEGATED_EXISTENCE", "UNCERTAIN"},
+                    "NEGATED_EXISTENCE": {"FUTURE"},
+                    }
+                all modifiers of type "POSITIVE_EXISTENCE" will be terminated by "NEGATED_EXISTENCE" or "UNCERTAIN"
+                modifiers, and all "NEGATED_EXISTENCE" modifiers will be terminated by "FUTURE".
+                This can also be defined for specific ConTextItems in the `terminated_by` attribute.
 
 
         Returns: 
@@ -123,7 +139,7 @@ class ConTextComponent:
         # To get the rule and category
         self._modifier_item_mapping = dict()
         self.phrase_matcher = PhraseMatcher(
-            nlp.vocab, attr="LOWER", validate=True
+            nlp.vocab, attr=phrase_matcher_attr, validate=True
         )  # TODO: match on custom attributes
         self.matcher = Matcher(nlp.vocab, validate=True)
 
@@ -158,6 +174,9 @@ class ConTextComponent:
         self.excluded_types = excluded_types
         self.max_targets = max_targets
         self.max_scope = max_scope
+        if terminations is None:
+            terminations = dict()
+        self.terminations = {k.upper(): v for (k, v) in terminations.items()}
 
         if rules == "default":
 
@@ -210,9 +229,6 @@ class ConTextComponent:
                 "rules must either be 'default' (default), 'other' or None."
             )
 
-
-
-
     @property
     def item_data(self):
         """Returns list of ConTextItems"""
@@ -249,7 +265,9 @@ class ConTextComponent:
             # match on the literal phrase.
             if item.pattern is None:
                 self.phrase_matcher.add(
-                    str(self._i), [self.nlp.make_doc(item.literal)], on_match=item.on_match
+                    str(self._i),
+                    [self.nlp.make_doc(item.literal)],
+                    on_match=item.on_match,
                 )
             else:
 
@@ -258,17 +276,21 @@ class ConTextComponent:
             self._i += 1
             self._categories.add(item.category)
 
-
             # If global attributes like allowed_types and max_scope are defined,
             # check if the ConTextItem has them defined. If not, set to the global
             for attr in ("allowed_types", "excluded_types", "max_scope", "max_targets"):
                 value = getattr(self, attr)
-                if value is None: # No global value set
+                if value is None:  # No global value set
                     continue
-                if getattr(item, attr) is None: # If the item itself has it defined, don't override
+                if (
+                    getattr(item, attr) is None
+                ):  # If the item itself has it defined, don't override
                     setattr(item, attr, value)
 
-
+            # Check custom termination points
+            if item.category.upper() in self.terminations:
+                for other_modifier in self.terminations[item.category.upper()]:
+                    item.terminated_by.add(other_modifier.upper())
 
     def register_default_attributes(self):
         """Register the default values for the Span attributes defined in DEFAULT_ATTRS."""
@@ -328,7 +350,9 @@ class ConTextComponent:
 
         # Store data in ConTextGraph object
         # TODO: move some of this over to ConTextGraph
-        context_graph = ConTextGraph(remove_overlapping_modifiers=self.remove_overlapping_modifiers)
+        context_graph = ConTextGraph(
+            remove_overlapping_modifiers=self.remove_overlapping_modifiers
+        )
 
         context_graph.targets = targets
 

@@ -202,6 +202,7 @@
               "grandparents",
               "grandson",
               "grandsons",
+              "husband",
               "mom",
               "moms",
               "mother",
@@ -219,7 +220,8 @@
               "son",
               "sons",
               "uncle",
-              "uncles"
+              "uncles",
+              "wife"
             ]
           }
         },

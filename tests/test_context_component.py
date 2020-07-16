@@ -205,7 +205,14 @@ class TestConTextComponent:
             print("Matched on span:", span)
 
         context.add(
-            [ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", on_match=simple_callback)]
+            [
+                ConTextItem(
+                    "no evidence of",
+                    "NEGATED_EXISTENCE",
+                    "FORWARD",
+                    on_match=simple_callback,
+                )
+            ]
         )
 
         doc = nlp("There is no evidence of pneumonia.")
@@ -219,10 +226,10 @@ class TestConTextComponent:
         value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types={"PROBLEM"})
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types=None)
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types=None
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
 
     def test_global_allowed_types2(self):
@@ -231,10 +238,10 @@ class TestConTextComponent:
         value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types=None)
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"}
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
 
     def test_global_allowed_types2(self):
@@ -242,8 +249,78 @@ class TestConTextComponent:
         the ConTextItem will not receive the component's value.
         """
         context = ConTextComponent(nlp, rules=None, allowed_types={"TREATMENT"})
-        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"})
-        context.add(
-            [item]
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", allowed_types={"PROBLEM"}
         )
+        context.add([item])
         assert item.allowed_types == {"PROBLEM"}
+
+    def test_context_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None, terminations={"NEGATED_EXISTENCE": ["POSITIVE_EXISTENCE", "UNCERTAIN"]})
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by=None
+        )
+        context.add([item])
+        assert item.terminated_by == {"POSITIVE_EXISTENCE", "UNCERTAIN"}
+
+    def test_item_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None,
+                                   terminations=None)
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by={"POSITIVE_EXISTENCE", "UNCERTAIN"}
+        )
+        context.add([item])
+        assert item.terminated_by == {"POSITIVE_EXISTENCE", "UNCERTAIN"}
+
+    def test_null_modifier_termination(self):
+        context = ConTextComponent(nlp, rules=None,
+                                   terminations=None)
+        item = ConTextItem(
+            "no evidence of", "NEGATED_EXISTENCE", "FORWARD", terminated_by=None
+        )
+        context.add([item])
+        assert item.terminated_by == set()
+
+    def test_on_modifies_true(self):
+        def on_modifies(target, modifier, span_between):
+            return True
+
+        context = ConTextComponent(nlp, rules=None)
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        context.add([item])
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        context(doc)
+
+        for ent in doc.ents:
+            assert len(ent._.modifiers) == 1
+
+    def test_on_modifies_false(self):
+        def on_modifies(target, modifier, span_between):
+            return False
+
+        context = ConTextComponent(nlp, rules=None)
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        context.add([item])
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        context(doc)
+
+        for ent in doc.ents:
+            assert len(ent._.modifiers) == 0
+
+    def test_pseudo_modifier(self):
+        item_data = [
+            ConTextItem("negative", "NEGATED_EXISTENCE"),
+            ConTextItem("negative attitude", "PSEUDO_NEGATED_EXISTENCE", rule="PSEUDO"),
+        ]
+        context = ConTextComponent(nlp, rules=None)
+        context.add(item_data)
+
+        doc = nlp("She has a negative attitude about her treatment.")
+        doc.ents = (doc[-2:-1],)
+        context(doc)
+
+        assert len(doc.ents[0]._.modifiers) == 0
+        assert len(doc._.context_graph.modifiers) == 1
+        assert doc._.context_graph.modifiers[0].category == "PSEUDO_NEGATED_EXISTENCE"
