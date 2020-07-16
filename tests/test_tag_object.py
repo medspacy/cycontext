@@ -364,3 +364,57 @@ class TestTagObject:
         target = Span(doc, 3, 4, "TEST")
 
         assert tag_object.modifies(target) is False
+
+    def test_on_modifies_true(self):
+        def on_modifies(target, modifier, span_between):
+            return True
+
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        tag = TagObject(item, 2, 5, doc)
+
+        assert tag.modifies(doc.ents[0]) is True
+
+    def test_on_modifies_false(self):
+        def on_modifies(target, modifier, span_between):
+            return False
+
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        tag = TagObject(item, 2, 5, doc)
+
+        assert tag.modifies(doc.ents[0]) is False
+
+
+    def test_on_modifies_arg_types(self):
+        def check_arg_types(target, modifier, span_between):
+            for arg in (target, modifier, span_between):
+                if not isinstance(arg, spacy.tokens.Span):
+                    return False
+            return True
+
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=check_arg_types)
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        tag = TagObject(item, 2, 5, doc)
+
+        assert tag.modifies(doc.ents[0]) is True
+
+    def test_on_modifies_arg_values(self):
+        def check_arg_types(target, modifier, span_between):
+            if target.lower_ != "chf":
+                return False
+            if modifier.lower_ != "no evidence of":
+                return False
+            if span_between.lower_ != "pneumonia or":
+                return False
+            return True
+
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=check_arg_types)
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        tag = TagObject(item, 2, 5, doc)
+
+        assert tag.modifies(doc.ents[1]) is True
