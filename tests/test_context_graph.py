@@ -83,3 +83,5 @@ class TestConTextGraph:
 
         assert overlap_target_modifiers(tag_object.span, doc.ents[0])
         assert len(graph.modifiers) == 1
+
+
