@@ -69,22 +69,6 @@ class TagObject:
         """Returns the associated maximum scope."""
         return self.context_item.max_scope
 
-    def allows(self, target_label):
-        """Returns True if a modifier is able to modify a target type.
-        A modifier may not be allowed if either self.allowed_types is not None and
-        target_label is not in it, or if self.excluded_types is not None and
-        target_label is in it.
-        """
-        if self.allowed_types is not None:
-            if target_label not in self.allowed_types:
-                return False
-            return True
-        if self.excluded_types is not None:
-            if target_label not in self.excluded_types:
-                return True
-            return False
-        return True
-
     def set_scope(self):
         """Applies the rule of the ConTextItem which generated
         this TagObject to define a scope.
@@ -198,15 +182,50 @@ class TagObject:
 
         if self.overlaps_target(target):
             return False
-        if self.rule == "TERMINATE":
+        if self.rule in ("TERMINATE", "PSEUDO"):
             return False
         if not self.allows(target.label_.upper()):
             return False
-        if target[0] in self.scope:
-            return True
-        if target[-1] in self.scope:
-            return True
+
+        if target[0] in self.scope or target[-1] in self.scope:
+            if not self.on_modifies(target):
+                return False
+            else:
+                return True
         return False
+
+    def allows(self, target_label):
+        """Returns True if a modifier is able to modify a target type.
+        A modifier may not be allowed if either self.allowed_types is not None and
+        target_label is not in it, or if self.excluded_types is not None and
+        target_label is in it.
+        """
+        if self.allowed_types is not None:
+            if target_label not in self.allowed_types:
+                return False
+            return True
+        if self.excluded_types is not None:
+            if target_label not in self.excluded_types:
+                return True
+            return False
+        return True
+
+    def on_modifies(self, target):
+        """If the ConTextItem used to define a TagObject has an on_modifies callback function,
+        evaluate and return either True or False.
+        If on_modifies is None, return True.
+        """
+        if self.context_item.on_modifies is None:
+            return True
+        # Find the span in between the target and modifier
+        start = min(target.end, self.span.end)
+        end = max(target.start, self.span.start)
+        span_between = target.doc[start:end]
+        rslt = self.context_item.on_modifies(target, self.span, span_between)
+        if rslt not in (True, False):
+            raise ValueError("The on_modifies function must return either True or False indicating "
+                             "whether a modify modifies a target. Actual value: {0}".format(rslt))
+        return rslt
 
     def modify(self, target):
         """Add target to the list of self._targets and increment self._num_targets."""

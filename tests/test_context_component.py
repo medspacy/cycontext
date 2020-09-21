@@ -280,3 +280,47 @@ class TestConTextComponent:
         )
         context.add([item])
         assert item.terminated_by == set()
+
+    def test_on_modifies_true(self):
+        def on_modifies(target, modifier, span_between):
+            return True
+
+        context = ConTextComponent(nlp, rules=None)
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        context.add([item])
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        context(doc)
+
+        for ent in doc.ents:
+            assert len(ent._.modifiers) == 1
+
+    def test_on_modifies_false(self):
+        def on_modifies(target, modifier, span_between):
+            return False
+
+        context = ConTextComponent(nlp, rules=None)
+        item = ConTextItem("no evidence of", "NEGATED_EXISTENCE", on_modifies=on_modifies)
+        context.add([item])
+        doc = nlp("There is no evidence of pneumonia or chf.")
+        doc.ents = (doc[5:6], doc[7:8])
+        context(doc)
+
+        for ent in doc.ents:
+            assert len(ent._.modifiers) == 0
+
+    def test_pseudo_modifier(self):
+        item_data = [
+            ConTextItem("negative", "NEGATED_EXISTENCE"),
+            ConTextItem("negative attitude", "PSEUDO_NEGATED_EXISTENCE", rule="PSEUDO"),
+        ]
+        context = ConTextComponent(nlp, rules=None)
+        context.add(item_data)
+
+        doc = nlp("She has a negative attitude about her treatment.")
+        doc.ents = (doc[-2:-1],)
+        context(doc)
+
+        assert len(doc.ents[0]._.modifiers) == 0
+        assert len(doc._.context_graph.modifiers) == 1
+        assert doc._.context_graph.modifiers[0].category == "PSEUDO_NEGATED_EXISTENCE"
