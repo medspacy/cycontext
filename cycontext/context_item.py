@@ -41,6 +41,7 @@ class ConTextItem:
         max_targets=None,
         terminated_by=None,
         metadata=None,
+        filtered_types=None,
     ):
         """Create an ConTextItem object.
         The primary arguments of `literal` `category`, and `rule` define
@@ -115,7 +116,7 @@ class ConTextItem:
                 such as free-text comments, additional attributes, or ICD-10 codes.
                 Default None.
 
-        Returns: 
+        Returns:
             item: a ConTextItem
         """
         self.literal = literal.lower()
@@ -154,6 +155,8 @@ class ConTextItem:
 
         self.terminated_by = terminated_by
 
+        self.filtered_types = filtered_types
+
         self.metadata = metadata
 
         if self.rule not in self._ALLOWED_RULES:
@@ -162,6 +165,35 @@ class ConTextItem:
                     self.rule, self._ALLOWED_RULES
                 )
             )
+
+    @classmethod
+    def from_yaml(cls, _file):
+        """Read in a lexicon of modifiers from a YAML file.
+
+        Args:
+            filepath: the .yaml file containing modifier rules
+
+        Returns:
+            context_item: a list of ConTextItem objects
+        Raises:
+            KeyError: if the dictionary contains any keys other than
+                those accepted by ConTextItem.__init__
+        """
+
+        import yaml
+        import urllib.request, urllib.error, urllib.parse
+
+
+        def _get_fileobj(_file):
+            if not urllib.parse.urlparse(_file).scheme:
+                _file = "file://"+_file
+            return urllib.request.urlopen(_file, data=None)
+
+        f0 = _get_fileobj(_file)
+        context_items =  [ConTextItem.from_dict(data) for data in yaml.safe_load_all(f0)]
+        f0.close()
+        return {"item_data":context_items}
+
 
     @classmethod
     def from_json(cls, filepath):
@@ -191,7 +223,7 @@ class ConTextItem:
         Args:
             item_dict: the dictionary to convert
 
-        Returns: 
+        Returns:
             item: the ConTextItem created from the dictionary
 
         Raises:
@@ -199,7 +231,8 @@ class ConTextItem:
         """
         try:
             item = ConTextItem(**item_dict)
-        except TypeError:
+        except Exception as err:
+            print(err)
             keys = set(item_dict.keys())
             invalid_keys = keys.difference(cls._ALLOWED_KEYS)
             msg = (

@@ -1,0 +1,1335 @@
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: absence of
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: adequate to rule out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - adequate
+    - sufficient
+- LOWER: to
+- LOWER: rule
+- LOWER:
+    IN:
+    - him
+    - her
+    - them
+    - patient
+    - pt
+  OP: '?'
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: adequate to rule the patient out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - adequate
+    - sufficient
+- LOWER: to
+- LOWER: rule
+- LOWER: the
+- LOWER:
+    IN:
+    - patient
+    - pt
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: any other
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: apart from
+metadata: null
+pattern:
+- LOWER: apart
+- LOWER:
+    IN:
+    - for
+    - from
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: are ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - are
+    - is
+    - was
+- LOWER: ruled
+- LOWER: out
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: as a cause for
+metadata: null
+pattern:
+- LOWER: as
+- LOWER:
+    IN:
+    - a
+    - an
+    - the
+- LOWER: secondary
+  OP: '?'
+- LOWER:
+    IN:
+    - cause
+    - etiology
+    - source
+    - reason
+- LOWER:
+    IN:
+    - for
+    - of
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: as has
+metadata: null
+pattern: null
+rule: TERMINATE
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: as needed
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: as well as any
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: aside from
+metadata: null
+pattern: null
+rule: TERMINATE
+---
+allowed_types: null
+category: FAMILY
+filtered_types: null
+literal: family
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - aunt
+    - aunts
+    - brother
+    - brothers
+    - child
+    - children
+    - cousin
+    - cousins
+    - dad
+    - dads
+    - daughter
+    - daughters
+    - fam
+    - family
+    - families
+    - father
+    - fathers
+    - grandchild
+    - grandchildren
+    - granddaughter
+    - granddaughters
+    - grandfather
+    - grandfathers
+    - grandmother
+    - grandmothers
+    - grandparent
+    - grandparents
+    - grandson
+    - grandsons
+    - mom
+    - moms
+    - mother
+    - mothers
+    - nephew
+    - nephews
+    - niece
+    - nieces
+    - parent
+    - parents
+    - sibling
+    - siblings
+    - sister
+    - sisters
+    - son
+    - sons
+    - uncle
+    - uncles
+- LOWER:
+    IN:
+    - '''s'
+    - ''''
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: because
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - because
+    - since
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: but
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - but
+    - however
+    - nevertheless
+    - still
+    - except
+    - though
+    - although
+    - yet
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: can rule out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - can
+    - did
+- LOWER: rule
+- LOWER:
+    IN:
+    - him
+    - her
+    - them
+    - patient
+    - pt
+  OP: '?'
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: can rule the patient out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - can
+    - did
+- LOWER: rule
+- LOWER: the
+- LOWER:
+    IN:
+    - patient
+    - pt
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: cause for
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - cause
+    - causes
+    - reason
+    - reasons
+    - etiology
+- LOWER:
+    IN:
+    - for
+    - of
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: checked for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: clear of
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: come back for
+metadata: null
+pattern:
+- LOWER: come
+- LOWER: back
+- LOWER:
+    IN:
+    - for
+    - to
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: concerned about
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - concerned
+    - concerning
+- LOWER:
+    IN:
+    - for
+    - about
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: decline
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - decline
+    - declined
+    - declines
+    - declining
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: deny
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - deny
+    - denied
+    - denies
+    - denying
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: did not rule out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - did
+    - could
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: rule
+- LOWER: out
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: does not look like
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - does
+    - did
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: look
+- LOWER: like
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: doubt
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: evaluate for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: fails to reveal
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: free
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: free of
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: has been negative
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: has been ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - has
+    - have
+- LOWER: been
+- LOWER: ruled
+- LOWER: out
+rule: BACKWARD
+---
+allowed_types: null
+category: HISTORICAL
+filtered_types: null
+literal: history
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - history
+    - hx
+    - hist
+    - ho
+rule: FORWARD
+---
+allowed_types: null
+category: HISTORICAL
+filtered_types: null
+literal: h/o
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: if
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: inconsistent with
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: lack of
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: lacked
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - lacked
+    - lacking
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: may be ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - may
+    - might
+    - must
+    - should
+    - will
+    - could
+    - can
+  OP: '?'
+- LOWER: be
+- LOWER: ruled
+- LOWER: out
+rule: BACKWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: may be ruled out for
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - may
+    - might
+    - must
+    - should
+    - will
+    - could
+    - can
+  OP: '?'
+- LOWER: be
+- LOWER: ruled
+- LOWER: out
+- LOWER: for
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: might be
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - may
+    - might
+- LOWER: be
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: negative for
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - negative
+    - neg
+- LOWER: for
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: never had
+metadata: null
+pattern:
+- LOWER: never
+- LOWER:
+    IN:
+    - developed
+    - had
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: 'no'
+metadata: null
+pattern:
+- LOWER: 'no'
+- LOWER:
+    IN:
+    - abnormal
+    - new
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: no cause of
+metadata: null
+pattern:
+- LOWER: 'no'
+- LOWER:
+    IN:
+    - cause
+    - history
+    - findings
+    - complaints
+    - sign
+    - signs
+    - suggestion
+- LOWER:
+    IN:
+    - of
+    - for
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: no findings to indicate
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: no longer present
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: no evidence
+metadata: null
+pattern:
+- LOWER: 'no'
+- LOWER:
+    IN:
+    - new
+    - other
+  OP: '?'
+- LOWER:
+    IN:
+    - mammographic
+    - radiographic
+  OP: '?'
+- LOWER: evidence
+- LOWER:
+    IN:
+    - of
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: no significant
+metadata: null
+pattern:
+- LOWER: 'no'
+- LOWER:
+    IN:
+    - significant
+    - suspicious
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not significant
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER:
+    IN:
+    - significant
+    - suspicious
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: non diagnostic
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER:
+    IN:
+    - appear
+    - appreciate
+    - demonstrate
+    - exhibit
+    - feel
+    - had
+    - have
+    - reveal
+    - see
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not associated with
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: associated
+- LOWER: with
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: not ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: been
+  OP: '?'
+- LOWER: ruled
+- LOWER: out
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not complain of
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER:
+    IN:
+    - complain
+    - know
+- LOWER: of
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not have evidence of
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: have
+- LOWER: evidence
+- LOWER:
+    IN:
+    - of
+    - for
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not known to have
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: known
+- LOWER: to
+- LOWER: have
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: not to be
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - not
+    - n't
+- LOWER: to
+- LOWER: be
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: now resolved
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: origin for
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - origin
+    - origins
+- LOWER:
+    IN:
+    - of
+    - for
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: other possibilities of
+metadata: null
+pattern: null
+rule: TERMINATE
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: is to be ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - is
+    - ought
+- LOWER: to
+- LOWER: be
+- LOWER: ruled
+- LOWER: out
+- LOWER:
+    IN:
+    - for
+    - against
+  OP: '?'
+rule: BACKWARD
+---
+allowed_types: null
+category: HISTORICAL
+filtered_types: null
+literal: past history
+metadata: null
+pattern:
+- LOWER: past
+- LOWER: medical
+  OP: '?'
+- LOWER: history
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: patient was not
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - patient
+    - pt
+- LOWER:
+    IN:
+    - was
+    - is
+- LOWER:
+    IN:
+    - not
+    - n't
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: possible
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - poss
+    - possible
+    - probably
+    - likely
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: prophylaxis
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: r/o
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: rather than
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: resolved
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: return
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: ro
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: rule out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - may
+    - might
+    - must
+    - should
+    - will
+    - could
+  OP: '?'
+- LOWER: rule
+- LOWER:
+    IN:
+    - him
+    - her
+    - them
+    - patient
+    - pt
+  OP: '?'
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: rule the patient out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - may
+    - might
+    - must
+    - should
+    - will
+    - could
+  OP: '?'
+- LOWER: rule
+- LOWER: the
+- LOWER:
+    IN:
+    - patient
+    - pt
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: ruled out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - ruled
+    - rules
+- LOWER:
+    IN:
+    - him
+    - her
+    - them
+    - patient
+    - pt
+  OP: '?'
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: ruled the patient out
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - ruled
+    - rules
+- LOWER: the
+- LOWER:
+    IN:
+    - patient
+    - pt
+- LOWER: out
+- LOWER:
+    IN:
+    - against
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: secondary
+metadata: null
+pattern:
+- LOWER: secondary
+- LOWER: to
+  OP: '?'
+rule: TERMINATE
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: should he
+metadata: null
+pattern:
+- LOWER: should
+- LOWER:
+    IN:
+    - she
+    - he
+    - they
+    - patient
+    - pt
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: should the patient
+metadata: null
+pattern:
+- LOWER: should
+- LOWER: the
+- LOWER:
+    IN:
+    - patient
+    - pt
+rule: FORWARD
+---
+allowed_types: null
+category: HYPOTHETICAL
+filtered_types: null
+literal: should there
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: source for
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - source
+    - sources
+- LOWER:
+    IN:
+    - for
+    - of
+rule: TERMINATE
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: suggestive of
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: suspicious for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: test for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: to exclude
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: trigger event for
+metadata: null
+pattern: null
+rule: TERMINATE
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: unlikely
+metadata: null
+pattern: null
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: unremarkable for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: was negative
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - was
+    - is
+    - are
+- LOWER:
+    IN:
+    - negative
+    - neg
+rule: BACKWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: was not
+metadata: null
+pattern:
+- LOWER:
+    IN:
+    - was
+    - is
+    - are
+    - can
+- LOWER:
+    IN:
+    - not
+    - n't
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: what must be ruled out is
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: with no
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: without
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: NEGATED_EXISTENCE
+filtered_types: null
+literal: without any evidence of
+metadata: null
+pattern:
+- LOWER: without
+- LOWER: any
+  OP: '?'
+- LOWER:
+    IN:
+    - evidence
+    - indication
+    - sign
+- LOWER:
+    IN:
+    - of
+    - for
+  OP: '?'
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: worrisome for
+metadata: null
+pattern: null
+rule: FORWARD
+---
+allowed_types: null
+category: POSSIBLE_EXISTENCE
+filtered_types: null
+literal: worried about
+metadata: null
+pattern: null
+rule: FORWARD
