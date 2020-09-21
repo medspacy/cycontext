@@ -4,7 +4,7 @@ A Python implementation of the ConText algorithm for clinical text concept asser
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Cycontext is part of the [medSpaCy](https://github.com/medspacy/medspacy) project and can be installed separately or as part of a medSpaCy pipeline.
-[<img src="https://github.com/medspacy/medspacy/raw/master/images/medspacy_logo.png">](https://github.com/medspacy/medspacy/blob/master/images/medspacy_logo.png)
+[<img src="https://github.com/medspacy/medspacy/raw/master/images/medspacy_logo.png" align="center">](https://github.com/medspacy/medspacy/blob/master/images/medspacy_logo.png)
 
 # Overview
 This package implements the ConText algorithm within the [spaCy](https://spacy.io) framework. [ConText](https://www.sciencedirect.com/science/article/pii/S1532046409000744) detects semantic modifiers such as **negation**, 
