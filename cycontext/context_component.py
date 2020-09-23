@@ -36,15 +36,16 @@ class ConTextComponent:
         targets="ents",
         add_attrs=True,
         phrase_matcher_attr="LOWER",
-        prune=True,
-        remove_overlapping_modifiers=False,
         rules="default",
         rule_list=None,
         allowed_types=None,
         excluded_types=None,
-        max_targets=None,
+        use_context_window=False,
         max_scope=None,
+        max_targets=None,
         terminations=None,
+        prune=True,
+        remove_overlapping_modifiers=False,
     ):
 
         """Create a new ConTextComponent algorithm.
@@ -102,6 +103,10 @@ class ConTextComponent:
                 If None, will modify all targets in its scope.
                 If this attribute is also defined in the ConTextItem, it will keep that value.
                 Otherwise it will inherit this value.
+            use_context_window (bool): Whether to use a specified range around a target to check
+                for modifiers rather than split sentence boundaries. This can be useful
+                for quicker processing by skipping sentence splitting or errors caused by poorly
+                defined sentence boundaries. If True, max_scope must be an integer greater than 0.
             max_scope (int or None): A number to explicitly limit the size of the modifier's scope
                 If this attribute is also defined in the ConTextItem, it will keep that value.
                 Otherwise it will inherit this value.
@@ -157,7 +162,7 @@ class ConTextComponent:
                 for attr_name, attr_value in attr_dict.items():
                     if not Span.has_extension(attr_name):
                         raise ValueError(
-                            "Custom extension {0} has not been set. Call Span.set_extension."
+                            "Custom extension {0} has not been set. Call Span.set_extension.".format(attr_name)
                         )
 
             self.add_attrs = True
@@ -169,11 +174,20 @@ class ConTextComponent:
                     add_attrs
                 )
             )
+        if use_context_window is True:
+            if not isinstance(max_scope, int) or max_scope < 1:
+                raise ValueError("If 'use_context_window' is True, 'max_scope' must be an integer greater 1, "
+                                 "not {0}".format(max_scope))
+        self.use_context_window = use_context_window
+        if max_scope is not None and (not isinstance(max_scope, int) or max_scope < 1):
+            raise ValueError("'max_scope' must be None or an integer greater 1, "
+                             "not {0}".format(max_scope))
+        self.max_scope = max_scope
 
         self.allowed_types = allowed_types
         self.excluded_types = excluded_types
         self.max_targets = max_targets
-        self.max_scope = max_scope
+
         if terminations is None:
             terminations = dict()
         self.terminations = {k.upper(): v for (k, v) in terminations.items()}
@@ -189,7 +203,7 @@ class ConTextComponent:
                 # if rules_list is a string, then it must be a path to a json
                 if "yaml" in rule_list or "yml" in rule_list:
                     try:
-                        item_data = ConTextItem.from_yaml(rule_list)
+                        rule_list = ConTextItem.from_yaml(rule_list)
                     except:
                         raise ValueError(
                             "rule list {0} could not be read".format(rule_list)
