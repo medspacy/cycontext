@@ -387,7 +387,7 @@ class ConTextComponent:
         for (match_id, start, end) in matches:
             # Get the ConTextItem object defining this modifier
             item_data = self._modifier_item_mapping[match_id]
-            tag_object = TagObject(item_data, start, end, doc)
+            tag_object = TagObject(item_data, start, end, doc, self.use_context_window)
             context_graph.modifiers.append(tag_object)
 
         if self.prune:
