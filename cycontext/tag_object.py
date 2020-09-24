@@ -3,7 +3,7 @@ class TagObject:
     Is the result of ConTextItem matching a span of text in a Doc.
     """
 
-    def __init__(self, context_item, start, end, doc):
+    def __init__(self, context_item, start, end, doc, _use_context_window=False):
         """Create a new TagObject from a document span.
 
         context_item (int): The ConTextItem object which defines the modifier.
@@ -19,8 +19,10 @@ class TagObject:
         self._targets = []
         self._num_targets = 0
 
+        self._use_context_window = _use_context_window
         self._scope_start = None
         self._scope_end = None
+
 
         self.set_scope()
 
@@ -82,15 +84,25 @@ class TagObject:
 
 
         """
-        sent = self.doc[self.start].sent
-        if sent is None:
-            raise ValueError(
-                "ConText failed because sentence boundaries have not been set. "
-                "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries."
-            )
+        # If ConText is set to use defined windows, do that instead of sentence splitting
+        if self._use_context_window:
+            # Up to the beginning of the doc
+            full_scope_start = max((0, self.start - self.context_item.max_scope))
+            # Up to the end of the doc
+            full_scope_end= min((len(self.span.doc), self.end + self.context_item.max_scope))
+            full_scope_span = self.span.doc[full_scope_start:full_scope_end]
+        # Otherwise, use the sentence
+        else:
+            full_scope_span = self.doc[self.start].sent
+            if full_scope_span is None:
+                raise ValueError(
+                    "ConText failed because sentence boundaries have not been set and 'use_context_window' is set to False. "
+                    "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence "
+                    "boundaries or initialize ConTextComponent with 'use_context_window=True.'"
+                )
 
         if self.rule.lower() == "forward":
-            self._scope_start, self._scope_end = self.end, sent.end
+            self._scope_start, self._scope_end = self.end, full_scope_span.end
             if (
                 self.max_scope is not None
                 and (self._scope_end - self._scope_start) > self.max_scope
@@ -98,14 +110,14 @@ class TagObject:
                 self._scope_end = self.end + self.max_scope
 
         elif self.rule.lower() == "backward":
-            self._scope_start, self._scope_end = sent.start, self.start
+            self._scope_start, self._scope_end = full_scope_span.start, self.start
             if (
                 self.max_scope is not None
                 and (self._scope_end - self._scope_start) > self.max_scope
             ):
                 self._scope_start = self.start - self.max_scope
         else:  # bidirectional
-            self._scope_start, self._scope_end = sent.start, sent.end
+            self._scope_start, self._scope_end = full_scope_span.start, full_scope_span.end
 
             # Set the max scope on either side
             # Backwards

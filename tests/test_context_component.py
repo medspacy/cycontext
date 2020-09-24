@@ -324,3 +324,11 @@ class TestConTextComponent:
         assert len(doc.ents[0]._.modifiers) == 0
         assert len(doc._.context_graph.modifiers) == 1
         assert doc._.context_graph.modifiers[0].category == "PSEUDO_NEGATED_EXISTENCE"
+
+    def test_context_window_no_max_scope_fails(self):
+        "Test that if use_context_window is True but max_scope is None, the instantiation will fail"
+        with pytest.raises(ValueError) as exception_info:
+            context = ConTextComponent(nlp, max_scope=None, use_context_window=True)
+        exception_info.match(
+            "If 'use_context_window' is True, 'max_scope' must be an integer greater 1, not None"
+        )

@@ -1,10 +1,9 @@
 import pytest
 import spacy
-from spacy.tokens import Span
+from spacy.tokens import Span, Doc
 
 from cycontext import ConTextItem, ConTextComponent
 from cycontext.tag_object import TagObject
-from cycontext.helpers import is_modified_by
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -25,6 +24,16 @@ class TestTagObject:
 
     def create_num_target_examples(self):
         doc = nlp("Pt with diabetes, pneumonia vs COPD")
+        spans = [
+            Span(doc, 2, 3, "CONDITION"),
+            Span(doc, 4, 5, "CONDITION"),
+            Span(doc, 6, 7, "CONDITION"),
+        ]
+        doc.ents = spans
+        return doc
+
+    def create_num_target_examples_no_sent(self):
+        doc = nlp.tokenizer("Pt with diabetes, pneumonia vs COPD")
         spans = [
             Span(doc, 2, 3, "CONDITION"),
             Span(doc, 4, 5, "CONDITION"),
@@ -190,17 +199,21 @@ class TestTagObject:
 
     def test_set_scope_fails_no_sentences(self):
         """Test that setting the scope fails if sentence boundaries haven't been set."""
-        nlp = spacy.blank("en")
-        assert nlp.pipeline == []
-        doc = nlp("family history of breast cancer but no diabetes. She has afib.")
+        doc = nlp.tokenizer("family history of breast cancer but no diabetes. She has afib.")
         item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD")
         with pytest.raises(ValueError) as exception_info:
             # This should fail because doc.sents are None
             TagObject(item, 0, 3, doc)
         exception_info.match(
-            "ConText failed because sentence boundaries have not been set. "
-            "Add an upstream component such as the dependency parser, Sentencizer, or PyRuSH to detect sentence boundaries."
+            "ConText failed because sentence boundaries have not been set"
         )
+
+    def test_set_scope_context_window_no_sentences(self):
+        """Test that setting the scope succeeds if sentence boundaries haven't been set but _use_context_window is True."""
+        doc = nlp.tokenizer("family history of breast cancer but no diabetes. She has afib.")
+        item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD", max_scope=2)
+        tag_object = TagObject(item, 0, 3, doc, _use_context_window=True)
+        assert tag_object.scope == doc[3:5]
 
     def test_update_scope(self):
         doc, item, tag_object = self.create_objects()
@@ -353,6 +366,8 @@ class TestTagObject:
             if tag_object.modifies(target):
                 tag_object.modify(target)
         assert tag_object.num_targets == 3
+
+
 
     def test_overlapping_target(self):
         """Test that a modifier will not modify a target if it is
