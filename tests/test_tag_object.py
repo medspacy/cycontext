@@ -212,7 +212,8 @@ class TestTagObject:
         """Test that setting the scope succeeds if sentence boundaries haven't been set but _use_context_window is True."""
         doc = nlp.tokenizer("family history of breast cancer but no diabetes. She has afib.")
         item = ConTextItem("family history of", "FAMILY_HISTORY", rule="FORWARD", max_scope=2)
-        assert TagObject(item, 0, 3, doc, _use_context_window=True)
+        tag_object = TagObject(item, 0, 3, doc, _use_context_window=True)
+        assert tag_object.scope == doc[3:5]
 
     def test_update_scope(self):
         doc, item, tag_object = self.create_objects()
