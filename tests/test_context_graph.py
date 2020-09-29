@@ -13,7 +13,10 @@ nlp = spacy.load("en_core_web_sm")
 
 class TestConTextGraph:
     def context_graph(self):
-        doc = nlp("There is no evidence of pneumonia but there is chf.")
+        doc = nlp.tokenizer("There is no evidence of pneumonia but there is chf.")
+        doc[0].is_sent_start = True
+        for token in doc[1:]:
+            token.is_sent_start = False
         item_data1 = ConTextItem(
             "no evidence of", "DEFINITE_NEGATED_EXISTENCE", "forward"
         )
