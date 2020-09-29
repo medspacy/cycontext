@@ -258,11 +258,15 @@ class ConTextItem:
 
     def to_dict(self):
         """Converts ConTextItems to a python dictionary. Used when writing context items to a json file.
-
+        Certain values such as callback functions are not supported and will raise a ValueError.
         Returns:
             item_dict: the dictionary containing the ConTextItem info.
         """
         item_dict = {}
+        for attr in ("on_match", "on_modifies"):
+            if getattr(self, attr) is not None:
+                raise ValueError("'{0}' is not supported for the method ConTextItem.to_dict(). "
+                                 "You could instead save the ConTextItem in a .py or .pkl file.".format(attr))
         for key in self._ALLOWED_KEYS:
             item_dict[key] = self.__dict__.get(key)
         return item_dict

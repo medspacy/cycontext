@@ -4,8 +4,13 @@ from spacy.tokens import Span
 from cycontext import ConTextComponent
 from cycontext import ConTextItem
 
+import os
+
 import pytest
 
+import tempfile
+
+tmpdirname = tempfile.TemporaryDirectory()
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -332,3 +337,10 @@ class TestConTextComponent:
         exception_info.match(
             "If 'use_context_window' is True, 'max_scope' must be an integer greater 1, not None"
         )
+
+    def test_to_disk(self):
+        context = ConTextComponent(nlp)
+        dname = os.path.join(tmpdirname.name, "saved_model")
+        context.to_disk(dname)
+
+

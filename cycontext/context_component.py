@@ -143,6 +143,7 @@ class ConTextComponent:
         # This allows us to use spaCy Matchers while still linking back to the ConTextItem
         # To get the rule and category
         self._modifier_item_mapping = dict()
+        self._phrase_matcher_attr = phrase_matcher_attr
         self.phrase_matcher = PhraseMatcher(
             nlp.vocab, attr=phrase_matcher_attr, validate=True
         )  # TODO: match on custom attributes
@@ -260,6 +261,10 @@ class ConTextComponent:
         """Returns list of categories from ConTextItems"""
         return self._categories
 
+    @property
+    def phrase_matcher_attr(self):
+        return self._phrase_matcher_attr
+
     def add(self, item_data):
         """Add a list of ConTextItem items to ConText.
 
@@ -354,6 +359,78 @@ class ConTextComponent:
                 attr_dict = self.context_attributes_mapping[modifier.category]
                 for attr_name, attr_value in attr_dict.items():
                     setattr(target._, attr_name, attr_value)
+
+    def to_disk(self, path, **kwargs):
+        """Save a ConTextComponent and its associated ItemData to disk.
+        """
+        if isinstance(path, str):
+            from pathlib import Path
+            path = Path(path)
+        if not path.exists():
+            path.mkdir()
+        if self.phrase_matcher_attr != "LOWER":
+            raise ValueError("The value {0} for the attribute phrase_matcher_attr "
+                             "is not currently supported in serialization. ".format(self.phrase_matcher_attr, ))
+
+        data = {
+            # "item_data": context_item_data,
+            "add_attrs": self.add_attrs,
+            "allowed_types": self.allowed_types,
+            "excluded_types": self.excluded_types,
+            "use_context_window": self.use_context_window,
+            "max_scope": self.max_scope,
+            "max_targets": self.max_targets,
+            "prune": self.prune,
+            "remove_overlapping_modifiers": self.remove_overlapping_modifiers
+        }
+        filepath = path / "context.json"
+        item_data_filepath = path / "context_item_data.json"
+        import json
+        with open(filepath, "w") as f:
+            json.dump(data, f)
+        ConTextItem.to_json(self.item_data, item_data_filepath)
+
+    def from_disk(self, path, **kwargs):
+        """Load a ConText component from disk.
+        """
+        if self.item_data:
+            raise ValueError("If loading from disk, self.item_data must first be empty. "
+                             "Instantiate as 'context=ConTextComponent(nlp, rules=None)'")
+
+        if isinstance(path, str):
+            from pathlib import Path
+            path = Path(path)
+
+        filepath = path / "context.json"
+        import json
+        with open(filepath) as f:
+            data = json.loads(f.read())
+        for (attr, value) in data.items():
+            setattr(self, attr, value)
+
+        item_data_filepath = path / "context_item_data.json"
+
+        context_items = ConTextItem.from_json(item_data_filepath)
+        self.add(context_items)
+
+
+        # data = {
+        #     "item_data": context_item_data,
+        #     "add_attrs": self.add_attrs,
+        #     "allowed_types": self.allowed_types,
+        #     "excluded_types": self.excluded_types,
+        #     "use_context_window": self.use_context_window,
+        #     "max_scope": self.max_scope,
+        #     "max_targets": self.max_targets,
+        #     "prune": self.prune,
+        #     "remove_overlapping_modifiers": self.remove_overlapping_modifiers
+        # }
+
+        return self
+
+
+
+
 
     def __call__(self, doc):
         """Applies the ConText algorithm to a Doc.
