@@ -343,4 +343,17 @@ class TestConTextComponent:
         dname = os.path.join(tmpdirname.name, "saved_model")
         context.to_disk(dname)
 
+    def test_from_disk(self):
+        context = ConTextComponent(nlp, rules=None)
+        dname = os.path.join(tmpdirname.name, "saved_model")
+        context = context.from_disk(dname)
+        assert context.item_data
+
+    def test_from_disk_fails_with_rules(self):
+        context = ConTextComponent(nlp, rules="default")
+        dname = os.path.join(tmpdirname.name, "saved_model")
+        with pytest.raises(ValueError) as exception_info:
+            context = context.from_disk(dname)
+        exception_info.match("If loading from disk, self.item_data must first be empty.")
+
 
