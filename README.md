@@ -104,4 +104,4 @@ pytest tests
 
 
 # Contact Information
-medSpaCy team: medspacy.dev@gmail.com
+Please open a github issue if for any help/troubleshooting if you have identified possible bugs.
