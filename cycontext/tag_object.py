@@ -3,7 +3,9 @@ class TagObject:
     Is the result of ConTextItem matching a span of text in a Doc.
     """
 
-    def __init__(self, context_item, start, end, doc, _use_context_window=False):
+    def __init__(
+        self, context_item, start, end, doc, _use_context_window=False
+    ):
         """Create a new TagObject from a document span.
 
         context_item (int): The ConTextItem object which defines the modifier.
@@ -22,7 +24,6 @@ class TagObject:
         self._use_context_window = _use_context_window
         self._scope_start = None
         self._scope_end = None
-
 
         self.set_scope()
 
@@ -87,9 +88,13 @@ class TagObject:
         # If ConText is set to use defined windows, do that instead of sentence splitting
         if self._use_context_window:
             # Up to the beginning of the doc
-            full_scope_start = max((0, self.start - self.context_item.max_scope))
+            full_scope_start = max(
+                (0, self.start - self.context_item.max_scope)
+            )
             # Up to the end of the doc
-            full_scope_end= min((len(self.span.doc), self.end + self.context_item.max_scope))
+            full_scope_end = min(
+                (len(self.span.doc), self.end + self.context_item.max_scope)
+            )
             full_scope_span = self.span.doc[full_scope_start:full_scope_end]
         # Otherwise, use the sentence
         else:
@@ -110,14 +115,20 @@ class TagObject:
                 self._scope_end = self.end + self.max_scope
 
         elif self.rule.lower() == "backward":
-            self._scope_start, self._scope_end = full_scope_span.start, self.start
+            self._scope_start, self._scope_end = (
+                full_scope_span.start,
+                self.start,
+            )
             if (
                 self.max_scope is not None
                 and (self._scope_end - self._scope_start) > self.max_scope
             ):
                 self._scope_start = self.start - self.max_scope
         else:  # bidirectional
-            self._scope_start, self._scope_end = full_scope_span.start, full_scope_span.end
+            self._scope_start, self._scope_end = (
+                full_scope_span.start,
+                full_scope_span.end,
+            )
 
             # Set the max scope on either side
             # Backwards
@@ -161,15 +172,18 @@ class TagObject:
             return False
         # Check if the other modifier is a type which can modify self
         # or if they are the same category. If not, don't reduce scope.
-        if (other.rule.upper() != "TERMINATE") and (other.category.upper() not in self.context_item.terminated_by) and (
-            other.category.upper() != self.category.upper()
+        if (
+            (other.rule.upper() != "TERMINATE")
+            and (other.category.upper() not in self.context_item.terminated_by)
+            and (other.category.upper() != self.category.upper())
         ):
             return False
 
         # If two modifiers have the same category but modify different target types,
         # don't limit scope.
-        if self.category == other.category and ((self.allowed_types != other.allowed_types) or (
-            self.excluded_types != other.excluded_types)
+        if self.category == other.category and (
+            (self.allowed_types != other.allowed_types)
+            or (self.excluded_types != other.excluded_types)
         ):
             return False
 
@@ -235,8 +249,12 @@ class TagObject:
         span_between = target.doc[start:end]
         rslt = self.context_item.on_modifies(target, self.span, span_between)
         if rslt not in (True, False):
-            raise ValueError("The on_modifies function must return either True or False indicating "
-                             "whether a modify modifies a target. Actual value: {0}".format(rslt))
+            raise ValueError(
+                "The on_modifies function must return either True or False indicating "
+                "whether a modify modifies a target. Actual value: {0}".format(
+                    rslt
+                )
+            )
         return rslt
 
     def modify(self, target):
@@ -254,7 +272,9 @@ class TagObject:
 
         target_dists = []
         for target in self._targets:
-            dist = min(abs(self.start - target.end), abs(target.start - self.end))
+            dist = min(
+                abs(self.start - target.end), abs(target.start - self.end)
+            )
             target_dists.append((target, dist))
         srtd_targets, _ = zip(*sorted(target_dists, key=lambda x: x[1]))
         self._targets = srtd_targets[: self.max_targets]

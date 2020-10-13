@@ -14,9 +14,7 @@ setup(
     author="medSpaCy",
     author_email="medspacy.dev@gmail.com",
     packages=["cycontext"],
-    install_requires=[
-        "spacy>=2.3.0,<3.0.0",
-        "jsonschema"],
+    install_requires=["spacy>=2.3.0,<3.0.0", "jsonschema", "pyyaml"],
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_data={"cycontext": ["../kb/*"]},

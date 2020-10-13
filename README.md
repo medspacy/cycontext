@@ -78,19 +78,20 @@ for target in doc.ents:
 ```
 
 ## Visualization
-We can use [spaCy's visualizers](https://spacy.io/usage/visualizers) to display the results of cycontext.
+[Medspacy](https://github.com/medspacy/medspacy) has a wrapper for [spaCy's visualizers](https://spacy.io/usage/visualizers) that allows visualizing cycontext.
 This NER-style visualization highlights the targets and modifiers in text:
 
 ```python
-from cycontext import viz
-viz.visualize_ent(doc)
+from medspacy.visualization import visualize_ent
+visualize_ent(doc)
 ``` 
 
 <p align="center"><img width="75%" src="img/ent_viz.png" /></p>
 
 While this dependency-style visualization shows the relationships between targets and modifiers:
 ```python
-viz.visualize_dep(doc)
+from medspacy.visualization import visualize_dep
+visualize_dep(doc)
 ``` 
 <p align="center"><img width="75%" src="img/dep_viz.png" /></p>
 
@@ -103,4 +104,4 @@ pytest tests
 
 
 # Contact Information
-medSpaCy team: medspacy.dev@gmail.com
+Please open a github issue if for any help/troubleshooting if you have identified possible bugs.

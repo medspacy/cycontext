@@ -162,7 +162,9 @@ class ConTextComponent:
                 for attr_name, attr_value in attr_dict.items():
                     if not Span.has_extension(attr_name):
                         raise ValueError(
-                            "Custom extension {0} has not been set. Call Span.set_extension.".format(attr_name)
+                            "Custom extension {0} has not been set. Call Span.set_extension.".format(
+                                attr_name
+                            )
                         )
 
             self.add_attrs = True
@@ -176,12 +178,18 @@ class ConTextComponent:
             )
         if use_context_window is True:
             if not isinstance(max_scope, int) or max_scope < 1:
-                raise ValueError("If 'use_context_window' is True, 'max_scope' must be an integer greater 1, "
-                                 "not {0}".format(max_scope))
+                raise ValueError(
+                    "If 'use_context_window' is True, 'max_scope' must be an integer greater 1, "
+                    "not {0}".format(max_scope)
+                )
         self.use_context_window = use_context_window
-        if max_scope is not None and (not isinstance(max_scope, int) or max_scope < 1):
-            raise ValueError("'max_scope' must be None or an integer greater 1, "
-                             "not {0}".format(max_scope))
+        if max_scope is not None and (
+            not isinstance(max_scope, int) or max_scope < 1
+        ):
+            raise ValueError(
+                "'max_scope' must be None or an integer greater 1, "
+                "not {0}".format(max_scope)
+            )
         self.max_scope = max_scope
 
         self.allowed_types = allowed_types
@@ -292,14 +300,21 @@ class ConTextComponent:
                 )
             else:
 
-                self.matcher.add(str(self._i), [item.pattern], on_match=item.on_match)
+                self.matcher.add(
+                    str(self._i), [item.pattern], on_match=item.on_match
+                )
             self._modifier_item_mapping[uid] = item
             self._i += 1
             self._categories.add(item.category)
 
             # If global attributes like allowed_types and max_scope are defined,
             # check if the ConTextItem has them defined. If not, set to the global
-            for attr in ("allowed_types", "excluded_types", "max_scope", "max_targets"):
+            for attr in (
+                "allowed_types",
+                "excluded_types",
+                "max_scope",
+                "max_targets",
+            ):
                 value = getattr(self, attr)
                 if value is None:  # No global value set
                     continue
@@ -387,7 +402,9 @@ class ConTextComponent:
         for (match_id, start, end) in matches:
             # Get the ConTextItem object defining this modifier
             item_data = self._modifier_item_mapping[match_id]
-            tag_object = TagObject(item_data, start, end, doc, self.use_context_window)
+            tag_object = TagObject(
+                item_data, start, end, doc, self.use_context_window
+            )
             context_graph.modifiers.append(tag_object)
 
         if self.prune:

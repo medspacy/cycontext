@@ -13,7 +13,7 @@ class ConTextItem:
         "BACKWARD",
         "BIDIRECTIONAL",
         "TERMINATE",
-        "PSEUDO"
+        "PSEUDO",
     )
     _ALLOWED_KEYS = {
         "literal",
@@ -150,7 +150,11 @@ class ConTextItem:
             terminated_by = set()
         else:
             if isinstance(terminated_by, str):
-                raise ValueError("terminated_by must be an iterable, such as a list or set, not {}.".format(terminated_by))
+                raise ValueError(
+                    "terminated_by must be an iterable, such as a list or set, not {}.".format(
+                        terminated_by
+                    )
+                )
             terminated_by = {string.upper() for string in terminated_by}
 
         self.terminated_by = terminated_by
@@ -183,17 +187,17 @@ class ConTextItem:
         import yaml
         import urllib.request, urllib.error, urllib.parse
 
-
         def _get_fileobj(_file):
             if not urllib.parse.urlparse(_file).scheme:
-                _file = "file://"+_file
+                _file = "file://" + _file
             return urllib.request.urlopen(_file, data=None)
 
         f0 = _get_fileobj(_file)
-        context_items =  [ConTextItem.from_dict(data) for data in yaml.safe_load_all(f0)]
+        context_items = [
+            ConTextItem.from_dict(data) for data in yaml.safe_load_all(f0)
+        ]
         f0.close()
-        return {"item_data":context_items}
-
+        return {"item_data": context_items}
 
     @classmethod
     def from_json(cls, filepath):
