@@ -1,3 +1,7 @@
+import warnings
+warnings.simplefilter('once', DeprecationWarning)
+warnings.warn("cycontext is now *deprecated*. Please use medspacy.context instead: `pip install medspacy`", RuntimeWarning)
+
 from setuptools import setup
 
 # read the contents of the README file
@@ -25,7 +29,7 @@ setup(
     author="medSpaCy",
     author_email="medspacy.dev@gmail.com",
     packages=["cycontext"],
-    install_requires=["spacy>=2.3.0,<3.0.0", "jsonschema", "pyyaml"],
+    install_requires=["spacy<3.0.0", "jsonschema", "pyyaml"],
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_data={"cycontext": ["../kb/*"]},
